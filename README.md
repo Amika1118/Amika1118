@@ -280,6 +280,94 @@ Other         █░░░░░░░░░░░░░░░░░░░    ~2
 
 ---
 
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--                     GEEK SIDE / MEMES                              -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+## 🤓 The Geek Side of Me
+
+<div align="center">
+
+<!-- Meme 1: Works on my machine -->
+<img src="https://programmerhumor.io/wp-content/uploads/2021/08/programmerhumor-io-programming-memes-6e48a36e3b28431-758x431.jpg" width="380" alt="Works on my machine meme" />
+&nbsp;&nbsp;
+<!-- Meme 2: It's not a bug it's a feature -->
+<img src="https://programmerhumor.io/wp-content/uploads/2023/02/programmerhumor-io-programming-memes-backend-memes-a6b8d41e86e2b15-758x564.jpg" width="380" alt="Not a bug it's a feature" />
+
+</div>
+
+<br/>
+
+<div align="center">
+
+```
+                    My relationship with bugs:
+
+    😎  Write Code   →   🧪  Test It   →   💀  It Breaks
+         ↑                                        |
+         |______________ "works on my machine" ___↓
+```
+
+</div>
+
+<br/>
+
+> 🎮 &nbsp; **Currently playing:** trying to beat overfitting without dropout
+> 
+> 📺 &nbsp; **Favourite fictional AI:** HAL 9000 (but I promise my models are friendlier)
+>
+> 🧩 &nbsp; **Superpower:** turning a 3-line idea into a 300-line Jupyter notebook
+>
+> ☕ &nbsp; **Fuel:** coffee + Stack Overflow + the occasional existential crisis about gradient descent
+>
+> 🐛 &nbsp; **Debugging philosophy:** `print("here")` → `print("here2")` → `print("WHY")` → Google it → Stack Overflow → it was a missing comma
+
+<br/>
+
+<div align="center">
+
+### 📊 My Honest Coding Time Distribution
+
+```
+Thinking about the solution        ████████░░░░░░░░░░░░   30%
+Actually writing code              ████░░░░░░░░░░░░░░░░   15%
+Debugging                          ████████████░░░░░░░░   42%
+Reading docs I should have read    ███░░░░░░░░░░░░░░░░░   10%
+Celebrating it finally works       █░░░░░░░░░░░░░░░░░░░    3%
+```
+
+</div>
+
+<br/>
+
+<div align="center">
+  <img src="https://readme-jokes.vercel.app/api?theme=tokyonight&hideBorder" alt="Jokes Card" />
+</div>
+
+<br/>
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--                   CURRENTLY OBSESSED WITH                          -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+## 🔬 Currently Obsessing Over
+
+<div align="center">
+
+| 🧠 AI/ML | 🎮 For Fun | 📚 Reading |
+|:---:|:---:|:---:|
+| Transformer attention mechanisms | Building terminal games in Python | *Hands-On ML* — Aurélien Géron |
+| LLM fine-tuning techniques | Competitive programming puzzles | Research papers on LLM agents |
+| MLOps & model drift detection | Optimisation puzzles | *The Pragmatic Programmer* |
+
+</div>
+
+<br/>
+
+---
+
 <div align="center">
 
 ### 💭 Words to Build By
