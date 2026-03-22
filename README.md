@@ -4,21 +4,25 @@
 <!--                        ANIMATED HEADER BANNER                      -->
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f0c29,50:302b63,100:24243e&height=220&section=header&text=[Your%20Name]&fontSize=72&fontColor=ffffff&fontAlignY=38&desc=Data%20Scientist%20%E2%80%A2%20ML%20Engineer%20%E2%80%A2%20Open%20Source%20Enthusiast&descAlignY=60&descSize=20&animation=fadeIn" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f0c29,50:302b63,100:24243e&height=220&section=header&text=Amika%20Alankara&fontSize=68&fontColor=ffffff&fontAlignY=38&desc=AI%20%26%20Data%20Science%20Student%20%E2%80%A2%20ML%20Engineer%20%E2%80%A2%20Builder&descAlignY=60&descSize=20&animation=fadeIn" width="100%" />
 
-<!-- Profile views counter -->
-<img src="https://komarev.com/ghpvc/?username=[Your-GitHub-Username]&style=for-the-badge&color=6C63FF&label=PROFILE+VIEWS" alt="Profile Views" />
+<!-- Profile views counter + social badges -->
+<img src="https://komarev.com/ghpvc/?username=Amika1118&style=for-the-badge&color=6C63FF&label=PROFILE+VIEWS" alt="Profile Views" />
 &nbsp;
-<a href="[LinkedIn URL]">
+<a href="https://www.linkedin.com/in/amika-ranmeth">
   <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+</a>
+&nbsp;
+<a href="https://x.com/amika_alankara/">
+  <img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X / Twitter" />
+</a>
+&nbsp;
+<a href="https://www.reddit.com/user/amika_alankara_2004/">
+  <img src="https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white" alt="Reddit" />
 </a>
 &nbsp;
 <a href="mailto:[Your Email]">
   <img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
-</a>
-&nbsp;
-<a href="[Your Portfolio / Website URL]">
-  <img src="https://img.shields.io/badge/Portfolio-111827?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio" />
 </a>
 
 </div>
@@ -32,31 +36,32 @@
 ## 🧠 About Me
 
 ```python
-class DataScientist:
+class Amika:
     def __init__(self):
-        self.name            = "[Your Name]"
-        self.location        = "[Your City, Country]"
-        self.current_work    = "[Your Current Role / Company / Project]"
-        self.learning        = ["Large Language Models", "MLOps", "Causal Inference"]
-        self.collaboration   = ["Open-source ML tools", "Research papers", "Kaggle competitions"]
-        self.ask_me_about    = ["Python", "Machine Learning", "Data pipelines", "Model deployment"]
-        self.fun_fact        = "I debug with print statements and I'm not ashamed 🐛"
+        self.name         = "Amika Alankara"
+        self.location     = "Colombo, Sri Lanka 🇱🇰"
+        self.focus        = "AI & Data Science"
+        self.currently    = "Building data-driven systems, analytical models & interactive web apps"
+        self.learning     = ["Large Language Models", "MLOps", "Advanced Mathematics for ML"]
+        self.collaboration= ["ML research", "Open-source AI tools", "Kaggle competitions"]
+        self.ask_me_about = ["Python", "ML pipelines", "Data analysis", "Churn prediction"]
+        self.fun_fact     = "I optimise Sri Lankan transport networks for fun 🚌📐"
 
     def say_hi(self):
-        print("Thanks for dropping by! Let's build something intelligent together 🚀")
+        print("Thanks for stopping by! Let's turn data into decisions. 🚀")
 
-me = DataScientist()
+me = Amika()
 me.say_hi()
 ```
 
 <br/>
 
-- 🔭 &nbsp; Currently working on **[Your Current Work / Project]**
-- 🌱 &nbsp; Deepening my expertise in **[Your Learning Focus — e.g., Transformer architectures & MLOps]**
-- 🤝 &nbsp; Open to collaborating on **[Your Collaboration Interests — e.g., ML research, open-source tools]**
-- 💬 &nbsp; Ask me anything about **Python · ML · Data Engineering · Model Deployment**
-- 📝 &nbsp; I write about data science on **[Your Blog / Medium Profile URL]**
-- ⚡ &nbsp; Fun fact: **[Something interesting about you]**
+- 🔭 &nbsp; Currently working on **data-driven systems, analytical models, and interactive web applications**
+- 🌱 &nbsp; Deepening expertise in **LLMs, MLOps, and advanced mathematical modelling**
+- 🤝 &nbsp; Open to collaborating on **ML research, open-source AI projects & competition teams**
+- 💬 &nbsp; Ask me about **Python · Machine Learning · Data Engineering · Churn Prediction**
+- 📍 &nbsp; Based in **Colombo, Sri Lanka**
+- ⚡ &nbsp; Fun fact: I modelled transportation optimisation for Colombo as a coursework project
 
 <br/>
 
@@ -73,19 +78,19 @@ me.say_hi()
 **👩‍💻 Languages**
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Bash](https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white)
-![YAML](https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white)
 
 **📊 Data Science & Analysis**
 
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
 ![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
 ![SciPy](https://img.shields.io/badge/SciPy-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white)
-![Polars](https://img.shields.io/badge/Polars-CD792C?style=for-the-badge&logo=polars&logoColor=white)
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=python&logoColor=white)
 ![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
 
 **🤖 Machine Learning & AI**
 
@@ -94,35 +99,24 @@ me.say_hi()
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 ![Keras](https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white)
 ![HuggingFace](https://img.shields.io/badge/HuggingFace-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)
-![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white)
 ![XGBoost](https://img.shields.io/badge/XGBoost-337AB7?style=for-the-badge&logo=python&logoColor=white)
-![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)
 
-**⚙️ MLOps & DevOps**
+**⚙️ Dev & MLOps**
 
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
 ![MLflow](https://img.shields.io/badge/MLflow-0194E2?style=for-the-badge&logo=mlflow&logoColor=white)
-![DVC](https://img.shields.io/badge/DVC-945DD6?style=for-the-badge&logo=dvc&logoColor=white)
-![Airflow](https://img.shields.io/badge/Airflow-017CEE?style=for-the-badge&logo=apacheairflow&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
 
-**☁️ Cloud & Data Platforms**
+**☁️ Cloud & Platforms**
 
 ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
 ![Google Cloud](https://img.shields.io/badge/GCP-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)
-![Azure](https://img.shields.io/badge/Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
-![Snowflake](https://img.shields.io/badge/Snowflake-29B5E8?style=for-the-badge&logo=snowflake&logoColor=white)
-![Spark](https://img.shields.io/badge/Apache%20Spark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)
-
-**🧰 Tools & Environment**
-
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
-![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![VS Code](https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
-![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)
 
 </div>
 
@@ -139,9 +133,9 @@ me.say_hi()
 <div align="center">
 
 <a href="https://github.com/Amika1118">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=[Your-GitHub-Username]&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true&hide_border=true&bg_color=0D1117&title_color=6C63FF&icon_color=6C63FF&text_color=FFFFFF" />
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=Amika1118&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true&hide_border=true&bg_color=0D1117&title_color=6C63FF&icon_color=6C63FF&text_color=FFFFFF" />
   &nbsp;
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=[Your-GitHub-Username]&layout=compact&langs_count=10&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=6C63FF&text_color=FFFFFF" />
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Amika1118&layout=compact&langs_count=8&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=6C63FF&text_color=FFFFFF" />
 </a>
 
 </div>
@@ -151,7 +145,7 @@ me.say_hi()
 </div>
 
 <div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=[Your-GitHub-Username]&theme=tokyo-night&bg_color=0D1117&color=6C63FF&line=6C63FF&point=FF6B6B&hide_border=true&area=true&area_color=6C63FF" width="90%" alt="Contribution Graph" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Amika1118&theme=tokyo-night&bg_color=0D1117&color=6C63FF&line=6C63FF&point=FF6B6B&hide_border=true&area=true&area_color=6C63FF" width="90%" alt="Contribution Graph" />
 </div>
 
 <br/>
@@ -166,17 +160,18 @@ me.say_hi()
 
 <div align="center">
 
-| 🏷️ Project | 📝 Description | 🛠️ Tech Stack | ⭐ Stars |
-|:---:|:---|:---:|:---:|
-| [**[Project Name 1]**]([repo-link-1]) | [A brief description of what this project does and the problem it solves — e.g., End-to-end ML pipeline for real-time fraud detection with 98% precision] | `Python` `PyTorch` `FastAPI` `Docker` | ![Stars](https://img.shields.io/github/stars/Amika1118/[repo-name-1]?style=flat-square&color=6C63FF) |
-| [**[Project Name 2]**]([repo-link-2]) | [e.g., NLP-powered document summarisation tool using transformer models, supporting 12 languages with sub-second inference] | `HuggingFace` `Transformers` `Streamlit` `AWS` | ![Stars](https://img.shields.io/github/stars/[Your-GitHub-Username]/[repo-name-2]?style=flat-square&color=6C63FF) |
-| [**[Project Name 3]**]([repo-link-3]) | [e.g., Interactive data visualisation dashboard for financial time-series analysis with 50+ customisable chart types] | `Pandas` `Plotly` `Dash` `PostgreSQL` | ![Stars](https://img.shields.io/github/stars/[Your-GitHub-Username]/[repo-name-3]?style=flat-square&color=6C63FF) |
-| [**[Project Name 4]**]([repo-link-4]) | [e.g., Automated ML model retraining and deployment system with drift detection and A/B testing capabilities] | `MLflow` `DVC` `Airflow` `Kubernetes` | ![Stars](https://img.shields.io/github/stars/[Your-GitHub-Username]/[repo-name-4]?style=flat-square&color=6C63FF) |
-| [**[Project Name 5]**]([repo-link-5]) | [e.g., Kaggle competition solution — Top 3% finish on tabular classification using ensemble methods and feature engineering] | `XGBoost` `LightGBM` `Scikit-Learn` `Optuna` | ![Stars](https://img.shields.io/github/stars/[Your-GitHub-Username]/[repo-name-5]?style=flat-square&color=6C63FF) |
+| 🏷️ Project | 📝 Description | 🛠️ Tech Stack |
+|:---:|:---|:---:|
+| [**Telco Churn Prediction**](https://github.com/Amika1118/CM2604-Telco-Churn-Prediction) | Complete ML solution for predicting customer churn in the telecommunications industry — from EDA to model evaluation | `Python` `Scikit-Learn` `Pandas` `Jupyter` |
+| [**Colombo Transport Optimisation**](https://github.com/Amika1118/CM2607_Adavaned_Mathematics_Coursework) | Mathematical modelling of Colombo's transportation network using advanced optimisation techniques | `Python` `SciPy` `NumPy` `Jupyter` |
+| [**Bookify**](https://github.com/Amika1118/Bookify) | Modern responsive online bookstore frontend with shopping cart and simulated checkout | `React` `JavaScript` `CSS` |
+| [**Media Database Manager**](https://github.com/Amika1118/media-database-manager) | CLI tool to organise, search and analyse personal movie, TV series & anime collections | `Python` `SQLite` `CLI` |
+| [**Card Game**](https://github.com/Amika1118/Card-Game) | Terminal-based trick-taking card game — play against 3 AI opponents with trump selection strategy | `Python` `OOP` `Game AI` |
+| [**Team Formation System**](https://github.com/Amika1118/Team-Formation-System) | Java system that intelligently balances esports teams using personality & skill assessments | `Java` `OOP` `Algorithms` |
 
 </div>
 
-> 💡 **Tip:** Browse all my repositories [here →](https://github.com/[Your-GitHub-Username]?tab=repositories)
+> 💡 Browse all repositories [here →](https://github.com/Amika1118?tab=repositories)
 
 <br/>
 
@@ -191,23 +186,19 @@ me.say_hi()
 <!--
   HOW TO SET UP WAKATIME:
   1. Create a free account at https://wakatime.com
-  2. Install the WakaTime plugin in your editor (VS Code, PyCharm, etc.)
+  2. Install the WakaTime plugin in VS Code / PyCharm / IntelliJ
   3. Add your WakaTime secret API key to your GitHub repo secrets as WAKATIME_API_KEY
   4. Use the GitHub Action: https://github.com/athul/waka-readme
-  5. Replace the block below with the generated embed snippet from WakaTime
+  5. Replace the block below — it will auto-update on a schedule
 -->
 
 <!--START_SECTION:waka-->
 ```text
-[Your WakaTime stats will appear here automatically once you set up the waka-readme GitHub Action.
-Example output:
-
-Python        18 hrs 42 mins  ████████████████░░░░  62.3%
-Jupyter       5 hrs 10 mins   ████░░░░░░░░░░░░░░░░  17.2%
-SQL           2 hrs 45 mins   ██░░░░░░░░░░░░░░░░░░   9.1%
-YAML          1 hr 28 mins    █░░░░░░░░░░░░░░░░░░░   4.9%
-Bash          58 mins         ░░░░░░░░░░░░░░░░░░░░   3.2%
-]
+Python        ██████████████████░░   ~62%   ML pipelines, data analysis, scripting
+Java          █████░░░░░░░░░░░░░░░   ~18%   Systems & algorithms
+JavaScript    ████░░░░░░░░░░░░░░░░   ~13%   React frontends
+SQL           ██░░░░░░░░░░░░░░░░░░    ~5%   Database queries
+Other         █░░░░░░░░░░░░░░░░░░░    ~2%   Config, Bash, YAML
 ```
 <!--END_SECTION:waka-->
 
@@ -222,27 +213,20 @@ Bash          58 mins         ░░░░░░░░░░░░░░░░�
 ## ✍️ Latest Blog Posts
 
 <!--
-  HOW TO AUTOMATE THIS SECTION:
-  Option A — Medium RSS feed (recommended):
-    Use the GitHub Action: https://github.com/gautamkrishnar/blog-post-workflow
-    Set your feed URL to: https://medium.com/feed/@[your-medium-handle]
-
-  Option B — Dev.to / Hashnode / personal blog:
-    Works with any valid RSS feed URL.
-
-  Once set up, the ACTION will auto-populate the list below on a schedule.
-  Replace the placeholder entries with real ones or let the action manage it.
+  HOW TO AUTOMATE THIS:
+  Use the GitHub Action: https://github.com/gautamkrishnar/blog-post-workflow
+  Set your RSS feed URL (Medium, Dev.to, Hashnode, personal blog).
+  The action will auto-replace the list below on a schedule.
 -->
 
 <!-- BLOG-POST-LIST:START -->
-- 📘 [**[Post Title 1]** — e.g., *How I Built a Real-Time ML Pipeline with Kafka and PyTorch*]([post-url-1])
-- 📗 [**[Post Title 2]** — e.g., *5 Feature Engineering Tricks That Boosted My Kaggle Score by 12%*]([post-url-2])
-- 📙 [**[Post Title 3]** — e.g., *Understanding Attention Mechanisms From Scratch*]([post-url-3])
-- 📕 [**[Post Title 4]** — e.g., *MLOps in Practice: From Jupyter Notebook to Production in 7 Steps*]([post-url-4])
-- 📓 [**[Post Title 5]** — e.g., *Why Your Model Works Locally But Fails in Production*]([post-url-5])
+- 📘 [**[Post Title 1]** — *e.g., How I Predicted Telecom Churn with 95% Accuracy*]([post-url])
+- 📗 [**[Post Title 2]** — *e.g., Optimising Colombo's Transport Network with Linear Programming*]([post-url])
+- 📙 [**[Post Title 3]** — *e.g., Building a Full-Stack Bookstore App with React from Scratch*]([post-url])
+- 📕 [**[Post Title 4]** — *e.g., My Journey into AI & Data Science as a Student in Sri Lanka*]([post-url])
 <!-- BLOG-POST-LIST:END -->
 
-▶ &nbsp;[Read more posts →]([Your Blog / Medium Profile URL])
+▶ &nbsp;[Read more →]([Your Blog / Medium URL])
 
 <br/>
 
@@ -255,7 +239,7 @@ Bash          58 mins         ░░░░░░░░░░░░░░░░�
 ## 🏆 GitHub Trophies
 
 <div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=[Your-GitHub-Username]&theme=tokyonight&no-frame=true&no-bg=true&column=7&margin-w=8" alt="GitHub Trophies" width="100%" />
+  <img src="https://github-profile-trophy.vercel.app/?username=Amika1118&theme=tokyonight&no-frame=true&no-bg=true&column=7&margin-w=8" alt="GitHub Trophies" width="100%" />
 </div>
 
 <br/>
@@ -270,24 +254,20 @@ Bash          58 mins         ░░░░░░░░░░░░░░░░�
 
 <div align="center">
 
-<a href="[LinkedIn URL]">
+<a href="https://www.linkedin.com/in/amika-ranmeth">
   <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />
 </a>
 &nbsp;
-<a href="[Twitter/X URL]">
-  <img src="https://img.shields.io/badge/Twitter-000000?style=for-the-badge&logo=x&logoColor=white" />
+<a href="https://x.com/amika_alankara/">
+  <img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" />
 </a>
 &nbsp;
-<a href="[Kaggle URL]">
+<a href="https://www.reddit.com/user/amika_alankara_2004/">
+  <img src="https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white" />
+</a>
+&nbsp;
+<a href="[Your Kaggle URL]">
   <img src="https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white" />
-</a>
-&nbsp;
-<a href="[Medium URL]">
-  <img src="https://img.shields.io/badge/Medium-000000?style=for-the-badge&logo=medium&logoColor=white" />
-</a>
-&nbsp;
-<a href="[Hugging Face URL]">
-  <img src="https://img.shields.io/badge/HuggingFace-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" />
 </a>
 &nbsp;
 <a href="mailto:[Your Email]">
@@ -300,13 +280,9 @@ Bash          58 mins         ░░░░░░░░░░░░░░░░�
 
 ---
 
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                      MOTIVATIONAL QUOTE                            -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
 <div align="center">
 
-### 💭 A Thought to Close On
+### 💭 Words to Build By
 
 *"The goal is to turn data into information, and information into insight."*
 &nbsp;— **Carly Fiorina**
