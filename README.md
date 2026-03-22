@@ -138,7 +138,7 @@ me.say_hi()
 
 <div align="center">
 
-<a href="https://github.com/[Your-GitHub-Username]">
+<a href="https://github.com/Amika1118">
   <img height="180em" src="https://github-readme-stats.vercel.app/api?username=[Your-GitHub-Username]&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true&hide_border=true&bg_color=0D1117&title_color=6C63FF&icon_color=6C63FF&text_color=FFFFFF" />
   &nbsp;
   <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=[Your-GitHub-Username]&layout=compact&langs_count=10&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=6C63FF&text_color=FFFFFF" />
@@ -147,7 +147,7 @@ me.say_hi()
 </div>
 
 <div align="center">
-  <img src="https://streak-stats.demolab.com/?user=[Your-GitHub-Username]&theme=tokyonight&hide_border=true&background=0D1117&ring=6C63FF&fire=FF6B6B&currStreakLabel=6C63FF&sideLabels=FFFFFF&dates=AAAAAA" alt="GitHub Streak" width="55%" />
+  <img src="https://streak-stats.demolab.com/?user=Amika1118&theme=tokyonight&hide_border=true&background=0D1117&ring=6C63FF&fire=FF6B6B&currStreakLabel=6C63FF&sideLabels=FFFFFF&dates=AAAAAA" alt="GitHub Streak" width="55%" />
 </div>
 
 <div align="center">
@@ -168,7 +168,7 @@ me.say_hi()
 
 | 🏷️ Project | 📝 Description | 🛠️ Tech Stack | ⭐ Stars |
 |:---:|:---|:---:|:---:|
-| [**[Project Name 1]**]([repo-link-1]) | [A brief description of what this project does and the problem it solves — e.g., End-to-end ML pipeline for real-time fraud detection with 98% precision] | `Python` `PyTorch` `FastAPI` `Docker` | ![Stars](https://img.shields.io/github/stars/[Your-GitHub-Username]/[repo-name-1]?style=flat-square&color=6C63FF) |
+| [**[Project Name 1]**]([repo-link-1]) | [A brief description of what this project does and the problem it solves — e.g., End-to-end ML pipeline for real-time fraud detection with 98% precision] | `Python` `PyTorch` `FastAPI` `Docker` | ![Stars](https://img.shields.io/github/stars/Amika1118/[repo-name-1]?style=flat-square&color=6C63FF) |
 | [**[Project Name 2]**]([repo-link-2]) | [e.g., NLP-powered document summarisation tool using transformer models, supporting 12 languages with sub-second inference] | `HuggingFace` `Transformers` `Streamlit` `AWS` | ![Stars](https://img.shields.io/github/stars/[Your-GitHub-Username]/[repo-name-2]?style=flat-square&color=6C63FF) |
 | [**[Project Name 3]**]([repo-link-3]) | [e.g., Interactive data visualisation dashboard for financial time-series analysis with 50+ customisable chart types] | `Pandas` `Plotly` `Dash` `PostgreSQL` | ![Stars](https://img.shields.io/github/stars/[Your-GitHub-Username]/[repo-name-3]?style=flat-square&color=6C63FF) |
 | [**[Project Name 4]**]([repo-link-4]) | [e.g., Automated ML model retraining and deployment system with drift detection and A/B testing capabilities] | `MLflow` `DVC` `Airflow` `Kubernetes` | ![Stars](https://img.shields.io/github/stars/[Your-GitHub-Username]/[repo-name-4]?style=flat-square&color=6C63FF) |
