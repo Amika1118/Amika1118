@@ -4,7 +4,7 @@
 <!--                        ANIMATED HEADER BANNER                      -->
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f0c29,50:302b63,100:24243e&height=220&section=header&text=Amika%20Alankara&fontSize=68&fontColor=ffffff&fontAlignY=38&desc=AI%20%26%20Data%20Science%20Student%20%E2%80%A2%20ML%20Engineer%20%E2%80%A2%20Builder&descAlignY=60&descSize=20&animation=fadeIn" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&amp;color=0:0f0c29,50:302b63,100:24243e&amp;height=220&amp;section=header&amp;text=Amika%20Alankara&amp;fontSize=68&amp;fontColor=ffffff&amp;fontAlignY=38&amp;desc=AI%20%26%20Data%20Science%20Student%20%E2%80%A2%20ML%20Engineer%20%E2%80%A2%20Builder&amp;descAlignY=60&amp;descSize=20&amp;animation=fadeIn" width="100%" />
 
 <!-- Profile views counter + social badges -->
 <img src="https://komarev.com/ghpvc/?username=Amika1118&style=for-the-badge&color=6C63FF&label=PROFILE+VIEWS" alt="Profile Views" />
@@ -289,6 +289,6 @@ Other         █░░░░░░░░░░░░░░░░░░░    ~2
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:24243e,50:302b63,100:0f0c29&height=120&section=footer" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&amp;color=0:24243e,50:302b63,100:0f0c29&amp;height=120&amp;section=footer" width="100%" />
 
 </div>
