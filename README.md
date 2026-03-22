@@ -207,33 +207,6 @@ Other         █░░░░░░░░░░░░░░░░░░░    ~2
 ---
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                      LATEST BLOG POSTS                             -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## ✍️ Latest Blog Posts
-
-<!--
-  HOW TO AUTOMATE THIS SECTION:
-  1. Go to https://github.com/gautamkrishnar/blog-post-workflow
-  2. Add the GitHub Action to your Amika1118 repo
-  3. Set FEED_LIST to your RSS feed URL (e.g. https://medium.com/feed/@your-handle)
-  4. The action will auto-replace the list below on a schedule
--->
-
-<!-- BLOG-POST-LIST:START -->
-- 📘 [**[Post Title 1]** — *e.g., How I Predicted Telecom Churn with 95% Accuracy*]([post-url-1])
-- 📗 [**[Post Title 2]** — *e.g., Optimising Colombo's Transport Network with Linear Programming*]([post-url-2])
-- 📙 [**[Post Title 3]** — *e.g., Building a Full-Stack Bookstore App with React from Scratch*]([post-url-3])
-- 📕 [**[Post Title 4]** — *e.g., My Journey into AI and Data Science as a Student in Sri Lanka*]([post-url-4])
-<!-- BLOG-POST-LIST:END -->
-
-▶ &nbsp;[Read more →]([Your Blog / Medium URL])
-
-<br/>
-
----
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
 <!--              CONNECT / SOCIAL LINKS                                -->
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 
@@ -274,8 +247,6 @@ Other         █░░░░░░░░░░░░░░░░░░░    ~2
 ## 🤓 The Geek Side of Me
 
 ![Code hacking](https://media.giphy.com/media/78XCFBGOlS6keY1Bil/giphy.gif)
-![Tired shiba](https://media.giphy.com/media/W8tizn4VT7bAqSJxkY/giphy.gif)
-![Hello world](https://media.giphy.com/media/ENY5vJgJPEfG3Ym14H/giphy.gif)
 ![Locked in](https://media.giphy.com/media/EZr27ZbJwmjE9PGyLN/giphy.gif)
 
 <div align="center">
