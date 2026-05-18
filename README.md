@@ -4,7 +4,7 @@
 <!--                        ANIMATED HEADER BANNER                      -->
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 
-![Amika Alankara Banner](https://capsule-render.vercel.app/api?type=waving&color=0:0f0c29,50:302b63,100:24243e&height=220&section=header&text=Amika%20Alankara&fontSize=68&fontColor=ffffff&fontAlignY=38&desc=AI%20and%20Data%20Scietist%20-%20ML%20Engineer%20-%20Builder&descAlignY=60&descSize=20&animation=fadeIn)
+![Amika Alankara Banner](https://capsule-render.vercel.app/api?type=waving&color=0:0f0c29,50:302b63,100:24243e&height=220&section=header&text=Amika%20Alankara&fontSize=68&fontColor=ffffff&fontAlignY=38&desc=AI%20and%20Data%20Scientist%20-%20ML%20Engineer%20-%20Builder&descAlignY=60&descSize=20&animation=fadeIn)
 
 <!-- Profile views counter + social badges -->
 <img src="https://komarev.com/ghpvc/?username=Amika1118&amp;style=for-the-badge&amp;color=6C63FF&amp;label=PROFILE+VIEWS" alt="Profile Views" />
