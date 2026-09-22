@@ -7,22 +7,22 @@
 ![Amika Alankara Banner](https://capsule-render.vercel.app/api?type=waving&color=0:0f0c29,50:302b63,100:24243e&height=220&section=header&text=Amika%20Alankara&fontSize=68&fontColor=ffffff&fontAlignY=38&desc=AI%20and%20Data%20Scientist%20-%20ML%20Engineer%20-%20Builder&descAlignY=60&descSize=20&animation=fadeIn)
 
 <!-- Profile views counter + social badges -->
-<img src="https://komarev.com/ghpvc/?username=Amika1118&amp;style=for-the-badge&amp;color=6C63FF&amp;label=PROFILE+VIEWS" alt="Profile Views" />
+<img src="https://komarev.com/ghpvc/?username=Amika1118&style=for-the-badge&color=6C63FF&label=PROFILE+VIEWS" alt="Profile Views" />
 &nbsp;
 <a href="https://www.linkedin.com/in/amika-ranmeth">
-  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&amp;logo=linkedin&amp;logoColor=white" alt="LinkedIn" />
+  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
 </a>
 &nbsp;
 <a href="https://x.com/amika_alankara/">
-  <img src="https://img.shields.io/badge/X-000000?style=for-the-badge&amp;logo=x&amp;logoColor=white" alt="X / Twitter" />
+  <img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X / Twitter" />
 </a>
 &nbsp;
 <a href="https://www.reddit.com/user/amika_alankara_2004/">
-  <img src="https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&amp;logo=reddit&amp;logoColor=white" alt="Reddit" />
+  <img src="https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white" alt="Reddit" />
 </a>
 &nbsp;
 <a href="mailto:[Your Email]">
-  <img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&amp;logo=gmail&amp;logoColor=white" alt="Email" />
+  <img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
 </a>
 
 </div>
@@ -133,19 +133,19 @@ me.say_hi()
 <div align="center">
 
 <a href="https://github.com/Amika1118">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=Amika1118&amp;show_icons=true&amp;theme=tokyonight&amp;include_all_commits=true&amp;count_private=true&amp;hide_border=true&amp;bg_color=0D1117&amp;title_color=6C63FF&amp;icon_color=6C63FF&amp;text_color=FFFFFF" alt="Amika's GitHub Stats" />
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=Amika1118&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true&hide_border=true&bg_color=0D1117&title_color=6C63FF&icon_color=6C63FF&text_color=FFFFFF" alt="Amika's GitHub Stats" />
   &nbsp;
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Amika1118&amp;layout=compact&amp;langs_count=8&amp;theme=tokyonight&amp;hide_border=true&amp;bg_color=0D1117&amp;title_color=6C63FF&amp;text_color=FFFFFF" alt="Top Languages" />
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Amika1118&layout=compact&langs_count=8&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=6C63FF&text_color=FFFFFF" alt="Top Languages" />
 </a>
 
 </div>
 
 <div align="center">
-  <img src="https://streak-stats.demolab.com/?user=Amika1118&amp;theme=tokyonight&amp;hide_border=true&amp;background=0D1117&amp;ring=6C63FF&amp;fire=FF6B6B&amp;currStreakLabel=6C63FF&amp;sideLabels=FFFFFF&amp;dates=AAAAAA" alt="GitHub Streak" width="55%" />
+  <img src="https://streak-stats.demolab.com/?user=Amika1118&theme=tokyonight&hide_border=true&background=0D1117&ring=6C63FF&fire=FF6B6B&currStreakLabel=6C63FF&sideLabels=FFFFFF&dates=AAAAAA" alt="GitHub Streak" width="55%" />
 </div>
 
 <div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Amika1118&amp;theme=tokyo-night&amp;bg_color=0D1117&amp;color=6C63FF&amp;line=6C63FF&amp;point=FF6B6B&amp;hide_border=true&amp;area=true&amp;area_color=6C63FF" width="90%" alt="Contribution Graph" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Amika1118&theme=tokyo-night&bg_color=0D1117&color=6C63FF&line=6C63FF&point=FF6B6B&hide_border=true&area=true&area_color=6C63FF" width="90%" alt="Contribution Graph" />
 </div>
 
 <br/>
@@ -172,6 +172,27 @@ me.say_hi()
 </div>
 
 > 💡 Browse all repositories [here →](https://github.com/Amika1118?tab=repositories)
+
+<br/>
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--                      CURRENTLY BUILDING                            -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+## 🚧 Currently Building
+
+<div align="center">
+
+| 🏗️ Project | 📝 What it is | 🔗 See it live |
+|:---:|:---|:---:|
+| **Marga Research Hub** | Research paper hub & registry built during my internship at the Marga Institute - search, browse, and read academic papers | [research.margasrilanka.org →](https://margaresearchhub.github.io/Research-Hub/) |
+|**Lucuvyre** | Python Based Music Player | [Lucivyre](https://lucivyre.vercel.app/)
+
+</div>
+
+> 🔒 &nbsp; Most of what I'm actively building lives in private repos - this one's an institutional project, so the code's not public, but the site is.
 
 <br/>
 
@@ -215,23 +236,23 @@ Other         █░░░░░░░░░░░░░░░░░░░    ~2
 <div align="center">
 
 <a href="https://www.linkedin.com/in/amika-ranmeth">
-  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&amp;logo=linkedin&amp;logoColor=white" alt="LinkedIn" />
+  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
 </a>
 &nbsp;
 <a href="https://x.com/amika_alankara/">
-  <img src="https://img.shields.io/badge/X-000000?style=for-the-badge&amp;logo=x&amp;logoColor=white" alt="X" />
+  <img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X" />
 </a>
 &nbsp;
 <a href="https://www.reddit.com/user/amika_alankara_2004/">
-  <img src="https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&amp;logo=reddit&amp;logoColor=white" alt="Reddit" />
+  <img src="https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white" alt="Reddit" />
 </a>
 &nbsp;
 <a href="[Your Kaggle URL]">
-  <img src="https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&amp;logo=kaggle&amp;logoColor=white" alt="Kaggle" />
+  <img src="https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white" alt="Kaggle" />
 </a>
 &nbsp;
 <a href="mailto:[Your Email]">
-  <img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&amp;logo=gmail&amp;logoColor=white" alt="Email" />
+  <img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
 </a>
 
 </div>
@@ -322,6 +343,6 @@ Celebrating it finally works       █░░░░░░░░░░░░░░
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&amp;color=0:24243e,50:302b63,100:0f0c29&amp;height=120&amp;section=footer" width="100%" alt="Footer Banner" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:24243e,50:302b63,100:0f0c29&height=120&section=footer" width="100%" alt="Footer Banner" />
 
 </div>
