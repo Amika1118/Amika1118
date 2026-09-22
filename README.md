@@ -9,21 +9,6 @@
 <!-- Profile views counter + social badges -->
 <img src="https://komarev.com/ghpvc/?username=Amika1118&style=for-the-badge&color=6C63FF&label=PROFILE+VIEWS" alt="Profile Views" />
 &nbsp;
-<a href="https://www.linkedin.com/in/amika-ranmeth">
-  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
-</a>
-&nbsp;
-<a href="https://x.com/amika_alankara/">
-  <img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X / Twitter" />
-</a>
-&nbsp;
-<a href="https://www.reddit.com/user/amika_alankara_2004/">
-  <img src="https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white" alt="Reddit" />
-</a>
-&nbsp;
-<a href="mailto:[Your Email]">
-  <img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
-</a>
 
 </div>
 
@@ -187,7 +172,7 @@ me.say_hi()
 
 | 🏗️ Project | 📝 What it is | 🔗 See it live |
 |:---:|:---|:---:|
-| **Marga Research Hub** | Research paper hub & registry built during my internship at the Marga Institute - search, browse, and read academic papers | [research.margasrilanka.org →](https://margaresearchhub.github.io/Research-Hub/) |
+| **Marga Research Hub** | Research paper hub & registry built during my internship at the Marga Institute - search, browse, and read academic papers | [Marga Researchhub](https://margaresearchhub.github.io/Research-Hub/) |
 |**Lucuvyre** | Python Based Music Player | [Lucivyre](https://lucivyre.vercel.app/)
 
 </div>
@@ -251,7 +236,7 @@ Other         █░░░░░░░░░░░░░░░░░░░    ~2
   <img src="https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white" alt="Kaggle" />
 </a>
 &nbsp;
-<a href="mailto:[Your Email]">
+<a href="mailto:[amika.alankara@gmail.com]">
   <img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
 </a>
 
