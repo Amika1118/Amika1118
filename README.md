@@ -162,11 +162,11 @@ me.say_hi()
 
 | 🏷️ Project | 📝 Description | 🛠️ Tech Stack |
 |:---:|:---|:---:|
-| [**Telco Churn Prediction**](https://github.com/Amika1118/CM2604-Telco-Churn-Prediction) | Complete ML solution for predicting customer churn in the telecommunications industry — from EDA to model evaluation | `Python` `Scikit-Learn` `Pandas` `Jupyter` |
+| [**Telco Churn Prediction**](https://github.com/Amika1118/CM2604-Telco-Churn-Prediction) | Complete ML solution for predicting customer churn in the telecommunications industry - from EDA to model evaluation | `Python` `Scikit-Learn` `Pandas` `Jupyter` |
 | [**Colombo Transport Optimisation**](https://github.com/Amika1118/CM2607_Adavaned_Mathematics_Coursework) | Mathematical modelling of Colombo's transportation network using advanced optimisation techniques | `Python` `SciPy` `NumPy` `Jupyter` |
 | [**Bookify**](https://github.com/Amika1118/Bookify) | Modern responsive online bookstore frontend with shopping cart and simulated checkout | `React` `JavaScript` `CSS` |
 | [**Media Database Manager**](https://github.com/Amika1118/media-database-manager) | CLI tool to organise, search and analyse personal movie, TV series and anime collections | `Python` `SQLite` `CLI` |
-| [**Card Game**](https://github.com/Amika1118/Card-Game) | Terminal-based trick-taking card game — play against 3 AI opponents with trump selection strategy | `Python` `OOP` `Game AI` |
+| [**Card Game**](https://github.com/Amika1118/Card-Game) | Terminal-based trick-taking card game - play against 3 AI opponents with trump selection strategy | `Python` `OOP` `Game AI` |
 | [**Team Formation System**](https://github.com/Amika1118/Team-Formation-System) | Java system that intelligently balances esports teams using personality and skill assessments | `Java` `OOP` `Algorithms` |
 
 </div>
@@ -303,7 +303,7 @@ Celebrating it finally works       █░░░░░░░░░░░░░░
 
 | 🧠 AI/ML | 🎮 For Fun | 📚 Reading |
 |:---:|:---:|:---:|
-| Transformer attention mechanisms | Building terminal games in Python | *Hands-On ML* — Aurélien Géron |
+| Transformer attention mechanisms | Building terminal games in Python | *Hands-On ML* - Aurélien Géron |
 | LLM fine-tuning techniques | Competitive programming puzzles | Research papers on LLM agents |
 | MLOps and model drift detection | Optimisation puzzles | *The Pragmatic Programmer* |
 
@@ -318,7 +318,7 @@ Celebrating it finally works       █░░░░░░░░░░░░░░
 ### 💭 Words to Build By
 
 *"The goal is to turn data into information, and information into insight."*
-&nbsp;— **Carly Fiorina**
+&nbsp;- **Carly Fiorina**
 
 <br/>
 
