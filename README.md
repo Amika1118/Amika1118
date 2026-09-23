@@ -177,7 +177,7 @@ me.say_hi()
 
 </div>
 
-> 🔒 &nbsp; Most of what I'm actively building lives in private repos - this one's an institutional project, so the code's not public, but the site is.
+> 🔒 &nbsp; Most of what I'm actively building lives in private repos, so the code's not public, but the site is.
 
 <br/>
 
