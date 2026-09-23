@@ -173,7 +173,7 @@ me.say_hi()
 | 🏗️ Project | 📝 What it is | 🔗 See it live |
 |:---:|:---|:---:|
 | **Marga Research Hub** | Research paper hub & registry built during my internship at the Marga Institute - search, browse, and read academic papers | [Marga Researchhub](https://margaresearchhub.github.io/Research-Hub/) |
-|**Lucuvyre** | Python Based Music Player | [Lucivyre](https://lucivyre.vercel.app/)
+|**Lucivyre** | Python Based Music Player | [Lucivyre](https://lucivyre.vercel.app/)
 
 </div>
 
