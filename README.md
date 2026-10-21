@@ -173,7 +173,8 @@ me.say_hi()
 | 🏗️ Project | 📝 What it is | 🔗 See it live |
 |:---:|:---|:---:|
 | **Marga Research Hub** | Research paper hub & registry built during my internship at the Marga Institute - search, browse, and read academic papers | [Marga Researchhub](https://margaresearchhub.github.io/Research-Hub/) |
-|**Lucivyre** | Python Based Music Player | [Lucivyre](https://lucivyre.vercel.app/)
+|**Lucivyre** | Python Based Music Player | [Lucivyre](https://lucivyre.vercel.app/)|
+|**Iron & Oak** | UI Design for Salon Website | [Iron & Oak](https://salon.amika-alankara.workers.dev/)
 
 </div>
 
