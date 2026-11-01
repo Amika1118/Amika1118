@@ -5,7 +5,7 @@
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:09090F,35:25204A,70:5145A0,100:8B7CFF&height=230&section=header&text=AMIKA%20ALANKARA&fontSize=58&fontColor=ffffff&fontAlignY=38&desc=Software%20Engineering%20%7C%20Data%20Engineering%20%7C%20Applied%20AI&descAlignY=60&descSize=17&animation=twinkling" />
 
 <a href="https://github.com/Amika1118">
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=21&duration=2800&pause=900&color=A78BFA&center=true&vCenter=true&repeat=true&width=700&height=50&lines=Hi+there%2C+I%27m+Amika;AI+%26+Data+Science+Undergraduate;Building+Intelligent+Applications;Engineering+Data-Driven+Systems;Turning+Ideas+Into+Working+Products;Always+Learning.+Always+Building." />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=21&duration=2800&pause=900&color=A78BFA&center=true&vCenter=true&repeat=true&width=700&height=50&lines=Hi+there%2C+I%27m+Amika;AI+%26+Data+Science+Undergraduate;Building+Intelligent+Applications;Engineering+Data-Driven+Systems;Turning+Ideas+Into+Working+Products;Always+Learning.+Always+Building." alt="Typing animation" />
 </a>
 
 <sub><i>Architecting data-driven systems and interactive web apps where AI meets real-world impact.</i></sub>
@@ -24,20 +24,20 @@
 ---
 
 <h2>
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=520&height=50&vCenter=true&repeat=false&lines=01+%2F+About+Me" alt="01 / About Me" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=230&height=50&vCenter=true&repeat=false&lines=01+%2F+About+Me" alt="01 / About Me" />
 <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f44b/512.gif" alt="waving hand" width="34" height="34" />
 </h2>
 
 I'm an **AI & Data Science undergraduate** interested in engineering software, developing intelligent applications, and building systems that solve practical problems.
 
-I enjoy working across the entire development process — from data collection and pipeline engineering to machine learning, backend development, and frontend experiences.
+I enjoy working across the entire development process - from data collection and pipeline engineering to machine learning, backend development, and frontend experiences.
 
 My focus areas:
 
-- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4bb/512.gif" alt="" width="22" height="22" /> **Software Engineering** — Designing and developing practical applications.
-- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4ca/512.gif" alt="" width="22" height="22" /> **Data Engineering** — Building ETL pipelines, data warehouses, and analytical systems.
-- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="" width="22" height="22" /> **Artificial Intelligence** — Developing predictive models and AI-powered applications.
-- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f52c/512.gif" alt="" width="22" height="22" /> **Research & Development** — Exploring computational approaches to real-world problems.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4bb/512.gif" alt="" width="22" height="22" /> **Software Engineering** - Designing and developing practical applications.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4ca/512.gif" alt="" width="22" height="22" /> **Data Engineering** - Building ETL pipelines, data warehouses, and analytical systems.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="" width="22" height="22" /> **Artificial Intelligence** - Developing predictive models and AI-powered applications.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="" width="22" height="22" /> **Research & Development** - Exploring computational approaches to real-world problems.
 
 ```python
 class AmikaAlankara:
@@ -79,7 +79,7 @@ me = AmikaAlankara()
 ---
 
 <h2>
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=02+%2F+Technology+Stack" alt="02 / Technology Stack" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=355&height=50&vCenter=true&repeat=false&lines=02+%2F+Technology+Stack" alt="02 / Technology Stack" />
 <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/512.gif" alt="fire" width="34" height="34" />
 </h2>
 
@@ -129,18 +129,14 @@ me = AmikaAlankara()
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:09090F,50:25204A,100:5145A0&height=90&section=header" />
 
 <h2>
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=03+%2F+Featured+Projects" alt="03 / Featured Projects" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=370&height=50&vCenter=true&repeat=false&lines=03+%2F+Featured+Projects" alt="03 / Featured Projects" />
 <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="rocket" width="34" height="34" />
 </h2>
 
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=rect&color=0:25204A,100:5145A0&height=3&section=header&width=100%" />
-
-### 01 — Sri Lanka Fuel Price Intelligence Pipeline
-
 <a href="https://github.com/Amika1118/Sri-Lanka-fuel-price-intelligence-pipeline">
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=Amika1118&repo=Sri-Lanka-fuel-price-intelligence-pipeline&theme=tokyonight&hide_border=true&bg_color=0D1117" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=0:17172B,100:5145A0&height=90&text=01%20%7C%20SRI%20LANKA%20FUEL%20PRICE%20INTELLIGENCE%20PIPELINE&fontSize=26&fontColor=ffffff&fontAlignY=55&animation=fadeIn" alt="Sri Lanka Fuel Price Intelligence Pipeline" />
 </a>
 
 **End-to-end AWS data engineering project**
@@ -154,14 +150,14 @@ An automated data pipeline integrating international crude oil prices, USD/LKR e
 
 `Python` `AWS S3` `AWS Glue` `PySpark` `Amazon Redshift` `ETL` `SQL` `QuickSight`
 
+![Last commit](https://img.shields.io/github/last-commit/Amika1118/Sri-Lanka-fuel-price-intelligence-pipeline?style=flat-square&color=5145A0&labelColor=1A1A2E)
+
 [View Repository →](https://github.com/Amika1118/Sri-Lanka-fuel-price-intelligence-pipeline)
 
 ---
 
-### 02 — Lecture Notes Processor
-
 <a href="https://github.com/Amika1118/lecture-processor">
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=Amika1118&repo=lecture-processor&theme=tokyonight&hide_border=true&bg_color=0D1117" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=0:17172B,100:5145A0&height=90&text=02%20%7C%20LECTURE%20NOTES%20PROCESSOR&fontSize=26&fontColor=ffffff&fontAlignY=55&animation=fadeIn" alt="Lecture Notes Processor" />
 </a>
 
 **AI-powered academic productivity tool**
@@ -175,14 +171,15 @@ A free lecture PDF processor that transforms academic material into exam-focused
 
 `JavaScript` `HTML` `CSS` `Groq API` `Llama 3.3` `PDF.js`
 
+![License](https://img.shields.io/github/license/Amika1118/lecture-processor?style=flat-square&color=5145A0&labelColor=1A1A2E)
+![Last commit](https://img.shields.io/github/last-commit/Amika1118/lecture-processor?style=flat-square&color=5145A0&labelColor=1A1A2E)
+
 [Live Application →](https://Amika1118.github.io/lecture-processor/) · [Repository →](https://github.com/Amika1118/lecture-processor)
 
 ---
 
-### 03 — Adaptive Clock
-
 <a href="https://github.com/Amika1118/adaptive-clock">
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=Amika1118&repo=adaptive-clock&theme=tokyonight&hide_border=true&bg_color=0D1117" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=0:17172B,100:5145A0&height=90&text=03%20%7C%20ADAPTIVE%20CLOCK&fontSize=26&fontColor=ffffff&fontAlignY=55&animation=fadeIn" alt="Adaptive Clock" />
 </a>
 
 **A customizable desktop clock collection for Rainmeter**
@@ -196,14 +193,15 @@ A Windows desktop clock project featuring 24 different clock styles that automat
 
 `Rainmeter` `Windows` `Lua` `PowerShell` `INI` `Python` `UI Design`
 
+![License](https://img.shields.io/github/license/Amika1118/adaptive-clock?style=flat-square&color=5145A0&labelColor=1A1A2E)
+![Last commit](https://img.shields.io/github/last-commit/Amika1118/adaptive-clock?style=flat-square&color=5145A0&labelColor=1A1A2E)
+
 [View Repository →](https://github.com/Amika1118/adaptive-clock)
 
 ---
 
-### 04 — Marga Research Hub
-
 <a href="https://margaresearchhub.github.io/Research-Hub/">
-<img src="https://capsule-render.vercel.app/api?type=rect&color=0:17172B,100:5145A0&height=85&text=MARGA%20RESEARCH%20HUB&fontSize=23&fontColor=ffffff&fontAlignY=55&animation=fadeIn" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=0:17172B,100:5145A0&height=90&text=04%20%7C%20MARGA%20RESEARCH%20HUB&fontSize=26&fontColor=ffffff&fontAlignY=55&animation=fadeIn" alt="Marga Research Hub" />
 </a>
 
 **Research discovery and publication platform**
@@ -224,7 +222,7 @@ A research catalogue developed during my internship at the Marga Institute, desi
 ---
 
 <h2>
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=04+%2F+Other+Projects" alt="04 / Other Projects" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=325&height=50&vCenter=true&repeat=false&lines=04+%2F+Other+Projects" alt="04 / Other Projects" />
 <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2728/512.gif" alt="sparkles" width="34" height="34" />
 </h2>
 
@@ -247,39 +245,40 @@ A research catalogue developed during my internship at the Marga Institute, desi
 ---
 
 <h2>
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=05+%2F+GitHub+Analytics" alt="05 / GitHub Analytics" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=355&height=50&vCenter=true&repeat=false&lines=05+%2F+GitHub+Analytics" alt="05 / GitHub Analytics" />
 <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4ca/512.gif" alt="chart" width="34" height="34" />
 </h2>
 
 <div align="center">
 
-<img width="49%" src="https://github-readme-stats.vercel.app/api?username=Amika1118&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=A78BFA&icon_color=A78BFA&text_color=FFFFFF&include_all_commits=true" />
-
-<img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Amika1118&layout=compact&langs_count=8&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=A78BFA&text_color=FFFFFF" />
+<img width="70%" src="https://streak-stats.demolab.com/?user=Amika1118&theme=tokyonight&hide_border=true&background=0D1117&ring=A78BFA&fire=FF6B6B&currStreakLabel=A78BFA&sideLabels=FFFFFF&dates=AAAAAA" alt="GitHub streak stats" />
 
 <br/><br/>
 
-<img width="70%" src="https://streak-stats.demolab.com/?user=Amika1118&theme=tokyonight&hide_border=true&background=0D1117&ring=A78BFA&fire=FF6B6B&currStreakLabel=A78BFA&sideLabels=FFFFFF&dates=AAAAAA" />
-
-<br/><br/>
-
-<img width="95%" src="https://github-readme-activity-graph.vercel.app/graph?username=Amika1118&theme=tokyo-night&bg_color=0D1117&color=A78BFA&line=A78BFA&point=FFFFFF&area=true&hide_border=true" />
-
-<br/><br/>
-
-<!-- CONTRIBUTION SNAKE (generated daily by .github/workflows/snake.yml) -->
+<!-- CONTRIBUTION SNAKE (generated by .github/workflows/snake.yml) -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/github-snake-dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/github-snake.svg" />
   <img alt="Animated contribution snake eating my GitHub contribution graph" width="95%" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/github-snake-dark.svg" />
 </picture>
 
+<br/><br/>
+
+<!-- RANDOM ARCADE GAME (one of 5, picked at random by .github/workflows/snake.yml) -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/arcade-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/arcade.svg" />
+  <img alt="A random arcade game playing on my GitHub contribution graph" width="95%" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/arcade-dark.svg" />
+</picture>
+
+<sub><i>🎲 A different arcade game every few hours: Pac-Man, Breakout, Galaga, Puzzle Bobble or Bomberman</i></sub>
+
 </div>
 
 ---
 
 <h2>
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=06+%2F+Currently+Exploring" alt="06 / Currently Exploring" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=400&height=50&vCenter=true&repeat=false&lines=06+%2F+Currently+Exploring" alt="06 / Currently Exploring" />
 <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9e0/512.gif" alt="brain" width="34" height="34" />
 </h2>
 
@@ -291,18 +290,18 @@ A research catalogue developed during my internship at the Marga Institute, desi
 
 | Area | Current Interests |
 |:---:|:---|
-| <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="" width="28" height="28" /><br/>Artificial Intelligence | LLMs, attention mechanisms, AI agents |
-| <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4ca/512.gif" alt="" width="28" height="28" /><br/>Data Engineering | ETL architecture, data warehouses, automation |
-| <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9e0/512.gif" alt="" width="28" height="28" /><br/>Machine Learning | Model optimisation, deployment, monitoring |
-| <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f310/512.gif" alt="" width="28" height="28" /><br/>Cloud Computing | AWS services, scalable infrastructure |
-| <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4d0/512.gif" alt="" width="28" height="28" /><br/>Applied Mathematics | Optimisation, simulation, predictive modelling |
+| 🤖 Artificial Intelligence | LLMs, attention mechanisms, AI agents |
+| ⚙️ Data Engineering | ETL architecture, data warehouses, automation |
+| 🧠 Machine Learning | Model optimisation, deployment, monitoring |
+| ☁️ Cloud Computing | AWS services, scalable infrastructure |
+| 📐 Applied Mathematics | Optimisation, simulation, predictive modelling |
 
 </div>
 
 ---
 
 <h2>
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=07+%2F+Beyond+Development" alt="07 / Beyond Development" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=385&height=50&vCenter=true&repeat=false&lines=07+%2F+Beyond+Development" alt="07 / Beyond Development" />
 <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2615/512.gif" alt="coffee" width="34" height="34" />
 </h2>
 
@@ -321,7 +320,7 @@ I also enjoy building small experiments, exploring new ideas, and working on pro
 ---
 
 <h2>
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=08+%2F+Let%27s+Connect" alt="08 / Let's Connect" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=310&height=50&vCenter=true&repeat=false&lines=08+%2F+Let%27s+Connect" alt="08 / Let's Connect" />
 <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f91d/512.gif" alt="handshake" width="34" height="34" />
 </h2>
 
@@ -352,7 +351,7 @@ I'm always interested in connecting with developers, researchers, and people bui
 
 <br/><br/>
 
-*"The goal is to turn data into information, and information into insight."* — Carly Fiorina
+*"The goal is to turn data into information, and information into insight."* - Carly Fiorina
 
 <br/>
 
