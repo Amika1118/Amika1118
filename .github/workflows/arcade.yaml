@@ -1,4 +1,4 @@
-name: Generate Contribution Animations
+name: Generate Arcade Contribution Graph
 
 on:
   schedule:
@@ -18,21 +18,13 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - name: Generate snake SVGs
-        uses: Platane/snk/svg-only@v3
-        with:
-          github_user_name: ${{ github.repository_owner }}
-          outputs: |
-            snake-dist/github-snake.svg
-            snake-dist/github-snake-dark.svg?palette=github-dark
-
       - name: Generate arcade game SVGs
         uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: ${{ github.repository_owner }}
           games: "pacman,breakout,galaga,puzzle-bobble,bomberman"
 
-      - name: Pick a random game and combine outputs
+      - name: Pick a random game
         run: |
           games=(pacman breakout galaga puzzle-bobble bomberman)
           pick=${games[RANDOM % ${#games[@]}]}
@@ -41,7 +33,6 @@ jobs:
           mkdir -p public
           cp "dist/${pick}-contribution-graph.svg" public/arcade.svg
           cp "dist/${pick}-contribution-graph-dark.svg" public/arcade-dark.svg
-          cp snake-dist/*.svg public/
           ls -la public
 
       - name: Push to the output branch
