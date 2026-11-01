@@ -1,334 +1,368 @@
 <div align="center">
 
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                        ANIMATED HEADER BANNER                      -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ANIMATED HEADER -->
 
-![Amika Alankara Banner](https://capsule-render.vercel.app/api?type=waving&color=0:0f0c29,50:302b63,100:24243e&height=220&section=header&text=Amika%20Alankara&fontSize=68&fontColor=ffffff&fontAlignY=38&desc=AI%20and%20Data%20Scientist%20-%20ML%20Engineer%20-%20Builder&descAlignY=60&descSize=20&animation=fadeIn)
-
-<!-- Profile views counter + social badges -->
-<img src="https://komarev.com/ghpvc/?username=Amika1118&style=for-the-badge&color=6C63FF&label=PROFILE+VIEWS" alt="Profile Views" />
-&nbsp;
-
-</div>
-
-<br/>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                         ABOUT ME                                   -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## 🧠 About Me
-
-```python
-class Amika:
-    def __init__(self):
-        self.name          = "Amika Alankara"
-        self.location      = "Colombo, Sri Lanka 🇱🇰"
-        self.focus         = "AI & Data Science"
-        self.currently     = "Building data-driven systems, analytical models & interactive web apps"
-        self.learning      = ["Large Language Models", "MLOps", "Advanced Mathematics for ML"]
-        self.collaboration = ["ML research", "Open-source AI tools", "Kaggle competitions"]
-        self.ask_me_about  = ["Python", "ML pipelines", "Data analysis", "Churn prediction"]
-        self.fun_fact      = "I optimise Sri Lankan transport networks for fun 🚌📐"
-
-    def say_hi(self):
-        print("Thanks for stopping by! Let's turn data into decisions. 🚀")
-
-me = Amika()
-me.say_hi()
-```
-
-<br/>
-
-- 🔭 &nbsp; Currently working on **data-driven systems, analytical models, and interactive web applications**
-- 🌱 &nbsp; Deepening expertise in **LLMs, MLOps, and advanced mathematical modelling**
-- 🤝 &nbsp; Open to collaborating on **ML research, open-source AI projects & competition teams**
-- 💬 &nbsp; Ask me about **Python · Machine Learning · Data Engineering · Churn Prediction**
-- 📍 &nbsp; Based in **Colombo, Sri Lanka**
-- ⚡ &nbsp; Fun fact: I modelled transportation optimisation for Colombo as a coursework project
-
-<br/>
-
----
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                        TECH STACK                                  -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## 🛠️ Tech Stack & Tools
-
-<div align="center">
-
-**👩‍💻 Languages**
-
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=postgresql&logoColor=white)
-![Bash](https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white)
-
-**📊 Data Science & Analysis**
-
-![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
-![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
-![SciPy](https://img.shields.io/badge/SciPy-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=python&logoColor=white)
-![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
-![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
-
-**🤖 Machine Learning & AI**
-
-![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
-![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
-![Keras](https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white)
-![HuggingFace](https://img.shields.io/badge/HuggingFace-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)
-![XGBoost](https://img.shields.io/badge/XGBoost-337AB7?style=for-the-badge&logo=python&logoColor=white)
-
-**⚙️ Dev & MLOps**
-
-![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![MLflow](https://img.shields.io/badge/MLflow-0194E2?style=for-the-badge&logo=mlflow&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
-
-**☁️ Cloud & Platforms**
-
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
-![GCP](https://img.shields.io/badge/GCP-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![VS Code](https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
-
-</div>
-
-<br/>
-
----
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                        GITHUB STATS                                -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## 📊 GitHub Stats
-
-<div align="center">
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:09090F,35:25204A,70:5145A0,100:8B7CFF&height=230&section=header&text=AMIKA%20ALANKARA&fontSize=58&fontColor=ffffff&fontAlignY=38&desc=Software%20Engineering%20%7C%20Data%20Engineering%20%7C%20Applied%20AI&descAlignY=60&descSize=17&animation=twinkling" />
 
 <a href="https://github.com/Amika1118">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=Amika1118&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true&hide_border=true&bg_color=0D1117&title_color=6C63FF&icon_color=6C63FF&text_color=FFFFFF" alt="Amika's GitHub Stats" />
-  &nbsp;
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Amika1118&layout=compact&langs_count=8&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=6C63FF&text_color=FFFFFF" alt="Top Languages" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=21&duration=2800&pause=900&color=A78BFA&center=true&vCenter=true&repeat=true&width=700&height=50&lines=Hi+there%2C+I%27m+Amika;AI+%26+Data+Science+Undergraduate;Building+Intelligent+Applications;Engineering+Data-Driven+Systems;Turning+Ideas+Into+Working+Products;Always+Learning.+Always+Building." />
 </a>
 
-</div>
-
-<div align="center">
-  <img src="https://streak-stats.demolab.com/?user=Amika1118&theme=tokyonight&hide_border=true&background=0D1117&ring=6C63FF&fire=FF6B6B&currStreakLabel=6C63FF&sideLabels=FFFFFF&dates=AAAAAA" alt="GitHub Streak" width="55%" />
-</div>
-
-<div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Amika1118&theme=tokyo-night&bg_color=0D1117&color=6C63FF&line=6C63FF&point=FF6B6B&hide_border=true&area=true&area_color=6C63FF" width="90%" alt="Contribution Graph" />
-</div>
+<sub><i>Architecting data-driven systems and interactive web apps where AI meets real-world impact.</i></sub>
 
 <br/>
 
----
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                      FEATURED PROJECTS                             -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## 🚀 Featured Projects
-
-<div align="center">
-
-| 🏷️ Project | 📝 Description | 🛠️ Tech Stack |
-|:---:|:---|:---:|
-| [**Telco Churn Prediction**](https://github.com/Amika1118/CM2604-Telco-Churn-Prediction) | Complete ML solution for predicting customer churn in the telecommunications industry - from EDA to model evaluation | `Python` `Scikit-Learn` `Pandas` `Jupyter` |
-| [**Colombo Transport Optimisation**](https://github.com/Amika1118/CM2607_Adavaned_Mathematics_Coursework) | Mathematical modelling of Colombo's transportation network using advanced optimisation techniques | `Python` `SciPy` `NumPy` `Jupyter` |
-| [**Bookify**](https://github.com/Amika1118/Bookify) | Modern responsive online bookstore frontend with shopping cart and simulated checkout | `React` `JavaScript` `CSS` |
-| [**Media Database Manager**](https://github.com/Amika1118/media-database-manager) | CLI tool to organise, search and analyse personal movie, TV series and anime collections | `Python` `SQLite` `CLI` |
-| [**Card Game**](https://github.com/Amika1118/Card-Game) | Terminal-based trick-taking card game - play against 3 AI opponents with trump selection strategy | `Python` `OOP` `Game AI` |
-| [**Team Formation System**](https://github.com/Amika1118/Team-Formation-System) | Java system that intelligently balances esports teams using personality and skill assessments | `Java` `OOP` `Algorithms` |
-
-</div>
-
-> 💡 Browse all repositories [here →](https://github.com/Amika1118?tab=repositories)
+[![Profile Views](https://komarev.com/ghpvc/?username=Amika1118&style=for-the-badge&color=5145A0&label=PROFILE+VIEWS)](https://github.com/Amika1118)
+[![GitHub Followers](https://img.shields.io/github/followers/Amika1118?style=for-the-badge&color=5145A0&label=FOLLOWERS)](https://github.com/Amika1118?tab=followers)
 
 <br/>
 
----
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                      CURRENTLY BUILDING                            -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## 🚧 Currently Building
-
-<div align="center">
-
-| 🏗️ Project | 📝 What it is | 🔗 See it live |
-|:---:|:---|:---:|
-| **Marga Research Hub** | Research paper hub & registry built during my internship at the Marga Institute - search, browse, and read academic papers | [Marga Researchhub](https://margaresearchhub.github.io/Research-Hub/) |
-|**Lucivyre** | Python Based Music Player | [Lucivyre](https://lucivyre.vercel.app/)|
-|**Iron & Oak** | UI Design for Salon Website | [Iron & Oak](https://salon.amika-alankara.workers.dev/)
+[LinkedIn](https://www.linkedin.com/in/amika-ranmeth/) · [GitHub](https://github.com/Amika1118) · [Portfolio](https://amika1118.github.io/amika-alankara-portfolio/) · [Email](mailto:amika.alankara@gmail.com) · [X](https://x.com/amika_alankara/) · [Hugging Face](https://huggingface.co/WcLucifer)
 
 </div>
 
-> 🔒 &nbsp; Most of what I'm actively building lives in private repos, so the code's not public, but the site is.
-
-<br/>
-
 ---
 
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                       WAKATIME STATS                               -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
+<h2>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=520&height=50&vCenter=true&repeat=false&lines=01+%2F+About+Me" alt="01 / About Me" />
+<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f44b/512.gif" alt="waving hand" width="34" height="34" />
+</h2>
 
-## ⏱️ Weekly Coding Activity
+I'm an **AI & Data Science undergraduate** interested in engineering software, developing intelligent applications, and building systems that solve practical problems.
 
-<!--
-  HOW TO SET UP WAKATIME:
-  1. Create a free account at https://wakatime.com
-  2. Install the WakaTime plugin in VS Code / PyCharm / IntelliJ
-  3. Add your WakaTime secret API key to your GitHub repo secrets as WAKATIME_API_KEY
-  4. Use the GitHub Action: https://github.com/athul/waka-readme
-  5. The action will auto-replace the content between the tags below on a schedule
--->
+I enjoy working across the entire development process — from data collection and pipeline engineering to machine learning, backend development, and frontend experiences.
 
-<!--START_SECTION:waka-->
-```text
-Python        ██████████████████░░   ~62%   ML pipelines, data analysis, scripting
-Java          █████░░░░░░░░░░░░░░░   ~18%   Systems and algorithms
-JavaScript    ████░░░░░░░░░░░░░░░░   ~13%   React frontends
-SQL           ██░░░░░░░░░░░░░░░░░░    ~5%   Database queries
-Other         █░░░░░░░░░░░░░░░░░░░    ~2%   Config, Bash, YAML
+My focus areas:
+
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4bb/512.gif" alt="" width="22" height="22" /> **Software Engineering** — Designing and developing practical applications.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4ca/512.gif" alt="" width="22" height="22" /> **Data Engineering** — Building ETL pipelines, data warehouses, and analytical systems.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="" width="22" height="22" /> **Artificial Intelligence** — Developing predictive models and AI-powered applications.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f52c/512.gif" alt="" width="22" height="22" /> **Research & Development** — Exploring computational approaches to real-world problems.
+
+```python
+class AmikaAlankara:
+
+    def __init__(self):
+        self.role = "AI & Data Science Undergraduate"
+        self.location = "Colombo, Sri Lanka 🇱🇰"
+
+        self.interests = [
+            "Software Engineering",
+            "Data Engineering",
+            "Applied Machine Learning",
+            "Artificial Intelligence",
+            "Research & Development"
+        ]
+
+        self.exploring = [
+            "Large Language Models",
+            "MLOps",
+            "Data Pipeline Architecture",
+            "Advanced Mathematical Modelling"
+        ]
+
+        self.fun_fact = "I optimise Sri Lankan transport networks for fun 🚌📐"
+
+    def philosophy(self):
+        return "Build thoughtfully. Learn continuously. Improve constantly."
+
+
+me = AmikaAlankara()
 ```
-<!--END_SECTION:waka-->
-
-<br/>
-
----
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--              CONNECT / SOCIAL LINKS                                -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## 🤝 Let's Connect
 
 <div align="center">
 
-<a href="https://www.linkedin.com/in/amika-ranmeth">
-  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=18&duration=3000&pause=800&color=C4B5FD&center=true&vCenter=true&width=640&height=40&lines=%24+loading+datasets...;%24+training+models...;%24+building+data+pipelines...;%24+shipping+working+products...;%24+learning+something+new+every+day" alt="Terminal typing animation" />
+
+</div>
+
+---
+
+<h2>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=02+%2F+Technology+Stack" alt="02 / Technology Stack" />
+<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/512.gif" alt="fire" width="34" height="34" />
+</h2>
+
+<div align="center">
+
+**PROGRAMMING LANGUAGES**
+
+<img src="https://skillicons.dev/icons?i=python,java,js,html,css,bash&theme=dark" />
+
+<br/><br/>
+
+**DATA SCIENCE & MACHINE LEARNING**
+
+<img src="https://skillicons.dev/icons?i=py,pytorch,tensorflow,sklearn&theme=dark" />
+
+<br/><br/>
+
+**WEB DEVELOPMENT & FRAMEWORKS**
+
+<img src="https://skillicons.dev/icons?i=react,fastapi,flask&theme=dark" />
+
+<br/><br/>
+
+**CLOUD, DATABASES & DEVELOPMENT TOOLS**
+
+<img src="https://skillicons.dev/icons?i=aws,postgres,mysql,docker,git,github,linux,vscode&theme=dark" />
+
+</div>
+
+**Additional tools and libraries**
+
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white)
+![SciPy](https://img.shields.io/badge/SciPy-8CAAE6?style=flat-square&logo=scipy&logoColor=white)
+![XGBoost](https://img.shields.io/badge/XGBoost-337AB7?style=flat-square&logo=python&logoColor=white)
+![Groq](https://img.shields.io/badge/Groq-F55036?style=flat-square&logo=groq&logoColor=white)
+![Hugging Face](https://img.shields.io/badge/HuggingFace-FFD21E?style=flat-square&logo=huggingface&logoColor=black)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat-square&logo=jupyter&logoColor=white)
+![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=flat-square&logo=plotly&logoColor=white)
+![PySpark](https://img.shields.io/badge/PySpark-E25A1C?style=flat-square&logo=apachespark&logoColor=white)
+![Amazon Redshift](https://img.shields.io/badge/Redshift-8C4FFF?style=flat-square&logo=amazonredshift&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white)
+
+---
+
+<!-- ANIMATED DIVIDER -->
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:09090F,50:25204A,100:5145A0&height=90&section=header" />
+
+<h2>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=03+%2F+Featured+Projects" alt="03 / Featured Projects" />
+<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="rocket" width="34" height="34" />
+</h2>
+
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:25204A,100:5145A0&height=3&section=header&width=100%" />
+
+### 01 — Sri Lanka Fuel Price Intelligence Pipeline
+
+<a href="https://github.com/Amika1118/Sri-Lanka-fuel-price-intelligence-pipeline">
+<img src="https://github-readme-stats.vercel.app/api/pin/?username=Amika1118&repo=Sri-Lanka-fuel-price-intelligence-pipeline&theme=tokyonight&hide_border=true&bg_color=0D1117" />
 </a>
-&nbsp;
+
+**End-to-end AWS data engineering project**
+
+An automated data pipeline integrating international crude oil prices, USD/LKR exchange rates, and Sri Lankan retail fuel prices.
+
+- Multi-source ingestion from the EIA API, ExchangeRate.host, and a Ceylon Petroleum Corporation web scrape plus historical Kaggle data.
+- AWS S3 raw data lake with PySpark transformations on AWS Glue.
+- Amazon Redshift Serverless star-schema data warehouse.
+- Analytical reporting using Amazon QuickSight.
+
+`Python` `AWS S3` `AWS Glue` `PySpark` `Amazon Redshift` `ETL` `SQL` `QuickSight`
+
+[View Repository →](https://github.com/Amika1118/Sri-Lanka-fuel-price-intelligence-pipeline)
+
+---
+
+### 02 — Lecture Notes Processor
+
+<a href="https://github.com/Amika1118/lecture-processor">
+<img src="https://github-readme-stats.vercel.app/api/pin/?username=Amika1118&repo=lecture-processor&theme=tokyonight&hide_border=true&bg_color=0D1117" />
+</a>
+
+**AI-powered academic productivity tool**
+
+A free lecture PDF processor that transforms academic material into exam-focused summaries and flashcards, running in the browser.
+
+- Client-side PDF text extraction with Mozilla PDF.js, so files never leave the device.
+- AI-generated 5-point exam summaries and 5 Q&A flashcards per lecture.
+- Groq API integration with Llama 3.3 70B, with built-in rate-limit handling.
+- Deployed on GitHub Pages and Vercel.
+
+`JavaScript` `HTML` `CSS` `Groq API` `Llama 3.3` `PDF.js`
+
+[Live Application →](https://Amika1118.github.io/lecture-processor/) · [Repository →](https://github.com/Amika1118/lecture-processor)
+
+---
+
+### 03 — Adaptive Clock
+
+<a href="https://github.com/Amika1118/adaptive-clock">
+<img src="https://github-readme-stats.vercel.app/api/pin/?username=Amika1118&repo=adaptive-clock&theme=tokyonight&hide_border=true&bg_color=0D1117" />
+</a>
+
+**A customizable desktop clock collection for Rainmeter**
+
+A Windows desktop clock project featuring 24 different clock styles that automatically shuffle hourly.
+
+- Multiple visual styles, including chronograph, bubbles, world time, and word clock.
+- Wallpaper-adaptive black and white styling.
+- Automatic hourly style changes, with configurable shuffle speed.
+- Daily inspirational quotes and a 12/24-hour toggle.
+
+`Rainmeter` `Windows` `Lua` `PowerShell` `INI` `Python` `UI Design`
+
+[View Repository →](https://github.com/Amika1118/adaptive-clock)
+
+---
+
+### 04 — Marga Research Hub
+
+<a href="https://margaresearchhub.github.io/Research-Hub/">
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:17172B,100:5145A0&height=85&text=MARGA%20RESEARCH%20HUB&fontSize=23&fontColor=ffffff&fontAlignY=55&animation=fadeIn" />
+</a>
+
+**Research discovery and publication platform**
+
+A research catalogue developed during my internship at the Marga Institute, designed to make Sri Lankan research publications more accessible.
+
+- Searchable research catalogue.
+- Structured research metadata.
+- Responsive web interface.
+- Static architecture designed for accessibility and offline resilience.
+
+`HTML` `CSS` `JavaScript` `XML` `Web Development`
+
+[Explore Live Platform →](https://margaresearchhub.github.io/Research-Hub/)
+
+</div>
+
+---
+
+<h2>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=04+%2F+Other+Projects" alt="04 / Other Projects" />
+<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2728/512.gif" alt="sparkles" width="34" height="34" />
+</h2>
+
+| Project | Description | Technologies |
+|:--|:--|:--|
+| [Lucivyre](https://lucivyre.vercel.app/) | Personal music player with playlists, search, live controls, credit-based interactions, and adaptive shuffle. Source code is private. | Python · Audio Processing |
+| [Telco Churn Prediction](https://github.com/Amika1118/CM2604-Telco-Churn-Prediction) | Complete customer churn prediction solution, from exploratory analysis to model evaluation. | Python · Scikit-learn · Jupyter |
+| [Bookify](https://github.com/Amika1118/Bookify) | Responsive online bookstore frontend with shopping cart and simulated checkout. | JavaScript · React |
+| [Team Formation System](https://github.com/Amika1118/Team-Formation-System) | Personality-aware team generation system that balances esports and gaming tournament teams, with multiple game modes. | Java · OOP |
+| [Media Database Manager](https://github.com/Amika1118/media-database-manager) | CLI-based system to organise, search, and analyse personal movie, TV series, and anime collections. | Python · SQLite |
+| [Card Game](https://github.com/Amika1118/Card-Game) | Terminal-based trick-taking card game: choose trumps and play against 3 AI opponents. | Python · OOP |
+| [Colombo Transport Optimisation](https://github.com/Amika1118/CM2607_Adavaned_Mathematics_Coursework) | Mathematical modelling and transportation optimisation for Colombo's network. | Python · SciPy · Jupyter |
+
+<div align="center">
+
+[![All Repositories](https://img.shields.io/badge/EXPLORE_ALL_PROJECTS-5145A0?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Amika1118?tab=repositories)
+
+</div>
+
+---
+
+<h2>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=05+%2F+GitHub+Analytics" alt="05 / GitHub Analytics" />
+<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4ca/512.gif" alt="chart" width="34" height="34" />
+</h2>
+
+<div align="center">
+
+<img width="49%" src="https://github-readme-stats.vercel.app/api?username=Amika1118&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=A78BFA&icon_color=A78BFA&text_color=FFFFFF&include_all_commits=true" />
+
+<img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Amika1118&layout=compact&langs_count=8&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=A78BFA&text_color=FFFFFF" />
+
+<br/><br/>
+
+<img width="70%" src="https://streak-stats.demolab.com/?user=Amika1118&theme=tokyonight&hide_border=true&background=0D1117&ring=A78BFA&fire=FF6B6B&currStreakLabel=A78BFA&sideLabels=FFFFFF&dates=AAAAAA" />
+
+<br/><br/>
+
+<img width="95%" src="https://github-readme-activity-graph.vercel.app/graph?username=Amika1118&theme=tokyo-night&bg_color=0D1117&color=A78BFA&line=A78BFA&point=FFFFFF&area=true&hide_border=true" />
+
+<br/><br/>
+
+<!-- CONTRIBUTION SNAKE (generated daily by .github/workflows/snake.yml) -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/github-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/github-snake.svg" />
+  <img alt="Animated contribution snake eating my GitHub contribution graph" width="95%" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/github-snake-dark.svg" />
+</picture>
+
+</div>
+
+---
+
+<h2>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=06+%2F+Currently+Exploring" alt="06 / Currently Exploring" />
+<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9e0/512.gif" alt="brain" width="34" height="34" />
+</h2>
+
+<div align="center">
+
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=18&duration=2600&pause=700&color=C4B5FD&center=true&vCenter=true&width=700&height=40&lines=LLMs+%C2%B7+attention+mechanisms+%C2%B7+AI+agents;ETL+architecture+%C2%B7+data+warehouses+%C2%B7+automation;Model+optimisation+%C2%B7+deployment+%C2%B7+monitoring;AWS+services+%C2%B7+scalable+infrastructure;Optimisation+%C2%B7+simulation+%C2%B7+predictive+modelling" alt="Currently exploring" />
+
+<br/>
+
+| Area | Current Interests |
+|:---:|:---|
+| <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="" width="28" height="28" /><br/>Artificial Intelligence | LLMs, attention mechanisms, AI agents |
+| <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4ca/512.gif" alt="" width="28" height="28" /><br/>Data Engineering | ETL architecture, data warehouses, automation |
+| <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9e0/512.gif" alt="" width="28" height="28" /><br/>Machine Learning | Model optimisation, deployment, monitoring |
+| <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f310/512.gif" alt="" width="28" height="28" /><br/>Cloud Computing | AWS services, scalable infrastructure |
+| <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4d0/512.gif" alt="" width="28" height="28" /><br/>Applied Mathematics | Optimisation, simulation, predictive modelling |
+
+</div>
+
+---
+
+<h2>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=07+%2F+Beyond+Development" alt="07 / Beyond Development" />
+<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2615/512.gif" alt="coffee" width="34" height="34" />
+</h2>
+
+Outside software development, I'm interested in mathematics, physics, history, technology, and understanding the systems that shape the world.
+
+I also enjoy building small experiments, exploring new ideas, and working on projects that combine creativity with engineering.
+
+<div align="center">
+
+**A little developer philosophy:**
+
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=22&duration=1800&pause=1200&color=A78BFA&center=true&vCenter=true&width=700&height=50&lines=Understand;Understand+%E2%86%92+Design;Understand+%E2%86%92+Design+%E2%86%92+Build;Understand+%E2%86%92+Design+%E2%86%92+Build+%E2%86%92+Test;Understand+%E2%86%92+Design+%E2%86%92+Build+%E2%86%92+Test+%E2%86%92+Improve" alt="Understand → Design → Build → Test → Improve" />
+
+</div>
+
+---
+
+<h2>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=26&duration=2000&pause=500&color=A78BFA&width=560&height=50&vCenter=true&repeat=false&lines=08+%2F+Let%27s+Connect" alt="08 / Let's Connect" />
+<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f91d/512.gif" alt="handshake" width="34" height="34" />
+</h2>
+
+<div align="center">
+
+I'm always interested in connecting with developers, researchers, and people building interesting things.
+
+<br/>
+
+<a href="https://www.linkedin.com/in/amika-ranmeth/">
+<img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
+</a>
+<a href="mailto:amika.alankara@gmail.com">
+<img src="https://img.shields.io/badge/Email-Contact-EA4335?style=for-the-badge&logo=gmail&logoColor=white"/>
+</a>
 <a href="https://x.com/amika_alankara/">
-  <img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X" />
+<img src="https://img.shields.io/badge/X-Follow-000000?style=for-the-badge&logo=x&logoColor=white"/>
 </a>
-&nbsp;
-<a href="https://www.reddit.com/user/amika_alankara_2004/">
-  <img src="https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white" alt="Reddit" />
+<a href="https://github.com/Amika1118">
+<img src="https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white"/>
 </a>
-&nbsp;
-<a href="[Your Kaggle URL]">
-  <img src="https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white" alt="Kaggle" />
+<a href="https://huggingface.co/WcLucifer">
+<img src="https://img.shields.io/badge/Hugging_Face-Models-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black"/>
 </a>
-&nbsp;
-<a href="mailto:[amika.alankara@gmail.com]">
-  <img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+<a href="https://amika1118.github.io/amika-alankara-portfolio/">
+<img src="https://img.shields.io/badge/Portfolio-Visit-5145A0?style=for-the-badge&logo=vercel&logoColor=white"/>
 </a>
 
-</div>
+<br/><br/>
+
+*"The goal is to turn data into information, and information into insight."* — Carly Fiorina
 
 <br/>
 
----
+<!-- ANIMATED FOOTER -->
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:8B7CFF,50:25204A,100:09090F&height=130&section=footer&animation=twinkling"/>
 
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                     GEEK SIDE / MEMES                              -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
+Made with <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2764_fe0f/512.gif" alt="love" width="16" height="16" /> by [**Amika Alankara**](https://github.com/Amika1118)
 
-## 🤓 The Geek Side of Me
+[GitHub](https://github.com/Amika1118) · [LinkedIn](https://www.linkedin.com/in/amika-ranmeth/) · [Portfolio](https://amika1118.github.io/amika-alankara-portfolio/)
 
-![Code hacking](https://media.giphy.com/media/78XCFBGOlS6keY1Bil/giphy.gif)
-![Locked in](https://media.giphy.com/media/EZr27ZbJwmjE9PGyLN/giphy.gif)
-
-<div align="center">
-
-```
-             My relationship with bugs:
-
- 😎  Write Code  →  🧪  Test It  →  💀  It Breaks
-      ↑                                    |
-      |________ "works on my machine" ______↓
-```
-
-</div>
-
-<br/>
-
-> 🎮 &nbsp; **Currently playing:** trying to beat overfitting without dropout
->
-> 📺 &nbsp; **Favourite fictional AI:** HAL 9000 (but I promise my models are friendlier)
->
-> 🧩 &nbsp; **Superpower:** turning a 3-line idea into a 300-line Jupyter notebook
->
-> ☕ &nbsp; **Fuel:** coffee + Stack Overflow + the occasional existential crisis about gradient descent
->
-> 🐛 &nbsp; **Debugging philosophy:** `print("here")` → `print("here2")` → `print("WHY")` → Google it → Stack Overflow → it was a missing comma
-
-<br/>
-
-<div align="center">
-
-### 📊 My Honest Coding Time Distribution
-
-```
-Thinking about the solution        ████████░░░░░░░░░░░░   30%
-Actually writing code              ████░░░░░░░░░░░░░░░░   15%
-Debugging                          ████████████░░░░░░░░   42%
-Reading docs I should have read    ███░░░░░░░░░░░░░░░░░   10%
-Celebrating it finally works       █░░░░░░░░░░░░░░░░░░░    3%
-```
-
-</div>
-
-<br/>
-
----
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!--                   CURRENTLY OBSESSED WITH                          -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## 🔬 Currently Obsessing Over
-
-<div align="center">
-
-| 🧠 AI/ML | 🎮 For Fun | 📚 Reading |
-|:---:|:---:|:---:|
-| Transformer attention mechanisms | Building terminal games in Python | *Hands-On ML* - Aurélien Géron |
-| LLM fine-tuning techniques | Competitive programming puzzles | Research papers on LLM agents |
-| MLOps and model drift detection | Optimisation puzzles | *The Pragmatic Programmer* |
-
-</div>
-
-<br/>
-
----
-
-<div align="center">
-
-### 💭 Words to Build By
-
-*"The goal is to turn data into information, and information into insight."*
-&nbsp;- **Carly Fiorina**
-
-<br/>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:24243e,50:302b63,100:0f0c29&height=120&section=footer" width="100%" alt="Footer Banner" />
+<sub><i>Amika1118 profile README · Markdown, animated SVGs &amp; GitHub Actions</i></sub>
 
 </div>
