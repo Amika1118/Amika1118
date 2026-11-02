@@ -2,7 +2,7 @@ name: Generate Arcade Contribution Graph
 
 on:
   schedule:
-    # Runs every 6 hours; each run picks a new random arcade game.
+    # Runs every 6 hours; each run picks a new random game.
     # For more frequent changes use e.g. "0 * * * *" (hourly).
     - cron: "0 */6 * * *"
   workflow_dispatch:
@@ -18,21 +18,45 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - name: Generate arcade game SVGs
+      - name: Check out the repo (for the AI script)
+        uses: actions/checkout@v5
+
+      - name: Generate classic arcade SVGs
         uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: ${{ github.repository_owner }}
-          games: "pacman,breakout,galaga,puzzle-bobble,bomberman"
+          games: "pacman,breakout,galaga,puzzle-bobble,bomberman,minesweeper"
+
+      - name: Train the AI arcade agents
+        # If this step fails the workflow still publishes a classic game.
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 .github/scripts/ai_arcade.py --user "${{ github.repository_owner }}" --out ai_dist
 
       - name: Pick a random game
         run: |
-          games=(pacman breakout galaga puzzle-bobble bomberman)
-          pick=${games[RANDOM % ${#games[@]}]}
-          echo "Picked game: $pick"
+          classic=(pacman breakout galaga puzzle-bobble bomberman minesweeper)
+
+          ai=()
+          for f in ai_dist/ai-*-dark.svg; do
+            [ -e "$f" ] || continue
+            ai+=("$(basename "$f" -dark.svg)")
+          done
 
           mkdir -p public
-          cp "dist/${pick}-contribution-graph.svg" public/arcade.svg
-          cp "dist/${pick}-contribution-graph-dark.svg" public/arcade-dark.svg
+          # 70% of the time show an AI game (when they were generated)
+          if [ ${#ai[@]} -gt 0 ] && [ $((RANDOM % 10)) -lt 7 ]; then
+            pick=${ai[RANDOM % ${#ai[@]}]}
+            echo "Picked AI game: $pick"
+            cp "ai_dist/${pick}.svg" public/arcade.svg
+            cp "ai_dist/${pick}-dark.svg" public/arcade-dark.svg
+          else
+            pick=${classic[RANDOM % ${#classic[@]}]}
+            echo "Picked classic game: $pick"
+            cp "dist/${pick}-contribution-graph.svg" public/arcade.svg
+            cp "dist/${pick}-contribution-graph-dark.svg" public/arcade-dark.svg
+          fi
           ls -la public
 
       - name: Push to the output branch

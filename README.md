@@ -35,14 +35,14 @@
 
 I'm an **AI & Data Science undergraduate** interested in engineering software, developing intelligent applications, and building systems that solve practical problems.
 
-I enjoy working across the entire development process - from data collection and pipeline engineering to machine learning, backend development, and frontend experiences.
+I enjoy working across the entire development process — from data collection and pipeline engineering to machine learning, backend development, and frontend experiences.
 
 My focus areas:
 
-- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4bb/512.gif" alt="" width="22" height="22" /> **Software Engineering** - Designing and developing practical applications.
-- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4ca/512.gif" alt="" width="22" height="22" /> **Data Engineering** - Building ETL pipelines, data warehouses, and analytical systems.
-- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="" width="22" height="22" /> **Artificial Intelligence** - Developing predictive models and AI-powered applications.
-- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="" width="22" height="22" /> **Research & Development** - Exploring computational approaches to real-world problems.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4bb/512.gif" alt="" width="22" height="22" /> **Software Engineering** — Designing and developing practical applications.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4ca/512.gif" alt="" width="22" height="22" /> **Data Engineering** — Building ETL pipelines, data warehouses, and analytical systems.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="" width="22" height="22" /> **Artificial Intelligence** — Developing predictive models and AI-powered applications.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="" width="22" height="22" /> **Research & Development** — Exploring computational approaches to real-world problems.
 
 ```python
 class AmikaAlankara:
@@ -260,14 +260,14 @@ A research catalogue developed during my internship at the Marga Institute, desi
 
 <br/><br/>
 
-<!-- RANDOM ARCADE GAME (one of 5, picked at random by .github/workflows/arcade.yml) -->
+<!-- RANDOM ARCADE GAME (picked at random by .github/workflows/arcade.yml) -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/arcade-dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/arcade.svg" />
   <img alt="A random arcade game playing on my GitHub contribution graph" width="95%" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/arcade-dark.svg" />
 </picture>
 
-<sub><i>🎲 A different arcade game every few hours: Pac-Man, Breakout, Galaga, Puzzle Bobble or Bomberman</i></sub>
+<sub><i>🎲 A different game every few hours. Some are AI agents that train on my contribution graph and visibly get better: Pac-Man, Breakout, Space Invaders and Maze Runner.</i></sub>
 
 </div>
 
@@ -347,14 +347,18 @@ I'm always interested in connecting with developers, researchers, and people bui
 
 <br/><br/>
 
-"The important thing is not to stop questioning. Curiosity has its own reason for existing."
+*"The goal is to turn data into information, and information into insight."* — Carly Fiorina
 
- Albert Einstein
 <br/>
 
 <!-- ANIMATED FOOTER -->
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:8B7CFF,50:25204A,100:09090F&height=130&section=footer&animation=twinkling"/>
 
+Made with <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2764_fe0f/512.gif" alt="love" width="16" height="16" /> by [**Amika Alankara**](https://github.com/Amika1118)
+
+<a href="https://github.com/Amika1118"><img src="https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub" /></a>
+<a href="https://www.linkedin.com/in/amika-ranmeth/"><img src="https://img.shields.io/badge/-LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+<a href="https://amika1118.github.io/amika-alankara-portfolio/"><img src="https://img.shields.io/badge/-Portfolio-5145A0?style=flat-square&logo=vercel&logoColor=white" alt="Portfolio" /></a>
 
 <sub><i>Amika1118 profile README · Markdown, animated SVGs &amp; GitHub Actions</i></sub>
 
