@@ -35,14 +35,14 @@
 
 I'm an **AI & Data Science undergraduate** interested in engineering software, developing intelligent applications, and building systems that solve practical problems.
 
-I enjoy working across the entire development process — from data collection and pipeline engineering to machine learning, backend development, and frontend experiences.
+I enjoy working across the entire development process - from data collection and pipeline engineering to machine learning, backend development, and frontend experiences.
 
 My focus areas:
 
-- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4bb/512.gif" alt="" width="22" height="22" /> **Software Engineering** — Designing and developing practical applications.
-- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4ca/512.gif" alt="" width="22" height="22" /> **Data Engineering** — Building ETL pipelines, data warehouses, and analytical systems.
-- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="" width="22" height="22" /> **Artificial Intelligence** — Developing predictive models and AI-powered applications.
-- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="" width="22" height="22" /> **Research & Development** — Exploring computational approaches to real-world problems.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4bb/512.gif" alt="" width="22" height="22" /> **Software Engineering** - Designing and developing practical applications.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4ca/512.gif" alt="" width="22" height="22" /> **Data Engineering** - Building ETL pipelines, data warehouses, and analytical systems.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="" width="22" height="22" /> **Artificial Intelligence** - Developing predictive models and AI-powered applications.
+- <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="" width="22" height="22" /> **Research & Development** - Exploring computational approaches to real-world problems.
 
 ```python
 class AmikaAlankara:
@@ -347,7 +347,7 @@ I'm always interested in connecting with developers, researchers, and people bui
 
 <br/><br/>
 
-*"The goal is to turn data into information, and information into insight."* — Carly Fiorina
+*"The goal is to turn data into information, and information into insight."* - Carly Fiorina
 
 <br/>
 
