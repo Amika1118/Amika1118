@@ -267,7 +267,7 @@ A research catalogue developed during my internship at the Marga Institute, desi
   <img alt="A random arcade game playing on my GitHub contribution graph" width="95%" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/arcade-dark.svg" />
 </picture>
 
-<sub><i>🎲 A different game every few hours. Some are AI agents that train on my contribution graph and visibly get better: Pac-Man, Breakout, Space Invaders and Maze Runner.</i></sub>
+<sub><i>🎲 A different game every few hours. Some are AI agents that train on my contribution graph and visibly get better: Pac-Man, Snake, Breakout, Space Invaders and Maze Runner.</i></sub>
 
 </div>
 

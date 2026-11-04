@@ -119,11 +119,15 @@ def clamp(x, lo, hi):
 
 # ------------------------------------------------------------------ games --
 class Game:
-    """Interface: reset(rng) / state() / step(a)->(reward, done) / positions() / result()."""
+    """Interface: reset(rng) / state() / step(a)->(reward, done) / positions() / result().
+
+    positions() returns one (x, y[, visible]) tuple per animated sprite, in cell units.
+    """
     key = title = ""
     n_actions = 4
     alpha, gamma = 0.2, 0.95
     eps_start, eps_end = 1.0, 0.05
+    eval_eps = 0.03
     episodes, cap_train = 2000, 250
     rows = 7
     score_word = "SCORE"
@@ -133,6 +137,7 @@ class Game:
         self.W = len(levels[0])
         self.food0 = [(r, c) for r in range(7) for c in range(self.W) if levels[r][c] > 0]
         self.removed = []
+        self.score = 0
 
     def solid_cells(self):
         return [(r, c, self.lv[r][c]) for (r, c) in self.food0]
@@ -143,6 +148,11 @@ class Game:
     def mover_svgs(self, th):
         return []
 
+    def progress(self):
+        return self.score
+
+    progress_ref = None      # fixed reference for the live bar; None = best attempt shown
+
     def rank(self):
         """Higher is better; used to pick the best rollout and to draw the learning curve."""
         return self.score
@@ -152,96 +162,281 @@ class Game:
 
 
 class PacMan(Game):
+    """Pac-Man with power pellets: ghosts have different personalities and can be hunted."""
     key, title = "pacman", "PAC-MAN"
     DIRS = [(0, -1), (0, 1), (-1, 0), (1, 0)]
-    episodes, cap_train = 2500, 220
+    episodes, cap_train = 3000, 260
+    alpha, gamma = 0.15, 0.93
+    eps_start, eps_end = 0.8, 0.02
+    FRIGHT = 20
+
+    def __init__(self, levels):
+        Game.__init__(self, levels)
+        top = max((levels[r][c] for r, c in self.food0), default=0)
+        cand = sorted((c, r) for (r, c) in self.food0 if levels[r][c] == top)
+        self.power0, last = [], -99
+        for c, r in cand:                       # up to 4 well-spaced power pellets
+            if c - last >= 10 and c > 3 and len(self.power0) < 4:
+                self.power0.append((r, c))
+                last = c
 
     def reset(self, rng):
         self.rng = rng
-        self.px, self.py = 0, 3
+        self.px, self.py, self.last = 0, 3, 3
         self.food = set(self.food0)
-        self.ghosts = [[self.W - 1, 1], [self.W - 1, 5]]
-        self.score, self.dead = 0, False
+        self.power = set(self.power0)
+        self.spawn = [(self.W - 1, 1), (self.W - 1, 5)]
+        self.ghosts = [list(p) for p in self.spawn]
+        self.fright = 0
+        self.score, self.eaten, self.dead = 0, 0, False
         self.removed = []
         self._eat()
 
     def _eat(self):
-        if (self.py, self.px) in self.food:
-            self.food.discard((self.py, self.px))
+        key = (self.py, self.px)
+        if key not in self.food:
+            return 0
+        self.food.discard(key)
+        self.eaten += 1
+        self.score += 1
+        r = 1
+        self.removed.append(("c_%d_%d" % key, 0))
+        if key in self.power:
+            self.power.discard(key)
+            self.removed.append(("p_%d_%d" % key, 0))
+            self.fright = self.FRIGHT
             self.score += 1
-            self.removed.append(("c_%d_%d" % (self.py, self.px), 0))
-            return 1
-        return 0
+            r += 2
+        return r
+
+    def _nearest(self, items):
+        px, py = self.px, self.py
+        return min(items, key=lambda f: abs(f[0] - py) + abs(f[1] - px)) if items else None
 
     def state(self):
         px, py = self.px, self.py
-        if self.food:
-            fr, fc = min(self.food, key=lambda f: abs(f[0] - py) + abs(f[1] - px))
-            d = abs(fr - py) + abs(fc - px)
-            fs = (sign(fc - px), sign(fr - py), 0 if d <= 1 else 1 if d <= 3 else 2)
+        fr = self.fright > 0
+        dang = []
+        for dx, dy in self.DIRS:
+            nx, ny = px + dx, py + dy
+            if not (0 <= nx < self.W and 0 <= ny < 7):
+                nx, ny = px, py
+            if fr:
+                dang.append(0)
+                continue
+            dg = min(abs(nx - g[0]) + abs(ny - g[1]) for g in self.ghosts)
+            dang.append(2 if dg <= 1 else 1 if dg <= 3 else 0)
+        f = self._nearest(self.food)
+        if f:
+            d = abs(f[0] - py) + abs(f[1] - px)
+            fs = (sign(f[1] - px), sign(f[0] - py), 0 if d <= 2 else 1)
         else:
-            fs = (0, 0, 2)
-        best, bd = None, 99
-        for gx, gy in self.ghosts:
-            rx, ry = gx - px, gy - py
-            d = max(abs(rx), abs(ry))
-            if d <= 3 and d < bd:
-                best, bd = (rx, ry), d
-        return fs + (best,)
+            fs = (0, 0, 1)
+        extra = 0
+        if fr:      # hunting: direction of the nearest frightened ghost
+            g = min(self.ghosts, key=lambda g: abs(g[0] - px) + abs(g[1] - py))
+            if abs(g[0] - px) + abs(g[1] - py) <= 8:
+                extra = (1, sign(g[0] - px), sign(g[1] - py))
+        elif self.power and min(abs(g[0] - px) + abs(g[1] - py) for g in self.ghosts) <= 6:
+            p = self._nearest(self.power)       # fleeing: is a power pellet close?
+            if abs(p[0] - py) + abs(p[1] - px) <= 9:
+                extra = (2, sign(p[1] - px), sign(p[0] - py))
+        return tuple(dang) + fs + (extra,)
 
-    def _hit(self):
-        return any(g[0] == self.px and g[1] == self.py for g in self.ghosts)
+    def _collide(self):
+        """Resolve pac vs ghosts. Returns reward delta, or None if pac was caught."""
+        r = 0
+        for i, g in enumerate(self.ghosts):
+            if g[0] == self.px and g[1] == self.py:
+                if self.fright > 0:
+                    r += 3
+                    self.score += 3
+                    self.ghosts[i] = list(self.spawn[i])
+                else:
+                    self.dead = True
+                    return None
+        return r
+
+    def _move_ghost(self, i, g):
+        rng = self.rng
+        px, py = self.px, self.py
+        if self.fright > 0:
+            if rng.random() > 0.45:
+                return
+            if rng.random() < 0.7:               # run away from pac
+                ddx, ddy = g[0] - px, g[1] - py
+            else:
+                ddx, ddy = rng.choice([-1, 0, 1]), rng.choice([-1, 0, 1])
+        else:
+            if rng.random() > (0.72 if i == 0 else 0.62):
+                return
+            if rng.random() < 0.2:               # a little noise
+                ddx, ddy = rng.choice([-1, 0, 1]), rng.choice([-1, 0, 1])
+            else:
+                tx, ty = px, py
+                if i == 1:                       # flanker: aims 3 cells ahead of pac
+                    ax, ay = self.DIRS[self.last]
+                    tx, ty = clamp(px + 3 * ax, 0, self.W - 1), clamp(py + 3 * ay, 0, 6)
+                ddx, ddy = tx - g[0], ty - g[1]
+        if ddx == 0 and ddy == 0:
+            return
+        if abs(ddx) > abs(ddy) or (abs(ddx) == abs(ddy) and rng.random() < 0.5):
+            g[0] = clamp(g[0] + sign(ddx), 0, self.W - 1)
+        else:
+            g[1] = clamp(g[1] + sign(ddy), 0, 6)
 
     def step(self, a):
         dx, dy = self.DIRS[a]
         nx, ny = self.px + dx, self.py + dy
         if 0 <= nx < self.W and 0 <= ny < 7:
             self.px, self.py = nx, ny
+        self.last = a
         reward = -0.02 + self._eat()
-        if self._hit():
-            self.dead = True
+        c = self._collide()
+        if c is None:
             return reward - 10, True
-        rng = self.rng
-        for g in self.ghosts:
-            if rng.random() < 0.65:
-                ddx, ddy = self.px - g[0], self.py - g[1]
-                if rng.random() < 0.75:
-                    if abs(ddx) > abs(ddy) or (abs(ddx) == abs(ddy) and rng.random() < 0.5):
-                        g[0] += sign(ddx)
-                    else:
-                        g[1] += sign(ddy)
-                else:
-                    mx, my = self.DIRS[rng.randrange(4)]
-                    if 0 <= g[0] + mx < self.W and 0 <= g[1] + my < 7:
-                        g[0] += mx
-                        g[1] += my
-        if self._hit():
-            self.dead = True
+        reward += c
+        for i, g in enumerate(self.ghosts):
+            self._move_ghost(i, g)
+        c = self._collide()
+        if c is None:
             return reward - 10, True
+        reward += c
+        if self.fright > 0:
+            self.fright -= 1
         if not self.food:
             return reward + 5, True
         return reward, False
 
     def positions(self):
-        return [(self.px, self.py)] + [(g[0], g[1]) for g in self.ghosts]
+        fr = 1 if self.fright > 0 else 0
+        alive = 0 if self.dead else 1
+        gs = self.ghosts
+        return [(self.px, self.py, alive),
+                (gs[0][0], gs[0][1], 1 - fr), (gs[1][0], gs[1][1], 1 - fr),
+                (gs[0][0], gs[0][1], fr), (gs[1][0], gs[1][1], fr)]
+
+    def progress(self):
+        return self.score
 
     def result(self):
         return "%s %d%s" % (self.score_word, self.score, " (CAUGHT)" if self.dead else "")
 
+    def extra_static(self, th, anim_for=None):
+        out = []
+        for r, c in self.power0:
+            pid = "p_%d_%d" % (r, c)
+            out.append('<circle cx="%d" cy="%d" r="2.6" fill="%s">%s</circle>' % (
+                c * PITCH + 5, r * PITCH + 5, th["ball"], anim_for(pid) if anim_for else ""))
+        return "".join(out)
+
     def mover_svgs(self, th):
-        pac = ('<path d="M5 5 L10.02 2.1 A5.8 5.8 0 1 0 10.02 7.9 Z" fill="#FFD21E"/>')
-        def ghost(col):
+        pac = '<path d="M5 5 L10.02 2.1 A5.8 5.8 0 1 0 10.02 7.9 Z" fill="#FFD21E"/>'
+
+        def ghost(col, eyes="#fff", pupil="#1a1a2e"):
             return ('<path d="M0 10 V5 A5 5 0 0 1 10 5 V10 L8.3 8.3 L6.7 10 L5 8.3 L3.3 10 L1.7 8.3 Z" fill="%s"/>'
-                    '<circle cx="3.5" cy="4.5" r="1.4" fill="#fff"/><circle cx="6.5" cy="4.5" r="1.4" fill="#fff"/>'
-                    '<circle cx="3.9" cy="4.7" r=".7" fill="#1a1a2e"/><circle cx="6.9" cy="4.7" r=".7" fill="#1a1a2e"/>' % col)
-        return [pac, ghost("#ff4d4d"), ghost("#ff9ecf")]
+                    '<circle cx="3.5" cy="4.5" r="1.4" fill="%s"/><circle cx="6.5" cy="4.5" r="1.4" fill="%s"/>'
+                    '<circle cx="3.9" cy="4.7" r=".7" fill="%s"/><circle cx="6.9" cy="4.7" r=".7" fill="%s"/>'
+                    % (col, eyes, eyes, pupil, pupil))
+        return [pac, ghost("#ff4d4d"), ghost("#ff9ecf"), ghost("#3b6cff"), ghost("#3b6cff")]
+
+
+class Snake(Game):
+    """Classic snake that eats contribution cells (grows up to MAXLEN) and learns not to crash."""
+    key, title = "snake", "SNAKE"
+    n_actions = 3                       # 0 straight, 1 turn left, 2 turn right
+    episodes, cap_train = 3000, 250
+    alpha, gamma = 0.2, 0.9
+    eps_start, eps_end = 0.6, 0.02
+    score_word = "EATEN"
+    MAXLEN = 16
+    DIRS = [(0, -1), (1, 0), (0, 1), (-1, 0)]      # up, right, down, left
+
+    def reset(self, rng):
+        self.rng = rng
+        self.body = [(2, 3), (1, 3), (0, 3)]       # (x, y), head first
+        self.dir = 1
+        self.food = set(self.food0)
+        self.score, self.dead = 0, False
+        self.removed = []
+        self._nr = self._nearest(self.body[0])
+
+    def _nearest(self, head):
+        if not self.food:
+            return None
+        hx, hy = head
+        fr, fc = min(self.food, key=lambda f: abs(f[0] - hy) + abs(f[1] - hx))
+        return abs(fr - hy) + abs(fc - hx), fr, fc
+
+    def _blocked(self, x, y, occ):
+        return x < 0 or x >= self.W or y < 0 or y >= 7 or (x, y) in occ
+
+    def state(self):
+        hx, hy = self.body[0]
+        occ = set(self.body[:-1])
+        d = self.dir
+
+        def danger(rel):
+            dx, dy = self.DIRS[(d + rel) % 4]
+            return 1 if self._blocked(hx + dx, hy + dy, occ) else 0
+        sx, sy = self.DIRS[d]
+        ahead2 = 1 if self._blocked(hx + 2 * sx, hy + 2 * sy, occ) else 0
+        if self._nr:
+            dist, fr, fc = self._nr
+            fs = (sign(fc - hx), sign(fr - hy), 0 if dist <= 3 else 1)
+        else:
+            fs = (0, 0, 1)
+        return (danger(0), danger(3), danger(1), ahead2, d) + fs
+
+    def step(self, a):
+        self.dir = (self.dir + (0, 3, 1)[a]) % 4
+        dx, dy = self.DIRS[self.dir]
+        hx, hy = self.body[0]
+        nx, ny = hx + dx, hy + dy
+        eating = (ny, nx) in self.food
+        grow = eating and len(self.body) < self.MAXLEN
+        occ = set(self.body) if grow else set(self.body[:-1])
+        if self._blocked(nx, ny, occ):
+            self.dead = True
+            return -10, True
+        self.body.insert(0, (nx, ny))
+        if not grow:
+            self.body.pop()
+        reward = -0.02
+        old = self._nr[0] if self._nr else 0
+        if eating:
+            self.food.discard((ny, nx))
+            self.removed.append(("c_%d_%d" % (ny, nx), 0))
+            self.score += 1
+            reward += 1
+        self._nr = self._nearest((nx, ny))
+        if not eating and self._nr:
+            reward += 0.1 * (old - self._nr[0])       # shaping: head for food
+        if not self.food:
+            return reward + 5, True
+        return reward, False
+
+    def positions(self):
+        pos = [(x, y) for x, y in self.body]
+        return pos + [(-5, -5)] * (self.MAXLEN - len(pos))
+
+    def result(self):
+        return "%s %d%s" % (self.score_word, self.score, " (CRASHED)" if self.dead else "")
+
+    def mover_svgs(self, th):
+        out = ['<rect x="0" y="0" width="10" height="10" rx="3.5" fill="#34d399"/>'
+               '<circle cx="3.2" cy="3.6" r="1.1" fill="#0d1117"/><circle cx="6.8" cy="3.6" r="1.1" fill="#0d1117"/>']
+        for i in range(1, self.MAXLEN):
+            op = max(0.35, 0.95 - i * 0.04)
+            out.append('<rect x="0.8" y="0.8" width="8.4" height="8.4" rx="3" fill="#34d399" opacity="%.2f"/>' % op)
+        return out
 
 
 class Breakout(Game):
     key, title = "breakout", "BREAKOUT"
     n_actions = 3
     rows, PR = 16, 15
-    episodes, cap_train = 4000, 400
+    episodes, cap_train = 6000, 400
     score_word = "BRICKS"
     alpha, gamma = 0.2, 0.9
     HALF, SPEED = 3, 2          # paddle half-width (cells) and speed (cells per step)
@@ -414,7 +609,8 @@ class Invaders(Game):
 
 class Maze(Game):
     key, title = "maze", "MAZE RUNNER"
-    episodes, cap_train = 900, 300
+    episodes, cap_train = 1600, 300
+    eval_eps = 0.0
     alpha, gamma = 0.3, 0.99
     eps_start, eps_end = 0.3, 0.02
     DIRS = [(0, -1), (0, 1), (-1, 0), (1, 0)]
@@ -423,6 +619,7 @@ class Maze(Game):
     def __init__(self, levels):
         Game.__init__(self, levels)
         self.start, self.goal = (3, 0), (3, self.W - 1)
+        self.progress_ref = self.W - 1
         self.walls, self.thr, self.optimal = self._build()
 
     def _bfs(self, walls):
@@ -455,8 +652,27 @@ class Maze(Game):
     def trail_ids(self):
         return ["t_%d_%d" % (r, c) for r in range(7) for c in range(self.W) if (r, c) not in self.walls]
 
+    progress_ref = None
+
+    def heat(self, snap):
+        """What the agent believes about each cell: normalised best Q-value (0..1)."""
+        vals = {}
+        for (r, c), q in snap.items():
+            if (r, c) not in self.walls:
+                vals[(r, c)] = max(q)
+        if not vals:
+            return {}
+        lo, hi = min(vals.values()), max(vals.values())
+        if hi - lo < 1e-9:
+            return {k: 0.0 for k in vals}
+        return {k: (v - lo) / (hi - lo) for k, v in vals.items()}
+
+    def progress(self):
+        return self.maxc
+
     def reset(self, rng):
         self.rng = rng
+        self.maxc = 0
         self.r, self.c = self.start
         self.steps, self.reached = 0, False
         self.seen = {self.start}
@@ -476,6 +692,7 @@ class Maze(Game):
             reward -= 0.1
         self.steps += 1
         self.score = self.steps
+        self.maxc = max(self.maxc, self.c)
         if (self.r, self.c) not in self.seen:
             self.seen.add((self.r, self.c))
             self.removed.append(("t_%d_%d" % (self.r, self.c), 1))
@@ -510,18 +727,44 @@ class Maze(Game):
         return ['<circle cx="5" cy="5" r="4.2" fill="#34d399"/><circle cx="5" cy="5" r="1.6" fill="%s"/>' % th["ball"]]
 
 
-GAMES = [PacMan, Breakout, Invaders, Maze]
+GAMES = [PacMan, Snake, Breakout, Invaders, Maze]
 
 
 # --------------------------------------------------------------- training --
-def train(env, rng):
-    n = env.episodes
-    ckpts = sorted({0, max(1, int(0.04 * n)), int(0.2 * n), n})
+def evaluate(env, snap, rng, eps, m=6):
+    """Mean rank of m greedy episodes, played exactly like the clips shown in the SVG."""
+    pol = make_policy(snap, env.n_actions, rng, eps)
+    total = 0
+    for _ in range(m):
+        env.reset(rng)
+        s = env.state()
+        for _ in range(MAX_PLAY - 1):
+            _, done = env.step(pol(s))
+            env.removed.clear()
+            if done:
+                break
+            s = env.state()
+        total += env.rank()
+    return total / m
+
+
+def train(env, rng, scale=1.0):
+    """Q-learning with checkpoints. The final stage is the best checkpoint seen late in
+    training (standard policy checkpointing), found by playing 6 greedy test games."""
+    n = max(20, int(env.episodes * scale))
+    early = sorted({0, max(1, int(0.04 * n)), int(0.2 * n)})
+    check_from, every = int(0.3 * n), max(1, n // 16)
     agent = QAgent(env.n_actions, env.alpha, env.gamma)
-    snaps, scores = {}, []
+    snaps, scores, best = {}, [], (-1e9, n)
     for ep in range(n + 1):
-        if ep in ckpts:
+        if ep in early:
             snaps[ep] = agent.snapshot()
+        if ep >= check_from and (ep % every == 0 or ep == n):
+            snap = agent.snapshot()
+            val = evaluate(env, snap, random.Random(777 + ep), env.eval_eps)
+            if val >= best[0]:
+                best = (val, ep)
+                snaps["best"] = snap
         if ep == n:
             break
         eps = env.eps_start + (env.eps_end - env.eps_start) * ep / max(1, n - 1)
@@ -538,44 +781,50 @@ def train(env, rng):
             if done:
                 break
         scores.append(env.rank())
-    return ckpts, snaps, scores
+    snaps[best[1]] = snaps.pop("best")
+    return n, early + [best[1]], snaps, scores
 
 
 def rollout(env, snap, rng, eps):
     pol = make_policy(snap, env.n_actions, rng, eps)
     env.reset(rng)
     frames, events = [env.positions()], [(0, i, v) for i, v in env.removed]
+    prog = [env.progress()]
     env.removed.clear()
     s = env.state()
     for _ in range(MAX_PLAY - 1):
         r, done = env.step(pol(s))
         frames.append(env.positions())
+        prog.append(env.progress())
         events += [(len(frames) - 1, i, v) for i, v in env.removed]
         env.removed.clear()
         if done:
             break
         s = env.state()
-    return dict(frames=frames, events=events, score=env.score, rank=env.rank(), result=env.result())
+    return dict(frames=frames, events=events, prog=prog, score=env.score, rank=env.rank(),
+                result=env.result())
 
 
-def build_clips(env, rng):
+def build_clips(env, rng, scale=1.0):
     t0 = time.time()
-    ckpts, snaps, scores = train(env, rng)
+    n, ckpts, snaps, scores = train(env, rng, scale)
     clips = []
     for j, e in enumerate(ckpts):
-        eps, tries = (1.0, 1) if e == 0 else (0.03, 3)
+        tries = 1 if e == 0 else (5 if j == len(ckpts) - 1 else 3)
+        eps = 1.0 if e == 0 else env.eval_eps
         best = None
         for _ in range(tries):
             c = rollout(env, snaps[e], rng, eps)
             if best is None or c["rank"] > best["rank"] or (
                     c["rank"] == best["rank"] and len(c["frames"]) < len(best["frames"])):
                 best = c
-        best["episodes"], best["stage"] = e, j + 1
-        best["best_of"] = tries
+        best["episodes"], best["stage"], best["best_of"] = e, j + 1, tries
+        if hasattr(env, "heat"):
+            best["heat"] = env.heat(snaps[e])
         clips.append(best)
     print("  %-9s trained %d episodes in %.1fs | stage scores: %s" % (
-        env.key, env.episodes, time.time() - t0, [c["score"] for c in clips]))
-    return clips, scores
+        env.key, n, time.time() - t0, [c["score"] for c in clips]))
+    return clips, scores, n
 
 
 # -------------------------------------------------------------- rendering --
@@ -584,51 +833,67 @@ def fmt(x):
     return s if s else "0"
 
 
-def anim_vis(intervals, F):
+def compress(series):
+    out, prev, first = [], None, True
+    for i, v in enumerate(series):
+        if first or v != prev:
+            out.append((i, v))
+            prev, first = v, False
+    return out
+
+
+def discrete_pts(attr, pts, F, dur, transform=False):
+    """Discrete SMIL animation from (frame, value) change points; '' if nothing changes."""
+    if len(pts) < 2:
+        return ""
+    vals = ";".join(str(v) for _, v in pts)
+    keys = ";".join("%.5f" % (i / F) for i, _ in pts)
+    tag, extra = ("animateTransform", ' type="translate"') if transform else ("animate", "")
+    return ('<%s attributeName="%s"%s calcMode="discrete" values="%s" keyTimes="%s" dur="%s" '
+            'repeatCount="indefinite"/>' % (tag, attr, extra, vals, keys, dur))
+
+
+def anim_vis(intervals, F, dur):
     """opacity animation: visible during the given [start, end) frame intervals."""
-    kt, vals = [], []
-    first = intervals[0][0] == 0
-    kt.append(0)
-    vals.append(1 if first else 0)
+    pts = [(0, 1 if intervals[0][0] == 0 else 0)]
     for s, e in intervals:
         if s != 0:
-            kt.append(s)
-            vals.append(1)
+            pts.append((s, 1))
         if e < F:
-            kt.append(e)
-            vals.append(0)
-    keys = ";".join("%.5f" % (k / F) for k in kt)
-    return ('<animate attributeName="opacity" calcMode="discrete" values="%s" keyTimes="%s" '
-            'dur="%.2fs" repeatCount="indefinite"/>' % (";".join(map(str, vals)), keys, F * DT))
+            pts.append((e, 0))
+    return discrete_pts("opacity", pts, F, dur)
 
 
-def curve_points(scores, w=130, h=16, bins=40):
+def curve_series(scores, bins=40):
     if not scores:
-        return ""
+        return [0.0]
     size = max(1, len(scores) // bins)
-    avg = [sum(scores[i:i + size]) / len(scores[i:i + size]) for i in range(0, len(scores), size)]
-    hi = max(avg) or 1
-    n = max(1, len(avg) - 1)
-    return " ".join("%s,%s" % (fmt(i * w / n), fmt(h - (v / hi) * h)) for i, v in enumerate(avg))
+    return [sum(scores[i:i + size]) / len(scores[i:i + size]) for i in range(0, len(scores), size)]
 
 
-def render(env, clips, scores, th, dark):
+def render(env, clips, scores, n_eps, th):
     W = env.W
     width = MX * 2 + W * PITCH - 2
-    height = TOP + env.rows * PITCH + BOT
+    arena_h = env.rows * PITCH
+    height = TOP + arena_h + BOT
     # ---- global timeline
-    timeline, starts, F = [], [], 0
-    n_movers = len(clips[0]["frames"][0])
-    tracks = [[] for _ in range(n_movers)]
+    starts, F = [], 0
+    nm = len(clips[0]["frames"][0])
+    xy = [[] for _ in range(nm)]
+    vis = [[] for _ in range(nm)]
+    prog = []
     for c in clips:
         starts.append(F)
         seq = [c["frames"][0]] * INTER + c["frames"] + [c["frames"][-1]] * HOLD
-        for fr in seq:
-            for m in range(n_movers):
-                tracks[m].append(fr[m])
+        pseq = [0] * INTER + c["prog"] + [c["prog"][-1]] * HOLD
+        for fr, p in zip(seq, pseq):
+            for m in range(nm):
+                t = fr[m]
+                xy[m].append((round(t[0] * PITCH, 1), round(t[1] * PITCH, 1)))
+                vis[m].append(t[2] if len(t) > 2 else 1)
+            prog.append(p)
         c["play_len"] = len(c["frames"]) + HOLD
         F += len(seq)
-    kt_all = ";".join("%.5f" % (i / F) for i in range(F))
     dur = "%.2fs" % (F * DT)
 
     # ---- cell events: id -> [(frame, opacity)]
@@ -645,66 +910,90 @@ def render(env, clips, scores, th, dark):
     def anim_for(i):
         if i not in ev:
             return ""
-        ks = sorted({f: v for f, v in ev[i]}.items())
-        keys = ";".join("%.5f" % (f / F) for f, _ in ks)
-        vals = ";".join(str(v) for _, v in ks)
-        return ('<animate attributeName="opacity" calcMode="discrete" values="%s" keyTimes="%s" '
-                'dur="%s" repeatCount="indefinite"/>' % (vals, keys, dur))
+        return discrete_pts("opacity", sorted({f: v for f, v in ev[i]}.items()), F, dur)
 
-    out = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" width="%d" height="%d" '
-           'font-family="Menlo,Consolas,\'DejaVu Sans Mono\',monospace" role="img" '
-           'aria-label="AI agent learning to play %s on my GitHub contribution graph">' % (
-               width, height, width, height, env.title.title())]
-    out.append("<title>%s - AI agent learning on my contribution graph</title>" % env.title)
-    out.append('<text x="%d" y="18" font-size="11" font-weight="bold" fill="%s" letter-spacing="1">'
-               'AI ARCADE | %s</text>' % (MX, th["accent"], env.title))
-    out.append('<text x="%d" y="18" font-size="9" fill="%s" text-anchor="end">'
-               'Q-LEARNING | RETRAINED FROM SCRATCH ON EVERY RUN</text>' % (width - MX, th["muted"]))
-    out.append('<g transform="translate(%d,%d)">' % (MX, TOP))
-    # empty grid
+    o = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" width="%d" height="%d" '
+         'font-family="Menlo,Consolas,\'DejaVu Sans Mono\',monospace" role="img" '
+         'aria-label="AI agent learning to play %s on my GitHub contribution graph">' % (
+             width, height, width, height, env.title.title())]
+    o.append("<title>%s - AI agent learning on my contribution graph</title>" % env.title)
+    o.append('<text x="%d" y="18" font-size="11" font-weight="bold" fill="%s" letter-spacing="1">'
+             'AI ARCADE | %s</text>' % (MX, th["accent"], env.title))
+    o.append('<text x="%d" y="18" font-size="9" fill="%s" text-anchor="end">'
+             'Q-LEARNING | RETRAINED FROM SCRATCH ON EVERY RUN</text>' % (width - MX, th["muted"]))
+    o.append('<g transform="translate(%d,%d)">' % (MX, TOP))
     for r in range(7):
         for c in range(W):
-            out.append('<rect x="%d" y="%d" width="%d" height="%d" rx="2" fill="%s"/>' % (
+            o.append('<rect x="%d" y="%d" width="%d" height="%d" rx="2" fill="%s"/>' % (
                 c * PITCH, r * PITCH, CELL, CELL, th["empty"]))
-    # solid (animated) cells
+    # "brain view": what the agent believes about each cell (maze only)
+    if clips[0].get("heat") is not None:
+        cells = set()
+        for c in clips:
+            cells |= set(c["heat"])
+        for (r, c) in sorted(cells):
+            pts = [(cs, round(0.62 * cl["heat"].get((r, c), 0), 2)) for cl, cs in zip(clips, starts)]
+            if max(v for _, v in pts) <= 0:
+                continue
+            o.append('<rect x="%d" y="%d" width="%d" height="%d" rx="2" fill="#34d399" opacity="%s">%s</rect>' % (
+                c * PITCH, r * PITCH, CELL, CELL, pts[0][1], discrete_pts("opacity", pts, F, dur)))
     for r, c, lvl in env.solid_cells():
         cid = "c_%d_%d" % (r, c)
-        col = th["lv"][lvl - 1]
         base = '<rect id="%s" x="%d" y="%d" width="%d" height="%d" rx="2" fill="%s"' % (
-            cid, c * PITCH, r * PITCH, CELL, CELL, col)
+            cid, c * PITCH, r * PITCH, CELL, CELL, th["lv"][lvl - 1])
         a = anim_for(cid)
-        out.append(base + ("/>" if not a else ">" + a + "</rect>"))
-    out.append(env.extra_static(th, anim_for))
-    # movers
+        o.append(base + ("/>" if not a else ">" + a + "</rect>"))
+    o.append(env.extra_static(th, anim_for))
     for m, svg in enumerate(env.mover_svgs(th)):
-        pts = tracks[m]
-        vals = ";".join("%s,%s" % (fmt(x * PITCH), fmt(y * PITCH)) for x, y in pts)
-        out.append('<g transform="translate(%s,%s)">%s<animateTransform attributeName="transform" type="translate" '
-                   'calcMode="discrete" values="%s" keyTimes="%s" dur="%s" repeatCount="indefinite"/></g>' % (
-                       fmt(pts[0][0] * PITCH), fmt(pts[0][1] * PITCH), svg, vals, kt_all, dur))
-    out.append("</g>")
-    # status texts
+        a = discrete_pts("transform", [(i, "%s,%s" % (fmt(x), fmt(y))) for i, (x, y) in compress(xy[m])],
+                         F, dur, transform=True)
+        v = discrete_pts("opacity", compress(vis[m]), F, dur)
+        o.append('<g transform="translate(%s,%s)" opacity="%s">%s%s%s</g>' % (
+            fmt(xy[m][0][0]), fmt(xy[m][0][1]), vis[m][0], svg, a, v))
+    o.append("</g>")
+    # ---- live score bar
+    bar_w = width - 2 * MX
+    bar_y = TOP + arena_h + 1
+    ref = env.progress_ref or max(max(c["prog"]) for c in clips) or 1
+    widths = [round(min(1.0, p / ref) * bar_w, 1) for p in prog]
+    o.append('<rect x="%d" y="%d" width="%d" height="3" rx="1.5" fill="%s"/>' % (MX, bar_y, bar_w, th["empty"]))
+    o.append('<rect x="%d" y="%d" width="%s" height="3" rx="1.5" fill="%s">%s</rect>' % (
+        MX, bar_y, fmt(widths[0]), th["accent"], discrete_pts("width", compress(widths), F, dur)))
+    # ---- status texts
     sy = height - 11
     for c, cs in zip(clips, starts):
-        t_train = "TRAINING... %s EPISODES SO FAR" % format(c["episodes"], ",")
         if c["episodes"] == 0:
             t_train = "ATTEMPT 1 | UNTRAINED - PLAYING RANDOMLY"
-        out.append('<text x="%d" y="%d" font-size="10" fill="%s" opacity="0">%s%s</text>' % (
-            MX, sy, th["muted"], t_train, anim_vis([(cs, cs + INTER)], F)))
+        else:
+            t_train = "TRAINING... %s EPISODES SO FAR" % format(c["episodes"], ",")
+        o.append('<text x="%d" y="%d" font-size="10" fill="%s" opacity="0">%s%s</text>' % (
+            MX, sy, th["muted"], t_train, anim_vis([(cs, cs + INTER)], F, dur)))
         t_play = "ATTEMPT %d/%d | %s EPISODES | %s" % (c["stage"], len(clips), format(c["episodes"], ","), c["result"])
         if c["best_of"] > 1:
             t_play += " | BEST OF %d" % c["best_of"]
-        out.append('<text x="%d" y="%d" font-size="10" fill="%s" opacity="0">%s%s</text>' % (
-            MX, sy, th["text"], t_play, anim_vis([(cs + INTER, cs + INTER + c["play_len"])], F)))
-    # learning curve
+        o.append('<text x="%d" y="%d" font-size="10" fill="%s" opacity="0">%s%s</text>' % (
+            MX, sy, th["text"], t_play, anim_vis([(cs + INTER, cs + INTER + c["play_len"])], F, dur)))
+    # ---- learning curve with a marker that follows the attempts
     cw, ch = 130, 16
     cx, cy = width - MX - cw, height - 9 - ch
-    out.append('<text x="%d" y="%d" font-size="8" fill="%s" text-anchor="end">LEARNING CURVE</text>' % (
+    avg = curve_series(scores)
+    hi = max(avg) or 1
+    nb = max(1, len(avg) - 1)
+    pts = " ".join("%s,%s" % (fmt(i * cw / nb), fmt(ch - (v / hi) * ch)) for i, v in enumerate(avg))
+    mk = []
+    for c in clips:
+        idx = min(len(avg) - 1, int(round(c["episodes"] / max(1, n_eps) * nb)))
+        mk.append((fmt(idx * cw / nb), fmt(ch - (avg[idx] / hi) * ch)))
+    mx_pts = [(cs, m[0]) for cs, m in zip(starts, mk)]
+    my_pts = [(cs, m[1]) for cs, m in zip(starts, mk)]
+    o.append('<text x="%d" y="%d" font-size="8" fill="%s" text-anchor="end">LEARNING CURVE</text>' % (
         cx - 6, height - 11, th["muted"]))
-    out.append('<polyline transform="translate(%d,%d)" points="%s" fill="none" stroke="%s" stroke-width="1.6" '
-               'stroke-linejoin="round"/>' % (cx, cy, curve_points(scores, cw, ch), th["accent"]))
-    out.append("</svg>")
-    return "\n".join(out)
+    o.append('<g transform="translate(%d,%d)"><polyline points="%s" fill="none" stroke="%s" stroke-width="1.6" '
+             'stroke-linejoin="round"/><circle cx="%s" cy="%s" r="2.8" fill="#FFD21E">%s%s</circle></g>' % (
+                 cx, cy, pts, th["accent"], mk[0][0], mk[0][1],
+                 discrete_pts("cx", mx_pts, F, dur), discrete_pts("cy", my_pts, F, dur)))
+    o.append("</svg>")
+    return "\n".join(o)
 
 
 # ------------------------------------------------------------------- main --
@@ -714,6 +1003,7 @@ def main():
     ap.add_argument("--out", default="ai_dist")
     ap.add_argument("--demo", action="store_true", help="use a synthetic contribution graph")
     ap.add_argument("--seed", type=int, default=int(time.time() // 3600))
+    ap.add_argument("--scale", type=float, default=1.0, help="multiply training episodes (testing)")
     ap.add_argument("--games", default=",".join(g.key for g in GAMES))
     args = ap.parse_args()
 
@@ -735,13 +1025,15 @@ def main():
         try:
             rng = random.Random(args.seed * 31 + gi)
             env = cls(levels)
-            clips, scores = build_clips(env, rng)
-            for th, dark, suffix in ((LIGHT, False, ""), (DARK, True, "-dark")):
-                svg = render(env, clips, scores, th, dark)
+            clips, scores, n_eps = build_clips(env, rng, args.scale)
+            for th, suffix in ((LIGHT, ""), (DARK, "-dark")):
+                svg = render(env, clips, scores, n_eps, th)
                 with open(os.path.join(args.out, "ai-%s%s.svg" % (cls.key, suffix)), "w", encoding="utf-8") as f:
                     f.write(svg)
             made += 1
         except Exception as exc:  # keep going: one broken game must not block the others
+            import traceback
+            traceback.print_exc()
             print("  %s failed: %r" % (cls.key, exc), file=sys.stderr)
     if not made:
         sys.exit("No games were generated")
