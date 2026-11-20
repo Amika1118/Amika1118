@@ -34,7 +34,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 .github/scripts/ai_arcade.py --user "${{ github.repository_owner }}" --out ai_dist
 
-      - name: Pick a random game
+      - name: Prepare public folder with all games and viewer
         run: |
           classic=(pacman breakout galaga puzzle-bobble bomberman minesweeper)
 
@@ -45,6 +45,20 @@ jobs:
           done
 
           mkdir -p public
+
+          # Copy all AI games (both light and dark variants)
+          for game in "${ai[@]}"; do
+            cp "ai_dist/${game}.svg" "public/${game}.svg"
+            cp "ai_dist/${game}-dark.svg" "public/${game}-dark.svg"
+          done
+
+          # Copy all classic games (both light and dark variants)
+          for game in "${classic[@]}"; do
+            cp "dist/${game}-contribution-graph.svg" "public/${game}.svg"
+            cp "dist/${game}-contribution-graph-dark.svg" "public/${game}-dark.svg"
+          done
+
+          # Also pick a random game as the default arcade.svg for backwards compatibility
           # 70% of the time show an AI game (when they were generated)
           if [ ${#ai[@]} -gt 0 ] && [ $((RANDOM % 10)) -lt 7 ]; then
             pick=${ai[RANDOM % ${#ai[@]}]}
@@ -57,6 +71,10 @@ jobs:
             cp "dist/${pick}-contribution-graph.svg" public/arcade.svg
             cp "dist/${pick}-contribution-graph-dark.svg" public/arcade-dark.svg
           fi
+
+          # Copy the viewer
+          cp public/index.html public/index.html
+
           ls -la public
 
       - name: Push to the output branch

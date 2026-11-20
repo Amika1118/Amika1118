@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Arcade - GitHub Contribution Graph Games</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Menlo', 'Consolas', 'DejaVu Sans Mono', monospace;
+            background: #09090F;
+            color: #E4E4E7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #A78BFA, #F472B6, #34D399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: #71717A;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        .game-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-arrows {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .nav-btn {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1A1A2E 0%, #2D2D44 100%);
+            border: 1px solid #3F3F46;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: #A78BFA;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #2D2D44 0%, #3F3F46 100%);
+            border-color: #A78BFA;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+        }
+
+        .nav-btn:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .game-display {
+            flex: 1;
+            width: 100%;
+            max-width: 900px;
+            background: linear-gradient(180deg, #11111A 0%, #09090F 100%);
+            border: 1px solid #27272A;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 
+                0 0 0 1px rgba(255,255,255,0.03) inset,
+                0 20px 40px rgba(0,0,0,0.4),
+                0 0 60px rgba(167, 139, 250, 0.05);
+        }
+
+        .game-display svg {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .game-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            max-width: 800px;
+            padding: 16px 20px;
+            background: linear-gradient(180deg, #18181F 0%, #11111A 100%);
+            border: 1px solid #27272A;
+            border-radius: 10px;
+        }
+
+        .game-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #F4F4F5;
+            letter-spacing: 0.5px;
+        }
+
+        .game-instructions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.75rem;
+            color: #A1A1AA;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 760px;
+            padding: 8px 0;
+        }
+
+        .instruction-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            background: rgba(167, 139, 250, 0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(167, 139, 250, 0.2);
+        }
+
+        .instruction-key {
+            font-family: 'Menlo', 'Consolas', monospace;
+            font-size: 0.7rem;
+            background: rgba(167, 139, 250, 0.2);
+            color: #A78BFA;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            min-width: 28px;
+            text-align: center;
+        }
+
+        .game-counter {
+            font-size: 0.8rem;
+            color: #71717A;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .game-counter span {
+            color: #A78BFA;
+            font-weight: 600;
+        }
+
+        .keyboard-hint {
+            font-size: 0.7rem;
+            color: #52525B;
+            text-align: center;
+            margin-top: 8px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 6px;
+            border: 1px solid #27272A;
+        }
+
+        .keyboard-hint kbd {
+            background: #27272A;
+            border: 1px solid #3F3F46;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-family: inherit;
+            font-size: 0.7rem;
+            color: #A78BFA;
+            margin: 0 2px;
+        }
+
+        footer {
+            margin-top: 32px;
+            padding: 20px;
+            text-align: center;
+            color: #52525B;
+            font-size: 0.75rem;
+            border-top: 1px solid #27272A;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 60px 20px;
+            color: #71717A;
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid #27272A;
+            border-top-color: #A78BFA;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #F87171;
+        }
+
+        .error button {
+            background: linear-gradient(135deg, #A78BFA 0%, #F472B6 100%);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            color: #09090F;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .error button:hover {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 600px) {
+            .nav-btn {
+                width: 36px;
+                height: 36px;
+            }
+            .nav-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+            .game-instructions {
+                gap: 8px;
+            }
+            .instruction-item {
+                padding: 3px 8px;
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background: #F4F4F5;
+                color: #18181F;
+            }
+            .game-display {
+                background: #FFFFFF;
+                border-color: #E4E4E7;
+                box-shadow: 
+                    0 0 0 1px rgba(0,0,0,0.03) inset,
+                    0 20px 40px rgba(0,0,0,0.1),
+                    0 0 60px rgba(167, 139, 250, 0.05);
+            }
+            .game-info {
+                background: #FAFAFA;
+                border-color: #E4E4E7;
+            }
+            .instruction-item {
+                background: rgba(167, 139, 250, 0.15);
+                border-color: rgba(167, 139, 250, 0.3);
+            }
+            .nav-btn {
+                background: #FFFFFF;
+                border-color: #E4E4E7;
+                color: #A78BFA;
+            }
+            .nav-btn:hover:not(:disabled) {
+                background: #F4F4F5;
+                border-color: #A78BFA;
+            }
+            .keyboard-hint {
+                background: #F4F4F5;
+                border-color: #E4E4E7;
+            }
+            .keyboard-hint kbd {
+                background: #E4E4E7;
+                border-color: #D4D4D8;
+            }
+            footer {
+                border-color: #E4E4E7;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI ARCADE</h1>
+            <p class="subtitle">AI agents learning on my GitHub contribution graph</p>
+        </header>
+
+        <div class="game-wrapper" id="gameWrapper">
+            <div class="nav-arrows">
+                <button class="nav-btn" id="prevBtn" aria-label="Previous game" disabled>
+                    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <div style="flex: 1;"></div>
+                <button class="nav-btn" id="nextBtn" aria-label="Next game" disabled>
+                    <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+                </button>
+            </div>
+
+            <div class="game-display" id="gameDisplay">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <span>Loading games...</span>
+                </div>
+            </div>
+
+            <div class="game-info" id="gameInfo" style="display: none;">
+                <div class="game-title" id="gameTitle"></div>
+                <div class="game-instructions" id="gameInstructions"></div>
+                <div class="game-counter" id="gameCounter"></div>
+            </div>
+        </div>
+
+        <div class="keyboard-hint" id="keyboardHint" style="display: none;">
+            Navigate with <kbd>←</kbd> <kbd>→</kbd> arrow keys
+        </div>
+
+        <footer>
+            <p>Generated from GitHub contribution data • Double Q-Learning + 3-step returns • Retrained on every run</p>
+        </footer>
+    </div>
+
+    <script>
+        // Game configurations with instructions
+        const GAME_CONFIGS = {
+            'pacman': {
+                title: 'PAC-MAN',
+                instructions: [
+                    { key: '↑', desc: 'Up' },
+                    { key: '↓', desc: 'Down' },
+                    { key: '←', desc: 'Left' },
+                    { key: '→', desc: 'Right' },
+                    { key: ' ', desc: 'Pause' }
+                ]
+            },
+            'snake': {
+                title: 'SNAKE',
+                instructions: [
+                    { key: '↑', desc: 'Up' },
+                    { key: '↓', desc: 'Down' },
+                    { key: '←', desc: 'Left' },
+                    { key: '→', desc: 'Right' },
+                    { key: ' ', desc: 'Pause' }
+                ]
+            },
+            'breakout': {
+                title: 'BREAKOUT',
+                instructions: [
+                    { key: '←', desc: 'Left' },
+                    { key: '→', desc: 'Right' },
+                    { key: ' ', desc: 'Launch / Pause' }
+                ]
+            },
+            'invaders': {
+                title: 'SPACE INVADERS',
+                instructions: [
+                    { key: '←', desc: 'Left' },
+                    { key: '→', desc: 'Right' },
+                    { key: ' ', desc: 'Fire / Pause' }
+                ]
+            },
+            'maze': {
+                title: 'MAZE',
+                instructions: [
+                    { key: '↑', desc: 'Up' },
+                    { key: '↓', desc: 'Down' },
+                    { key: '←', desc: 'Left' },
+                    { key: '→', desc: 'Right' },
+                    { key: ' ', desc: 'Pause' }
+                ]
+            },
+            'pong': {
+                title: 'PONG',
+                instructions: [
+                    { key: '↑', desc: 'Up' },
+                    { key: '↓', desc: 'Down' },
+                    { key: ' ', desc: 'Pause' }
+                ]
+            },
+            'flappy': {
+                title: 'FLAPPY',
+                instructions: [
+                    { key: ' ', desc: 'Flap / Pause' },
+                    { key: '↑', desc: 'Flap' }
+                ]
+            },
+            'frogger': {
+                title: 'FROGGER',
+                instructions: [
+                    { key: '↑', desc: 'Up' },
+                    { key: '↓', desc: 'Down' },
+                    { key: '←', desc: 'Left' },
+                    { key: '→', desc: 'Right' },
+                    { key: ' ', desc: 'Pause' }
+                ]
+            },
+            'doodle': {
+                title: 'DOODLE JUMP',
+                instructions: [
+                    { key: '←', desc: 'Left' },
+                    { key: '→', desc: 'Right' },
+                    { key: ' ', desc: 'Pause' }
+                ]
+            }
+        };
+
+        // Classic game configs (from the classic arcade action)
+        const CLASSIC_GAMES = [
+            'pacman', 'breakout', 'galaga', 'puzzle-bobble', 'bomberman', 'minesweeper'
+        ];
+
+        let availableGames = [];
+        let currentIndex = 0;
+        let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        const gameDisplay = document.getElementById('gameDisplay');
+        const gameInfo = document.getElementById('gameInfo');
+        const gameTitle = document.getElementById('gameTitle');
+        const gameInstructions = document.getElementById('gameInstructions');
+        const gameCounter = document.getElementById('gameCounter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const keyboardHint = document.getElementById('keyboardHint');
+        const gameWrapper = document.getElementById('gameWrapper');
+
+        async function discoverGames() {
+            const games = new Set();
+            
+            // Check for AI-generated games in ai_dist folder
+            try {
+                const response = await fetch('ai_dist/');
+                if (response.ok) {
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(text, 'text/html');
+                    const links = doc.querySelectorAll('a[href]');
+                    links.forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href && href.startsWith('ai-') && href.endsWith('.svg') && !href.includes('-dark')) {
+                            const gameName = href.replace('ai-', '').replace('.svg', '');
+                            games.add(gameName);
+                        }
+                    });
+                }
+            } catch (e) {
+                console.log('Could not fetch ai_dist directory listing');
+            }
+
+            // Also check public folder for classic games
+            try {
+                const response = await fetch('dist/');
+                if (response.ok) {
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(text, 'text/html');
+                    const links = doc.querySelectorAll('a[href]');
+                    links.forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href && href.endsWith('-contribution-graph.svg') && !href.includes('-dark')) {
+                            const gameName = href.replace('-contribution-graph.svg', '');
+                            games.add(gameName);
+                        }
+                    });
+                }
+            } catch (e) {
+                console.log('Could not fetch dist directory listing');
+            }
+
+            // Fallback: try to load known games
+            if (games.size === 0) {
+                // Try AI games first
+                for (const game of Object.keys(GAME_CONFIGS)) {
+                    try {
+                        const resp = await fetch(`ai_dist/ai-${game}.svg`, { method: 'HEAD' });
+                        if (resp.ok) games.add(game);
+                    } catch {}
+                }
+                // Try classic games
+                for (const game of CLASSIC_GAMES) {
+                    try {
+                        const resp = await fetch(`dist/${game}-contribution-graph.svg`, { method: 'HEAD' });
+                        if (resp.ok) games.add(game);
+                    } catch {}
+                }
+            }
+
+            availableGames = Array.from(games).sort();
+            console.log('Available games:', availableGames);
+
+            if (availableGames.length === 0) {
+                showError();
+                return;
+            }
+
+            // Start with a random game
+            currentIndex = Math.floor(Math.random() * availableGames.length);
+            loadGame(currentIndex);
+            updateNavigation();
+            gameInfo.style.display = 'flex';
+            keyboardHint.style.display = 'block';
+        }
+
+        function loadGame(index) {
+            if (index < 0 || index >= availableGames.length) return;
+
+            const gameName = availableGames[index];
+            const isClassic = CLASSIC_GAMES.includes(gameName);
+            const config = GAME_CONFIGS[gameName] || { title: gameName.toUpperCase(), instructions: [] };
+            const suffix = isClassic ? '-contribution-graph' : '';
+            const prefix = isClassic ? 'dist/' : 'ai_dist/ai-';
+            const svgPath = `${prefix}${gameName}${suffix}.svg`;
+            const darkSvgPath = `${prefix}${gameName}${suffix}-dark.svg`;
+
+            // Determine which SVG to load based on color scheme
+            const svgToLoad = isDarkMode ? darkSvgPath : svgPath;
+
+            gameDisplay.innerHTML = '<div class="loading"><div class="spinner"></div><span>Loading ' + config.title + '...</span></div>';
+
+            fetch(svgToLoad)
+                .then(response => {
+                    if (!response.ok) {
+                        // Try fallback (light if dark failed, or vice versa)
+                        return fetch(svgToLoad === svgPath ? darkSvgPath : svgPath);
+                    }
+                    return response;
+                })
+                .then(response => response.text())
+                .then(svgText => {
+                    gameDisplay.innerHTML = svgText;
+                    // Make SVG responsive
+                    const svg = gameDisplay.querySelector('svg');
+                    if (svg) {
+                        svg.removeAttribute('width');
+                        svg.removeAttribute('height');
+                        svg.style.width = '100%';
+                        svg.style.maxWidth = '100%';
+                        svg.style.height = 'auto';
+                    }
+                })
+                .catch(err => {
+                    console.error('Failed to load SVG:', err);
+                    gameDisplay.innerHTML = `
+                        <div class="error">
+                            <span>Failed to load ${config.title}</span>
+                            <button onclick="loadGame(${index})">Retry</button>
+                        </div>
+                    `;
+                });
+
+            // Update game info
+            gameTitle.textContent = config.title;
+            renderInstructions(config.instructions);
+            gameCounter.innerHTML = `<span>${index + 1}</span> / ${availableGames.length}`;
+        }
+
+        function renderInstructions(instructions) {
+            if (!instructions || instructions.length === 0) {
+                gameInstructions.innerHTML = '<span style="color: #71717A;">No instructions available</span>';
+                return;
+            }
+
+            gameInstructions.innerHTML = instructions.map(inst => `
+                <span class="instruction-item">
+                    <span class="instruction-key">${inst.key}</span>
+                    <span>${inst.desc}</span>
+                </span>
+            `).join('');
+        }
+
+        function updateNavigation() {
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === availableGames.length - 1;
+        }
+
+        function showError() {
+            gameDisplay.innerHTML = `
+                <div class="error">
+                    <span>No games found</span>
+                    <p style="font-size: 0.8rem; color: #71717A; max-width: 300px;">
+                        Run the GitHub Action to generate arcade games, or check that the <code>ai_dist</code> or <code>dist</code> folders exist.
+                    </p>
+                </div>
+            `;
+            prevBtn.disabled = true;
+            nextBtn.disabled = true;
+        }
+
+        function navigate(direction) {
+            const newIndex = currentIndex + direction;
+            if (newIndex >= 0 && newIndex < availableGames.length) {
+                currentIndex = newIndex;
+                loadGame(currentIndex);
+                updateNavigation();
+            }
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', () => navigate(-1));
+        nextBtn.addEventListener('click', () => navigate(1));
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
+        });
+
+        // Listen for color scheme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            isDarkMode = e.matches;
+            loadGame(currentIndex);
+        });
+
+        // Initialize
+        discoverGames();
+    </script>
+</body>
+</html>

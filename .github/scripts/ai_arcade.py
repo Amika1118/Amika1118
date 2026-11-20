@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """AI Arcade - tabular Q-learning agents that train on a GitHub contribution graph.
 
-For every game the script trains an agent from scratch, snapshots its policy at
-several points of training and renders one animated SVG that plays those stages
-back to back (untrained -> learning -> trained). Pure standard library.
+Each agent uses Double Q-learning with n-step returns and trains from scratch on
+every run, snapshotted at several checkpoints so the SVG shows the progression
+untrained -> learning -> trained. Pure standard library.
 
-    python3 ai_arcade.py --user Amika1118 --out ai_dist     # needs GITHUB_TOKEN
-    python3 ai_arcade.py --demo --out ai_dist               # synthetic graph, no network
+    python3 ai_arcade.py --user USER --out ai_dist     # needs GITHUB_TOKEN
+    python3 ai_arcade.py --demo --out ai_dist          # synthetic graph, no network
 
-Outputs ai-<game>.svg (light) and ai-<game>-dark.svg (dark) per game.
+Outputs ai-<game>.svg and ai-<game>-dark.svg per game.
 """
 import argparse
 import json
@@ -20,11 +20,11 @@ import urllib.request
 from collections import deque
 
 # ---------------------------------------------------------------- layout --
-CELL, PITCH = 10, 12          # cell size / pitch in px
-MX, TOP, BOT = 10, 30, 30     # margins
-DT = 0.08                     # seconds per animation frame
-INTER, HOLD = 14, 12          # frames of "training..." pause / end-of-clip hold
-MAX_PLAY = 170                # max frames of gameplay shown per clip
+CELL, PITCH = 10, 12
+MX, TOP, BOT = 10, 30, 30
+DT = 0.08
+INTER, HOLD = 14, 12
+MAX_PLAY = 170
 
 DARK = dict(empty="#161b22", lv=["#3b3380", "#5145A0", "#7566d9", "#a78bfa"],
             text="#c9d1d9", muted="#8b949e", ball="#f0f6fc", accent="#8B7CFF", line="#30363d")
@@ -70,14 +70,31 @@ def to_levels(grid):
 
 # ------------------------------------------------------------- Q-learning --
 class QAgent:
-    def __init__(self, n, alpha, gamma):
-        self.q, self.n, self.alpha, self.gamma = {}, n, alpha, gamma
+    """Double Q-learning with an n-step return buffer.
+
+    Two tables Q1, Q2. With probability 0.5 each, either update Q1 using the
+    greedy action from Q1 but the bootstrap value from Q2, or the reverse.
+    This removes the maximisation bias of vanilla Q-learning.
+
+    n_step > 1 keeps a rolling buffer of recent transitions and applies the
+    n-step discounted return once the buffer is full or the episode ends.
+    """
+
+    def __init__(self, n, alpha, gamma, rng, n_step=3):
+        self.n, self.alpha, self.gamma, self.n_step = n, alpha, gamma, n_step
+        self.rng = rng
+        self.q1, self.q2 = {}, {}
+        self.buffer = deque(maxlen=n_step)
+
+    def _tables(self, s):
+        if s not in self.q1:
+            self.q1[s] = [0.0] * self.n
+            self.q2[s] = [0.0] * self.n
+        return self.q1[s], self.q2[s]
 
     def qs(self, s):
-        v = self.q.get(s)
-        if v is None:
-            v = self.q[s] = [0.0] * self.n
-        return v
+        a, b = self._tables(s)
+        return [x + y for x, y in zip(a, b)]
 
     def act(self, s, eps, rng):
         if rng.random() < eps:
@@ -87,13 +104,40 @@ class QAgent:
         best = [i for i, x in enumerate(v) if x == m]
         return best[0] if len(best) == 1 else rng.choice(best)
 
-    def learn(self, s, a, r, s2, done):
-        v = self.qs(s)
-        target = r if done else r + self.gamma * max(self.qs(s2))
-        v[a] += self.alpha * (target - v[a])
+    def _update(self, s, a, target):
+        q1, q2 = self._tables(s)
+        if self.rng.random() < 0.5:
+            q1[a] += self.alpha * (target - q1[a])
+        else:
+            q2[a] += self.alpha * (target - q2[a])
+
+    def _flush_front(self, done):
+        G = 0.0
+        for i, (_, _, ri, _) in enumerate(self.buffer):
+            G += (self.gamma ** i) * ri
+        first_s, first_a, _, _ = self.buffer[0]
+        last_s2 = self.buffer[-1][3]
+        if not done:
+            n1, n2 = self._tables(last_s2)
+            if self.rng.random() < 0.5:
+                a_star = max(range(self.n), key=lambda i: n1[i])
+                G += (self.gamma ** len(self.buffer)) * n2[a_star]
+            else:
+                a_star = max(range(self.n), key=lambda i: n2[i])
+                G += (self.gamma ** len(self.buffer)) * n1[a_star]
+        self._update(first_s, first_a, G)
+        self.buffer.popleft()
+
+    def observe(self, s, a, r, s2, done):
+        self.buffer.append((s, a, r, s2))
+        if done:
+            while self.buffer:
+                self._flush_front(done=True)
+        elif len(self.buffer) >= self.n_step:
+            self._flush_front(done=False)
 
     def snapshot(self):
-        return {k: list(v) for k, v in self.q.items()}
+        return {k: [a + b for a, b in zip(self.q1[k], self.q2[k])] for k in self.q1}
 
 
 def make_policy(snap, n, rng, eps):
@@ -124,6 +168,7 @@ class Game:
     positions() returns one (x, y[, visible]) tuple per animated sprite, in cell units.
     """
     key = title = ""
+    accent = None                  # overrides theme accent when set
     n_actions = 4
     alpha, gamma = 0.2, 0.95
     eps_start, eps_end = 1.0, 0.05
@@ -151,10 +196,9 @@ class Game:
     def progress(self):
         return self.score
 
-    progress_ref = None      # fixed reference for the live bar; None = best attempt shown
+    progress_ref = None
 
     def rank(self):
-        """Higher is better; used to pick the best rollout and to draw the learning curve."""
         return self.score
 
     def result(self):
@@ -163,7 +207,7 @@ class Game:
 
 class PacMan(Game):
     """Pac-Man with power pellets: ghosts have different personalities and can be hunted."""
-    key, title = "pacman", "PAC-MAN"
+    key, title, accent = "pacman", "PAC-MAN", "#FFD21E"
     DIRS = [(0, -1), (0, 1), (-1, 0), (1, 0)]
     episodes, cap_train = 3000, 260
     alpha, gamma = 0.15, 0.93
@@ -175,7 +219,7 @@ class PacMan(Game):
         top = max((levels[r][c] for r, c in self.food0), default=0)
         cand = sorted((c, r) for (r, c) in self.food0 if levels[r][c] == top)
         self.power0, last = [], -99
-        for c, r in cand:                       # up to 4 well-spaced power pellets
+        for c, r in cand:
             if c - last >= 10 and c > 3 and len(self.power0) < 4:
                 self.power0.append((r, c))
                 last = c
@@ -233,18 +277,17 @@ class PacMan(Game):
         else:
             fs = (0, 0, 1)
         extra = 0
-        if fr:      # hunting: direction of the nearest frightened ghost
+        if fr:
             g = min(self.ghosts, key=lambda g: abs(g[0] - px) + abs(g[1] - py))
             if abs(g[0] - px) + abs(g[1] - py) <= 8:
                 extra = (1, sign(g[0] - px), sign(g[1] - py))
         elif self.power and min(abs(g[0] - px) + abs(g[1] - py) for g in self.ghosts) <= 6:
-            p = self._nearest(self.power)       # fleeing: is a power pellet close?
+            p = self._nearest(self.power)
             if abs(p[0] - py) + abs(p[1] - px) <= 9:
                 extra = (2, sign(p[1] - px), sign(p[0] - py))
         return tuple(dang) + fs + (extra,)
 
     def _collide(self):
-        """Resolve pac vs ghosts. Returns reward delta, or None if pac was caught."""
         r = 0
         for i, g in enumerate(self.ghosts):
             if g[0] == self.px and g[1] == self.py:
@@ -263,18 +306,18 @@ class PacMan(Game):
         if self.fright > 0:
             if rng.random() > 0.45:
                 return
-            if rng.random() < 0.7:               # run away from pac
+            if rng.random() < 0.7:
                 ddx, ddy = g[0] - px, g[1] - py
             else:
                 ddx, ddy = rng.choice([-1, 0, 1]), rng.choice([-1, 0, 1])
         else:
             if rng.random() > (0.72 if i == 0 else 0.62):
                 return
-            if rng.random() < 0.2:               # a little noise
+            if rng.random() < 0.2:
                 ddx, ddy = rng.choice([-1, 0, 1]), rng.choice([-1, 0, 1])
             else:
                 tx, ty = px, py
-                if i == 1:                       # flanker: aims 3 cells ahead of pac
+                if i == 1:
                     ax, ay = self.DIRS[self.last]
                     tx, ty = clamp(px + 3 * ax, 0, self.W - 1), clamp(py + 3 * ay, 0, 6)
                 ddx, ddy = tx - g[0], ty - g[1]
@@ -316,9 +359,6 @@ class PacMan(Game):
                 (gs[0][0], gs[0][1], 1 - fr), (gs[1][0], gs[1][1], 1 - fr),
                 (gs[0][0], gs[0][1], fr), (gs[1][0], gs[1][1], fr)]
 
-    def progress(self):
-        return self.score
-
     def result(self):
         return "%s %d%s" % (self.score_word, self.score, " (CAUGHT)" if self.dead else "")
 
@@ -343,18 +383,18 @@ class PacMan(Game):
 
 class Snake(Game):
     """Classic snake that eats contribution cells (grows up to MAXLEN) and learns not to crash."""
-    key, title = "snake", "SNAKE"
-    n_actions = 3                       # 0 straight, 1 turn left, 2 turn right
+    key, title, accent = "snake", "SNAKE", "#34d399"
+    n_actions = 3
     episodes, cap_train = 3000, 250
     alpha, gamma = 0.2, 0.9
     eps_start, eps_end = 0.6, 0.02
     score_word = "EATEN"
     MAXLEN = 16
-    DIRS = [(0, -1), (1, 0), (0, 1), (-1, 0)]      # up, right, down, left
+    DIRS = [(0, -1), (1, 0), (0, 1), (-1, 0)]
 
     def reset(self, rng):
         self.rng = rng
-        self.body = [(2, 3), (1, 3), (0, 3)]       # (x, y), head first
+        self.body = [(2, 3), (1, 3), (0, 3)]
         self.dir = 1
         self.food = set(self.food0)
         self.score, self.dead = 0, False
@@ -411,7 +451,7 @@ class Snake(Game):
             reward += 1
         self._nr = self._nearest((nx, ny))
         if not eating and self._nr:
-            reward += 0.1 * (old - self._nr[0])       # shaping: head for food
+            reward += 0.1 * (old - self._nr[0])
         if not self.food:
             return reward + 5, True
         return reward, False
@@ -433,13 +473,13 @@ class Snake(Game):
 
 
 class Breakout(Game):
-    key, title = "breakout", "BREAKOUT"
+    key, title, accent = "breakout", "BREAKOUT", "#8B7CFF"
     n_actions = 3
     rows, PR = 16, 15
     episodes, cap_train = 6000, 400
     score_word = "BRICKS"
     alpha, gamma = 0.2, 0.9
-    HALF, SPEED = 3, 2          # paddle half-width (cells) and speed (cells per step)
+    HALF, SPEED = 3, 2
     eps_start, eps_end = 0.5, 0.02
 
     def reset(self, rng):
@@ -452,7 +492,6 @@ class Breakout(Game):
         self.removed = []
 
     def _target(self):
-        """Where the ball will reach the paddle row (walls reflected, bricks ignored)."""
         if self.vy < 0:
             return self.bx
         x = self.bx + self.vx * (self.PR - self.by)
@@ -496,7 +535,7 @@ class Breakout(Game):
                 done, self.lost = True, True
                 ny = self.PR
         self.bx, self.by = nx, ny
-        reward += 0.15 * (d_before - min(abs(self._target() - self.px), 10))   # shaping: close in on the landing spot
+        reward += 0.15 * (d_before - min(abs(self._target() - self.px), 10))
         if not self.bricks:
             return reward + 5, True
         return reward, done
@@ -517,7 +556,7 @@ class Breakout(Game):
 
 
 class Invaders(Game):
-    key, title = "invaders", "SPACE INVADERS"
+    key, title, accent = "invaders", "SPACE INVADERS", "#3b6cff"
     n_actions = 3
     rows, SR, BSPEED = 16, 15, 3
     episodes, cap_train = 1800, 300
@@ -574,7 +613,6 @@ class Invaders(Game):
                     reward += 1
                     self.bullet = None
                     break
-        # enemy bombs fall one row per step
         for b in self.bombs:
             b[1] += 1
         if any(b[1] == self.SR and b[0] == self.sx for b in self.bombs):
@@ -608,7 +646,7 @@ class Invaders(Game):
 
 
 class Maze(Game):
-    key, title = "maze", "MAZE RUNNER"
+    key, title, accent = "maze", "MAZE RUNNER", "#f59e0b"
     episodes, cap_train = 1600, 300
     eval_eps = 0.0
     alpha, gamma = 0.3, 0.99
@@ -653,19 +691,6 @@ class Maze(Game):
         return ["t_%d_%d" % (r, c) for r in range(7) for c in range(self.W) if (r, c) not in self.walls]
 
     progress_ref = None
-
-    def heat(self, snap):
-        """What the agent believes about each cell: normalised best Q-value (0..1)."""
-        vals = {}
-        for (r, c), q in snap.items():
-            if (r, c) not in self.walls:
-                vals[(r, c)] = max(q)
-        if not vals:
-            return {}
-        lo, hi = min(vals.values()), max(vals.values())
-        if hi - lo < 1e-9:
-            return {k: 0.0 for k in vals}
-        return {k: (v - lo) / (hi - lo) for k, v in vals.items()}
 
     def progress(self):
         return self.maxc
@@ -727,12 +752,283 @@ class Maze(Game):
         return ['<circle cx="5" cy="5" r="4.2" fill="#34d399"/><circle cx="5" cy="5" r="1.6" fill="%s"/>' % th["ball"]]
 
 
-GAMES = [PacMan, Snake, Breakout, Invaders, Maze]
+class Pong(Game):
+    """Keep the ball alive: paddle at the bottom row, ball bounces off the top wall."""
+    key, title, accent = "pong", "PONG", "#60a5fa"
+    n_actions = 3                         # left, stay, right
+    episodes, cap_train = 4000, 300
+    alpha, gamma = 0.2, 0.9
+    eps_start, eps_end = 0.6, 0.02
+    score_word = "RETURNS"
+    HALF, SPEED = 3, 2
+
+    def reset(self, rng):
+        self.rng = rng
+        self.px = self.W // 2
+        self.bx, self.by = self.px, 3
+        self.vx, self.vy = rng.choice([-1, 1]), -1
+        self.score, self.lost = 0, False
+        self.removed = []
+
+    def state(self):
+        return (clamp(self.bx - self.px, -6, 6), 1 if self.vy > 0 else 0, self.by // 2)
+
+    def step(self, a):
+        self.px = clamp(self.px + (a - 1) * self.SPEED, self.HALF, self.W - 1 - self.HALF)
+        reward = -0.01
+        nx, ny = self.bx + self.vx, self.by + self.vy
+        if nx < 0 or nx >= self.W:
+            self.vx = -self.vx
+            nx = self.bx + self.vx
+        if ny < 0:
+            self.vy = 1
+            ny = 1
+        done = False
+        if ny >= 6:
+            if abs(nx - self.px) <= self.HALF:
+                self.vy, ny = -1, 5
+                reward += 0.5
+                self.score += 1
+                if nx < self.px:
+                    self.vx = -1
+                elif nx > self.px:
+                    self.vx = 1
+            else:
+                reward -= 3
+                done, self.lost = True, True
+                ny = 6
+        self.bx, self.by = nx, ny
+        if self.score >= 30:
+            return reward + 5, True
+        return reward, done
+
+    def positions(self):
+        return [(self.px - self.HALF, 6), (self.bx, self.by)]
+
+    def result(self):
+        return "%s %d%s" % (self.score_word, self.score, " (MISSED)" if self.lost else "")
+
+    def mover_svgs(self, th):
+        return ['<rect x="0" y="3" width="%d" height="6" rx="3" fill="%s"/>' % ((2 * self.HALF + 1) * PITCH - 2, th["accent"]),
+                '<circle cx="5" cy="5" r="3.4" fill="%s"/>' % th["ball"]]
+
+
+class Flappy(Game):
+    """Flap through gaps in scrolling pipes."""
+    key, title, accent = "flappy", "FLAPPY BIRD", "#FFD21E"
+    n_actions = 2                         # idle, flap
+    episodes, cap_train = 5000, 350
+    alpha, gamma = 0.2, 0.92
+    eps_start, eps_end = 0.7, 0.02
+    score_word = "PIPES"
+    GRAVITY, FLAP = 1, -2
+    BIRD_X = 2
+
+    def reset(self, rng):
+        self.rng = rng
+        self.y, self.vy = 3, 0
+        # Three pipes, each with a FIXED gap row so their SVG is a constant per mover.
+        self.pipes = [[15, 2], [30, 4], [45, 2]]
+        self.score, self.dead = 0, False
+        self.removed = []
+
+    def _nearest(self):
+        return min(self.pipes, key=lambda p: p[0]) if self.pipes else [self.W, 3]
+
+    def state(self):
+        px, gap = self._nearest()
+        return (clamp(self.y - gap, -3, 3), 1 if self.vy > 0 else 0,
+                0 if px - self.BIRD_X > 8 else 1 if px - self.BIRD_X > 3 else 2)
+
+    def step(self, a):
+        if a == 1:
+            self.vy = self.FLAP
+        self.vy = clamp(self.vy + self.GRAVITY, -3, 3)
+        self.y = clamp(self.y + self.vy, 0, 6)
+        reward = -0.01
+        if self.y in (0, 6):
+            self.dead = True
+            return reward - 5, True
+        for p in self.pipes:
+            p[0] -= 1
+            if p[0] < 0:
+                self.score += 1
+                reward += 1
+                p[0] = self.W - 1
+        # collision: a pipe exactly at the bird's x with the bird outside its gap
+        for px, gap in self.pipes:
+            if px == self.BIRD_X and not (gap - 1 <= self.y <= gap + 1):
+                self.dead = True
+                return reward - 5, True
+        if self.score >= 40:
+            return reward + 5, True
+        return reward, False
+
+    def positions(self):
+        return [(self.BIRD_X, self.y)] + [(px, gap) for px, gap in self.pipes]
+
+    def result(self):
+        return "%s %d%s" % (self.score_word, self.score, " (CRASHED)" if self.dead else "")
+
+    def mover_svgs(self, th):
+        bird = ('<circle cx="5" cy="5" r="4" fill="#FFD21E"/>'
+                '<circle cx="7" cy="4" r="1.2" fill="#0d1117"/>')
+
+        def pipe(gap_row):
+            gy = gap_row * 12
+            top = gy - 6
+            bottom_start = gy + 18
+            bottom_h = 84 - bottom_start
+            return ('<rect x="3" y="0" width="4" height="%d" fill="#2ea043"/>' % top +
+                    '<rect x="3" y="%d" width="4" height="%d" fill="#2ea043"/>' % (bottom_start, bottom_h))
+        # Fixed gap per pipe (matches reset): pipe 1 -> row 2, pipe 2 -> row 4, pipe 3 -> row 2
+        return [bird, pipe(2), pipe(4), pipe(2)]
+
+
+class Frogger(Game):
+    """Cross the road: reach the top row while dodging three moving cars."""
+    key, title, accent = "frogger", "FROGGER", "#34d399"
+    n_actions = 4                         # up, down, left, right
+    episodes, cap_train = 3000, 250
+    alpha, gamma = 0.2, 0.9
+    eps_start, eps_end = 0.6, 0.02
+    score_word = "HOME"
+    DIRS = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+
+    def reset(self, rng):
+        self.rng = rng
+        self.x, self.y = self.W // 2, 6
+        # [col, row, speed]
+        self.cars = [[2, 1, 1], [5, 3, -1], [8, 5, 1]]
+        self.score, self.dead = 0, False
+        self.removed = []
+
+    def state(self):
+        danger = []
+        for dx, dy in self.DIRS:
+            nx, ny = self.x + dx, self.y + dy
+            if not (0 <= nx < self.W and 0 <= ny < 7):
+                danger.append(2)
+                continue
+            hit = any(cx == nx and cy == ny for cx, cy, _ in self.cars)
+            danger.append(1 if hit else 0)
+        return (self.y, min(self.x, 5), tuple(danger))
+
+    def step(self, a):
+        dx, dy = self.DIRS[a]
+        nx, ny = self.x + dx, self.y + dy
+        if 0 <= nx < self.W and 0 <= ny < 7:
+            self.x, self.y = nx, ny
+        reward = -0.02
+        if any(cx == self.x and cy == self.y for cx, cy, _ in self.cars):
+            self.dead = True
+            return reward - 10, True
+        for c in self.cars:
+            c[0] += c[2]
+            if c[0] < 0:
+                c[0] = self.W - 1
+            elif c[0] >= self.W:
+                c[0] = 0
+        if any(cx == self.x and cy == self.y for cx, cy, _ in self.cars):
+            self.dead = True
+            return reward - 10, True
+        if self.y == 0:
+            self.score += 1
+            return reward + 10, True
+        return reward, False
+
+    def positions(self):
+        return [(self.x, self.y)] + [(cx, cy) for cx, cy, _ in self.cars]
+
+    def result(self):
+        return "%s %d%s" % (self.score_word, self.score, " (HIT)" if self.dead else "")
+
+    def mover_svgs(self, th):
+        frog = ('<circle cx="5" cy="5" r="4" fill="#34d399"/>'
+                '<circle cx="3.5" cy="4" r=".9" fill="#0d1117"/><circle cx="6.5" cy="4" r=".9" fill="#0d1117"/>')
+        car = '<rect x="0" y="1" width="10" height="8" rx="2" fill="#ff4d4d"/>'
+        return [frog, car, car, car]
+
+    def extra_static(self, th, anim_for=None):
+        return '<rect x="0" y="0" width="%d" height="10" fill="#FFD21E" opacity="0.3"/>' % (self.W * PITCH - 2)
+
+
+class Doodle(Game):
+    """Bounce upward on scrolling platforms."""
+    key, title, accent = "doodle", "DOODLE JUMP", "#f472b6"
+    n_actions = 3                         # left, stay, right
+    episodes, cap_train = 4000, 300
+    alpha, gamma = 0.2, 0.9
+    eps_start, eps_end = 0.6, 0.02
+    score_word = "BOUNCES"
+    GRAVITY, BOUNCE = 1, -3
+
+    def reset(self, rng):
+        self.rng = rng
+        self.x, self.y = self.W // 2, 3
+        self.vy = -2
+        self.platforms = [[self.x, 5], [self.x + 4, 6], [self.x - 4, 7]]
+        self.score, self.dead = 0, False
+        self.removed = []
+
+    def state(self):
+        below = [p for p in self.platforms if p[1] > self.y]
+        if not below:
+            return (0, 3, 1)
+        px, py = min(below, key=lambda p: p[1])
+        return (clamp(px - self.x, -2, 2), clamp(py - self.y, 1, 3), 1 if self.vy > 0 else 0)
+
+    def step(self, a):
+        reward = -0.01
+        if a == 0:
+            self.x = max(0, self.x - 1)
+        elif a == 2:
+            self.x = min(self.W - 1, self.x + 1)
+        self.vy = clamp(self.vy + self.GRAVITY, -3, 3)
+        self.y += self.vy
+        for px, py in self.platforms:
+            if self.vy > 0 and abs(self.y - py) <= 0.5 and abs(px - self.x) <= 1:
+                self.vy = self.BOUNCE
+                self.y = py - 1
+                self.score += 1
+                reward += 2
+                break
+        for p in self.platforms:
+            p[1] += 1
+        self.platforms = [p for p in self.platforms if p[1] < 7]
+        while len(self.platforms) < 3:
+            self.platforms.append([self.rng.randint(0, self.W - 1), 0])
+        if self.y > 6:
+            self.dead = True
+            return reward - 5, True
+        if self.y < 0:
+            self.y, self.vy = 0, 1
+        if self.score >= 25:
+            return reward + 5, True
+        return reward, False
+
+    def positions(self):
+        pos = [(self.x, max(0, min(6, self.y)))]
+        for px, py in self.platforms:
+            pos.append((px, max(0, min(6, py))))
+        while len(pos) < 4:
+            pos.append((-5, -5))
+        return pos[:4]
+
+    def result(self):
+        return "%s %d%s" % (self.score_word, self.score, " (FELL)" if self.dead else "")
+
+    def mover_svgs(self, th):
+        hero = '<circle cx="5" cy="5" r="4" fill="#f472b6"/>'
+        plat = '<rect x="0" y="7" width="10" height="3" rx="1" fill="%s"/>' % th["line"]
+        return [hero, plat, plat, plat]
+
+
+GAMES = [PacMan, Snake, Breakout, Invaders, Maze, Pong, Flappy, Frogger, Doodle]
 
 
 # --------------------------------------------------------------- training --
 def evaluate(env, snap, rng, eps, m=6):
-    """Mean rank of m greedy episodes, played exactly like the clips shown in the SVG."""
     pol = make_policy(snap, env.n_actions, rng, eps)
     total = 0
     for _ in range(m):
@@ -749,12 +1045,10 @@ def evaluate(env, snap, rng, eps, m=6):
 
 
 def train(env, rng, scale=1.0):
-    """Q-learning with checkpoints. The final stage is the best checkpoint seen late in
-    training (standard policy checkpointing), found by playing 6 greedy test games."""
     n = max(20, int(env.episodes * scale))
     early = sorted({0, max(1, int(0.04 * n)), int(0.2 * n)})
     check_from, every = int(0.3 * n), max(1, n // 16)
-    agent = QAgent(env.n_actions, env.alpha, env.gamma)
+    agent = QAgent(env.n_actions, env.alpha, env.gamma, rng, n_step=3)
     snaps, scores, best = {}, [], (-1e9, n)
     for ep in range(n + 1):
         if ep in early:
@@ -768,7 +1062,8 @@ def train(env, rng, scale=1.0):
         if ep == n:
             break
         eps = env.eps_start + (env.eps_end - env.eps_start) * ep / max(1, n - 1)
-        agent.alpha = env.alpha * (1 - 0.8 * ep / n)     # decaying learning rate keeps late training stable
+        agent.alpha = env.alpha * (1 - 0.8 * ep / n)
+        agent.buffer.clear()
         env.reset(rng)
         s = env.state()
         for _ in range(env.cap_train):
@@ -776,10 +1071,12 @@ def train(env, rng, scale=1.0):
             r, done = env.step(a)
             env.removed.clear()
             s2 = env.state()
-            agent.learn(s, a, r, s2, done)
+            agent.observe(s, a, r, s2, done)
             s = s2
             if done:
                 break
+        # discard any partial n-step window from the previous episode
+        agent.buffer.clear()
         scores.append(env.rank())
     snaps[best[1]] = snaps.pop("best")
     return n, early + [best[1]], snaps, scores
@@ -788,7 +1085,9 @@ def train(env, rng, scale=1.0):
 def rollout(env, snap, rng, eps):
     pol = make_policy(snap, env.n_actions, rng, eps)
     env.reset(rng)
-    frames, events = [env.positions()], [(0, i, v) for i, v in env.removed]
+    frames = [env.positions()]
+    events = [(0, i, v) for i, v in env.removed]
+    states = [env.state()]
     prog = [env.progress()]
     env.removed.clear()
     s = env.state()
@@ -796,13 +1095,40 @@ def rollout(env, snap, rng, eps):
         r, done = env.step(pol(s))
         frames.append(env.positions())
         prog.append(env.progress())
+        states.append(env.state())
         events += [(len(frames) - 1, i, v) for i, v in env.removed]
         env.removed.clear()
         if done:
             break
         s = env.state()
     return dict(frames=frames, events=events, prog=prog, score=env.score, rank=env.rank(),
-                result=env.result())
+                result=env.result(), states=states)
+
+
+def compute_heat(clip, snap, env):
+    """Per-cell mean of the agent's best Q value along the primary mover's rollout."""
+    vals = {}
+    for pos, state in zip(clip["frames"], clip["states"]):
+        if not pos:
+            continue
+        t = pos[0]
+        if len(t) < 2:
+            continue
+        x, y = t[0], t[1]
+        if x < 0 or x >= env.W or y < 0 or y > 6:
+            continue
+        q = snap.get(state)
+        if q is None:
+            continue
+        cell = (int(round(y)), int(round(x)))
+        vals.setdefault(cell, []).append(max(q))
+    if len(vals) < 3:
+        return {}
+    means = {k: sum(v) / len(v) for k, v in vals.items()}
+    lo, hi = min(means.values()), max(means.values())
+    if hi - lo < 1e-9:
+        return {k: 0.0 for k in means}
+    return {k: (v - lo) / (hi - lo) for k, v in means.items()}
 
 
 def build_clips(env, rng, scale=1.0):
@@ -819,8 +1145,7 @@ def build_clips(env, rng, scale=1.0):
                     c["rank"] == best["rank"] and len(c["frames"]) < len(best["frames"])):
                 best = c
         best["episodes"], best["stage"], best["best_of"] = e, j + 1, tries
-        if hasattr(env, "heat"):
-            best["heat"] = env.heat(snaps[e])
+        best["heat"] = compute_heat(best, snaps[e], env)
         clips.append(best)
     print("  %-9s trained %d episodes in %.1fs | stage scores: %s" % (
         env.key, n, time.time() - t0, [c["score"] for c in clips]))
@@ -843,7 +1168,6 @@ def compress(series):
 
 
 def discrete_pts(attr, pts, F, dur, transform=False):
-    """Discrete SMIL animation from (frame, value) change points; '' if nothing changes."""
     if len(pts) < 2:
         return ""
     vals = ";".join(str(v) for _, v in pts)
@@ -854,7 +1178,6 @@ def discrete_pts(attr, pts, F, dur, transform=False):
 
 
 def anim_vis(intervals, F, dur):
-    """opacity animation: visible during the given [start, end) frame intervals."""
     pts = [(0, 1 if intervals[0][0] == 0 else 0)]
     for s, e in intervals:
         if s != 0:
@@ -876,7 +1199,8 @@ def render(env, clips, scores, n_eps, th):
     width = MX * 2 + W * PITCH - 2
     arena_h = env.rows * PITCH
     height = TOP + arena_h + BOT
-    # ---- global timeline
+    acc = env.accent or th["accent"]
+
     starts, F = [], 0
     nm = len(clips[0]["frames"][0])
     xy = [[] for _ in range(nm)]
@@ -896,7 +1220,6 @@ def render(env, clips, scores, n_eps, th):
         F += len(seq)
     dur = "%.2fs" % (F * DT)
 
-    # ---- cell events: id -> [(frame, opacity)]
     ev = {}
     for c in clips:
         for _, i, _v in c["events"]:
@@ -918,15 +1241,15 @@ def render(env, clips, scores, n_eps, th):
              width, height, width, height, env.title.title())]
     o.append("<title>%s - AI agent learning on my contribution graph</title>" % env.title)
     o.append('<text x="%d" y="18" font-size="11" font-weight="bold" fill="%s" letter-spacing="1">'
-             'AI ARCADE | %s</text>' % (MX, th["accent"], env.title))
+             'AI ARCADE | %s</text>' % (MX, acc, env.title))
     o.append('<text x="%d" y="18" font-size="9" fill="%s" text-anchor="end">'
-             'Q-LEARNING | RETRAINED FROM SCRATCH ON EVERY RUN</text>' % (width - MX, th["muted"]))
+             'DOUBLE Q + 3-STEP RETURNS | RETRAINED ON EVERY RUN</text>' % (width - MX, th["muted"]))
     o.append('<g transform="translate(%d,%d)">' % (MX, TOP))
     for r in range(7):
         for c in range(W):
             o.append('<rect x="%d" y="%d" width="%d" height="%d" rx="2" fill="%s"/>' % (
                 c * PITCH, r * PITCH, CELL, CELL, th["empty"]))
-    # "brain view": what the agent believes about each cell (maze only)
+    # brain view: what the agent believes about each cell (generic for every game)
     if clips[0].get("heat") is not None:
         cells = set()
         for c in clips:
@@ -951,15 +1274,15 @@ def render(env, clips, scores, n_eps, th):
         o.append('<g transform="translate(%s,%s)" opacity="%s">%s%s%s</g>' % (
             fmt(xy[m][0][0]), fmt(xy[m][0][1]), vis[m][0], svg, a, v))
     o.append("</g>")
-    # ---- live score bar
+    # live score bar
     bar_w = width - 2 * MX
     bar_y = TOP + arena_h + 1
     ref = env.progress_ref or max(max(c["prog"]) for c in clips) or 1
     widths = [round(min(1.0, p / ref) * bar_w, 1) for p in prog]
     o.append('<rect x="%d" y="%d" width="%d" height="3" rx="1.5" fill="%s"/>' % (MX, bar_y, bar_w, th["empty"]))
     o.append('<rect x="%d" y="%d" width="%s" height="3" rx="1.5" fill="%s">%s</rect>' % (
-        MX, bar_y, fmt(widths[0]), th["accent"], discrete_pts("width", compress(widths), F, dur)))
-    # ---- status texts
+        MX, bar_y, fmt(widths[0]), acc, discrete_pts("width", compress(widths), F, dur)))
+    # status lines
     sy = height - 11
     for c, cs in zip(clips, starts):
         if c["episodes"] == 0:
@@ -973,7 +1296,7 @@ def render(env, clips, scores, n_eps, th):
             t_play += " | BEST OF %d" % c["best_of"]
         o.append('<text x="%d" y="%d" font-size="10" fill="%s" opacity="0">%s%s</text>' % (
             MX, sy, th["text"], t_play, anim_vis([(cs + INTER, cs + INTER + c["play_len"])], F, dur)))
-    # ---- learning curve with a marker that follows the attempts
+    # learning curve
     cw, ch = 130, 16
     cx, cy = width - MX - cw, height - 9 - ch
     avg = curve_series(scores)
@@ -990,7 +1313,7 @@ def render(env, clips, scores, n_eps, th):
         cx - 6, height - 11, th["muted"]))
     o.append('<g transform="translate(%d,%d)"><polyline points="%s" fill="none" stroke="%s" stroke-width="1.6" '
              'stroke-linejoin="round"/><circle cx="%s" cy="%s" r="2.8" fill="#FFD21E">%s%s</circle></g>' % (
-                 cx, cy, pts, th["accent"], mk[0][0], mk[0][1],
+                 cx, cy, pts, acc, mk[0][0], mk[0][1],
                  discrete_pts("cx", mx_pts, F, dur), discrete_pts("cy", my_pts, F, dur)))
     o.append("</svg>")
     return "\n".join(o)
@@ -1031,7 +1354,7 @@ def main():
                 with open(os.path.join(args.out, "ai-%s%s.svg" % (cls.key, suffix)), "w", encoding="utf-8") as f:
                     f.write(svg)
             made += 1
-        except Exception as exc:  # keep going: one broken game must not block the others
+        except Exception as exc:
             import traceback
             traceback.print_exc()
             print("  %s failed: %r" % (cls.key, exc), file=sys.stderr)

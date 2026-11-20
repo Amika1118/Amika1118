@@ -112,7 +112,7 @@ me = AmikaAlankara()
 
 <img src="https://skillicons.dev/icons?i=aws,postgres,mysql,docker,git,github,linux,vscode&theme=dark" />
 
-</div>
+<br/><br/>
 
 **Additional tools and libraries**
 
@@ -127,6 +127,8 @@ me = AmikaAlankara()
 ![PySpark](https://img.shields.io/badge/PySpark-E25A1C?style=flat-square&logo=apachespark&logoColor=white)
 ![Amazon Redshift](https://img.shields.io/badge/Redshift-8C4FFF?style=flat-square&logo=amazonredshift&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white)
+
+</div>
 
 ---
 
@@ -148,10 +150,14 @@ me = AmikaAlankara()
 
 An automated data pipeline integrating international crude oil prices, USD/LKR exchange rates, and Sri Lankan retail fuel prices.
 
-- Multi-source ingestion from the EIA API, ExchangeRate.host, and a Ceylon Petroleum Corporation web scrape plus historical Kaggle data.
+<div align="left">
+
+- Multi-source ingestion from the EIA API, ExchangeRate.host, and a [Company Name] web scrape plus historical Kaggle data.
 - AWS S3 raw data lake with PySpark transformations on AWS Glue.
 - Amazon Redshift Serverless star-schema data warehouse.
 - Analytical reporting using Amazon QuickSight.
+
+</div>
 
 `Python` `AWS S3` `AWS Glue` `PySpark` `Amazon Redshift` `ETL` `SQL` `QuickSight`
 
@@ -169,10 +175,14 @@ An automated data pipeline integrating international crude oil prices, USD/LKR e
 
 A free lecture PDF processor that transforms academic material into exam-focused summaries and flashcards, running in the browser.
 
+<div align="left">
+
 - Client-side PDF text extraction with Mozilla PDF.js, so files never leave the device.
 - AI-generated 5-point exam summaries and 5 Q&A flashcards per lecture.
 - Groq API integration with Llama 3.3 70B, with built-in rate-limit handling.
 - Deployed on GitHub Pages and Vercel.
+
+</div>
 
 `JavaScript` `HTML` `CSS` `Groq API` `Llama 3.3` `PDF.js`
 
@@ -191,10 +201,14 @@ A free lecture PDF processor that transforms academic material into exam-focused
 
 A Windows desktop clock project featuring 24 different clock styles that automatically shuffle hourly.
 
+<div align="left">
+
 - Multiple visual styles, including chronograph, bubbles, world time, and word clock.
 - Wallpaper-adaptive black and white styling.
 - Automatic hourly style changes, with configurable shuffle speed.
 - Daily inspirational quotes and a 12/24-hour toggle.
+
+</div>
 
 `Rainmeter` `Windows` `Lua` `PowerShell` `INI` `Python` `UI Design`
 
@@ -211,12 +225,16 @@ A Windows desktop clock project featuring 24 different clock styles that automat
 
 **Research discovery and publication platform**
 
-A research catalogue developed during my internship at the Marga Institute, designed to make Sri Lankan research publications more accessible.
+A research catalogue developed during my internship at **Marga Intitue**, designed to make Sri Lankan research publications more accessible.
+
+<div align="left">
 
 - Searchable research catalogue.
 - Structured research metadata.
 - Responsive web interface.
 - Static architecture designed for accessibility and offline resilience.
+
+</div>
 
 `HTML` `CSS` `JavaScript` `XML` `Web Development`
 
@@ -260,14 +278,253 @@ A research catalogue developed during my internship at the Marga Institute, desi
 
 <br/><br/>
 
-<!-- RANDOM ARCADE GAME (picked at random by .github/workflows/arcade.yml) -->
+<!-- AI ARCADE SHOWCASE -->
+<div align="center">
+
+<h3>🎮 AI Arcade - Agents Learning on My Contribution Graph</h3>
+
+<sub><i>Each game is an AI agent (Double Q-Learning + 3-step returns) trained from scratch on my GitHub contribution graph. Classic games rendered by <a href="https://github.com/abozanona/pacman-contribution-graph">abozanona/pacman-contribution-graph</a>.</i></sub>
+
+<br/><br/>
+
+<!-- AI GAMES -->
+<details open>
+<summary><b>🤖 AI Games - Trained Agents</b></summary>
+
+<br/>
+
+<table align="center">
+<tr>
+<td align="center" width="320">
+
+**Pac-Man**
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/arcade-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/arcade.svg" />
-  <img alt="A random arcade game playing on my GitHub contribution graph" width="95%" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/arcade-dark.svg" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-pacman-dark.svg" />
+  <img alt="AI Pac-Man on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-pacman.svg" />
+</picture>
+<details>
+<summary>🎮 How to Play</summary>
+<br/>
+Navigate the maze eating pellets. Avoid ghosts. The agent learns optimal paths from contribution density patterns.
+</details>
+
+</td>
+<td align="center" width="320">
+
+**Snake**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-snake-dark.svg" />
+  <img alt="AI Snake on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-snake.svg" />
+</picture>
+<details>
+<summary>🎮 How to Play</summary>
+<br/>
+Eat food to grow. Don't hit walls or yourself. The agent learns to follow contribution trails efficiently.
+</details>
+
+</td>
+<td align="center" width="320">
+
+**Breakout**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-breakout-dark.svg" />
+  <img alt="AI Breakout on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-breakout.svg" />
+</picture>
+<details>
+<summary>🎮 How to Play</summary>
+<br/>
+Bounce the ball to break all bricks. The agent learns paddle positioning from contribution level patterns.
+</details>
+
+</td>
+</tr>
+<tr>
+<td align="center" width="320">
+
+**Space Invaders**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-invaders-dark.svg" />
+  <img alt="AI Space Invaders on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-invaders.svg" />
+</picture>
+<details>
+<summary>🎮 How to Play</summary>
+<br/>
+Shoot descending aliens before they reach you. The agent learns firing timing from contribution density.
+</details>
+
+</td>
+<td align="center" width="320">
+
+**Maze Runner**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-maze-dark.svg" />
+  <img alt="AI Maze Runner on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-maze.svg" />
+</picture>
+<details>
+<summary>🎮 How to Play</summary>
+<br/>
+Find the exit through the maze. The agent learns pathfinding from contribution cell connectivity.
+</details>
+
+</td>
+<td align="center" width="320">
+
+**Pong**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-pong-dark.svg" />
+  <img alt="AI Pong on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-pong.svg" />
+</picture>
+<details>
+<summary>🎮 How to Play</summary>
+<br/>
+Deflect the ball past the opponent. The agent learns ball trajectory prediction from contribution patterns.
+</details>
+
+</td>
+</tr>
+<tr>
+<td align="center" width="320">
+
+**Flappy Bird**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-flappy-dark.svg" />
+  <img alt="AI Flappy Bird on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-flappy.svg" />
+</picture>
+<details>
+<summary>🎮 How to Play</summary>
+<br/>
+Tap to navigate through pipes. The agent learns flap timing from contribution level gaps.
+</details>
+
+</td>
+<td align="center" width="320">
+
+**Frogger**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-frogger-dark.svg" />
+  <img alt="AI Frogger on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-frogger.svg" />
+</picture>
+<details>
+<summary>🎮 How to Play</summary>
+<br/>
+Cross roads and rivers safely. The agent learns gap timing from contribution density variations.
+</details>
+
+</td>
+<td align="center" width="320">
+
+**Doodle Jump**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-doodle-dark.svg" />
+  <img alt="AI Doodle Jump on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-doodle.svg" />
+</picture>
+<details>
+<summary>🎮 How to Play</summary>
+<br/>
+Jump on platforms to climb higher. The agent learns platform targeting from contribution level steps.
+</details>
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+</details>
+
+<!-- CLASSIC GAMES -->
+<details>
+<summary><b>🕹️ Classic Games - Hand-Crafted Renderers</b></summary>
+
+<br/>
+
+<table align="center">
+<tr>
+<td align="center" width="320">
+
+**Pac-Man**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/pacman-dark.svg" />
+  <img alt="Classic Pac-Man on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/pacman.svg" />
 </picture>
 
-<sub><i>🎲 A different game every few hours. Some are AI agents that train on my contribution graph and visibly get better: Pac-Man, Snake, Breakout, Space Invaders and Maze Runner.</i></sub>
+</td>
+<td align="center" width="320">
+
+**Breakout**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/breakout-dark.svg" />
+  <img alt="Classic Breakout on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/breakout.svg" />
+</picture>
+
+</td>
+<td align="center" width="320">
+
+**Galaga**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/galaga-dark.svg" />
+  <img alt="Classic Galaga on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/galaga.svg" />
+</picture>
+
+</td>
+</tr>
+<tr>
+<td align="center" width="320">
+
+**Puzzle Bobble**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/puzzle-bobble-dark.svg" />
+  <img alt="Classic Puzzle Bobble on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/puzzle-bobble.svg" />
+</picture>
+
+</td>
+<td align="center" width="320">
+
+**Bomberman**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/bomberman-dark.svg" />
+  <img alt="Classic Bomberman on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/bomberman.svg" />
+</picture>
+
+</td>
+<td align="center" width="320">
+
+**Minesweeper**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/minesweeper-dark.svg" />
+  <img alt="Classic Minesweeper on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/minesweeper.svg" />
+</picture>
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+</details>
+
+<!-- HOW IT WORKS -->
+<details>
+<summary><b>🧠 How the AI Arcade Works</b></summary>
+
+<br/>
+
+Each AI agent is a **tabular Double Q-learning** agent with **3-step returns**, written in pure Python using only the standard library.
+
+1. **Data Collection** - The script fetches the last year of contribution counts via the GitHub GraphQL API and quantises them into levels 1–4.
+2. **Environment** - The game environment is built directly on that 7 × 53 grid - contribution cells become food, bricks, aliens, platforms, or pipes.
+3. **Training** - The agent trains for a few thousand episodes with ε-greedy exploration and a decaying learning rate. **Double Q-learning** uses two Q-tables to remove maximisation bias; **n-step returns** propagate rewards faster than 1-step TD.
+4. **Visualization** - Policy snapshots at checkpoints: **untrained → early training → trained**. The SVG plays those stages back to back, so you see the improvement.
+5. **Brain View** - Every game also gets a **brain view**: a heatmap of the agent's normalised Q-values for each cell it visited, showing what it believes about the world.
+
+The workflow runs every 6 hours. About 70% of the time it shows an AI game; otherwise a classic game. Both light and dark SVGs are generated.
+
+</details>
+
+<br/>
+
+[![View Workflow](https://img.shields.io/badge/View_Workflow-.github%2Fworkflows%2Farcade.yaml-5145A0?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/Amika1118/Amika1118/blob/main/.github/workflows/arcade.yaml)
+[![AI Script](https://img.shields.io/badge/AI_Script-.github%2Fscripts%2Fai_arcade.py-A78BFA?style=for-the-badge&logo=python&logoColor=white)](https://github.com/Amika1118/Amika1118/blob/main/.github/scripts/ai_arcade.py)
 
 </div>
 
@@ -326,40 +583,20 @@ I'm always interested in connecting with developers, researchers, and people bui
 
 <br/>
 
-<a href="https://www.linkedin.com/in/amika-ranmeth/">
-<img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
-</a>
-<a href="mailto:amika.alankara@gmail.com">
-<img src="https://img.shields.io/badge/Email-Contact-EA4335?style=for-the-badge&logo=gmail&logoColor=white"/>
-</a>
-<a href="https://x.com/amika_alankara/">
-<img src="https://img.shields.io/badge/X-Follow-000000?style=for-the-badge&logo=x&logoColor=white"/>
-</a>
-<a href="https://github.com/Amika1118">
-<img src="https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white"/>
-</a>
-<a href="https://huggingface.co/WcLucifer">
-<img src="https://img.shields.io/badge/Hugging_Face-Models-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black"/>
-</a>
-<a href="https://amika1118.github.io/amika-alankara-portfolio/">
-<img src="https://img.shields.io/badge/Portfolio-Visit-5145A0?style=for-the-badge&logo=vercel&logoColor=white"/>
-</a>
+<a href="https://www.linkedin.com/in/amika-ranmeth/"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
+<a href="mailto:amika.alankara@gmail.com"><img src="https://img.shields.io/badge/Email-Contact-EA4335?style=for-the-badge&logo=gmail&logoColor=white"/></a>
+<a href="https://x.com/amika_alankara/"><img src="https://img.shields.io/badge/X-Follow-000000?style=for-the-badge&logo=x&logoColor=white"/></a>
+<a href="https://github.com/Amika1118"><img src="https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white"/></a>
+<a href="https://huggingface.co/WcLucifer"><img src="https://img.shields.io/badge/Hugging_Face-Models-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black"/></a>
+<a href="https://amika1118.github.io/amika-alankara-portfolio/"><img src="https://img.shields.io/badge/Portfolio-Visit-5145A0?style=for-the-badge&logo=vercel&logoColor=white"/></a>
 
 <br/><br/>
 
-*"The goal is to turn data into information, and information into insight."* - Carly Fiorina
+*"The goal is to turn data into information, and information into insight."* - [Your Name/Attribution]
 
 <br/>
 
 <!-- ANIMATED FOOTER -->
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:8B7CFF,50:25204A,100:09090F&height=130&section=footer&animation=twinkling"/>
-
-Made with <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2764_fe0f/512.gif" alt="love" width="16" height="16" /> by [**Amika Alankara**](https://github.com/Amika1118)
-
-<a href="https://github.com/Amika1118"><img src="https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub" /></a>
-<a href="https://www.linkedin.com/in/amika-ranmeth/"><img src="https://img.shields.io/badge/-LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-<a href="https://amika1118.github.io/amika-alankara-portfolio/"><img src="https://img.shields.io/badge/-Portfolio-5145A0?style=flat-square&logo=vercel&logoColor=white" alt="Portfolio" /></a>
-
-<sub><i>Amika1118 profile README · Markdown, animated SVGs &amp; GitHub Actions</i></sub>
 
 </div>
