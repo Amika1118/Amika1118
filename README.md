@@ -152,7 +152,7 @@ An automated data pipeline integrating international crude oil prices, USD/LKR e
 
 <div align="left">
 
-- Multi-source ingestion from the EIA API, ExchangeRate.host, and a [Company Name] web scrape plus historical Kaggle data.
+- Multi-source ingestion from the EIA API, ExchangeRate.host, and a Sri Lankan retail-price web scrape plus historical Kaggle data.
 - AWS S3 raw data lake with PySpark transformations on AWS Glue.
 - Amazon Redshift Serverless star-schema data warehouse.
 - Analytical reporting using Amazon QuickSight.
@@ -225,7 +225,7 @@ A Windows desktop clock project featuring 24 different clock styles that automat
 
 **Research discovery and publication platform**
 
-A research catalogue developed during my internship at **Marga Intitue**, designed to make Sri Lankan research publications more accessible.
+A research catalogue developed during my internship at **Marga Institute**, designed to make Sri Lankan research publications more accessible.
 
 <div align="left">
 
@@ -283,7 +283,7 @@ A research catalogue developed during my internship at **Marga Intitue**, design
 
 <h3>🎮 AI Arcade - Agents Learning on My Contribution Graph</h3>
 
-<sub><i>Each game is an AI agent (Double Q-Learning + 3-step returns) trained from scratch on my GitHub contribution graph. Classic games rendered by <a href="https://github.com/abozanona/pacman-contribution-graph">abozanona/pacman-contribution-graph</a>.</i></sub>
+<sub><i>Each game is an AI agent (Double Q-Learning + 3-step returns) trained from scratch on my GitHub contribution graph on every run. Classic games rendered by <a href="https://github.com/abozanona/pacman-contribution-graph">abozanona/pacman-contribution-graph</a>.</i></sub>
 
 <br/><br/>
 
@@ -517,13 +517,16 @@ Each AI agent is a **tabular Double Q-learning** agent with **3-step returns**, 
 4. **Visualization** - Policy snapshots at checkpoints: **untrained → early training → trained**. The SVG plays those stages back to back, so you see the improvement.
 5. **Brain View** - Every game also gets a **brain view**: a heatmap of the agent's normalised Q-values for each cell it visited, showing what it believes about the world.
 
-The workflow runs every 6 hours. About 70% of the time it shows an AI game; otherwise a classic game. Both light and dark SVGs are generated.
+The workflow runs every 6 hours. The default `arcade.svg` is an AI game about 70% of the time, otherwise a classic one. Light and dark SVGs are generated for every game, and a `manifest.json` drives the browsable viewer on the `output` branch.
+
+Quality gates: a stdlib-only test suite (game contracts, regression tests, SVG validity, site assembly) runs in CI on every push and pull request. Run it locally with `python3 -m unittest discover -s .github/scripts -v`, or try the trainer offline with `python3 .github/scripts/ai_arcade.py --demo`.
 
 </details>
 
 <br/>
 
 [![View Workflow](https://img.shields.io/badge/View_Workflow-.github%2Fworkflows%2Farcade.yaml-5145A0?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/Amika1118/Amika1118/blob/main/.github/workflows/arcade.yaml)
+[![Tests](https://img.shields.io/badge/Tests-.github%2Fscripts%2Ftest__ai__arcade.py-34D399?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/Amika1118/Amika1118/blob/main/.github/scripts/test_ai_arcade.py)
 [![AI Script](https://img.shields.io/badge/AI_Script-.github%2Fscripts%2Fai_arcade.py-A78BFA?style=for-the-badge&logo=python&logoColor=white)](https://github.com/Amika1118/Amika1118/blob/main/.github/scripts/ai_arcade.py)
 
 </div>
@@ -592,7 +595,7 @@ I'm always interested in connecting with developers, researchers, and people bui
 
 <br/><br/>
 
-*"The goal is to turn data into information, and information into insight."* - [Your Name/Attribution]
+*"The goal is to turn data into information, and information into insight."* - Carly Fiorina
 
 <br/>
 

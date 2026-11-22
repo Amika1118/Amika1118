@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Arcade · Agents learning on a GitHub contribution graph</title>
+<meta name="description" content="Tabular Double Q-learning agents trained from scratch on a GitHub contribution graph, next to classic hand-crafted renderers.">
+<style>
+  :root {
+    --bg: #F4F4F5; --panel: #FFFFFF; --panel-2: #FAFAFA; --border: #E4E4E7;
+    --text: #18181F; --muted: #52525B; --accent: #5145A0; --accent-soft: rgba(81,69,160,.12);
+    --shadow: 0 20px 40px rgba(0,0,0,.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #09090F; --panel: #11111A; --panel-2: #18181F; --border: #27272A;
+      --text: #E4E4E7; --muted: #A1A1AA; --accent: #A78BFA; --accent-soft: rgba(167,139,250,.14);
+      --shadow: 0 20px 40px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #09090F; --panel: #11111A; --panel-2: #18181F; --border: #27272A;
+    --text: #E4E4E7; --muted: #A1A1AA; --accent: #A78BFA; --accent-soft: rgba(167,139,250,.14);
+    --shadow: 0 20px 40px rgba(0,0,0,.4);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: ui-monospace, 'JetBrains Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+    background: var(--bg); color: var(--text); min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; padding: 20px;
+  }
+  .container { width: 100%; max-width: 960px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  header { text-align: center; padding: 16px 0 4px; }
+  h1 {
+    font-size: 1.5rem; letter-spacing: 2px;
+    background: linear-gradient(90deg, #A78BFA, #F472B6, #34D399);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .subtitle { font-size: .8rem; color: var(--muted); margin-top: 6px; letter-spacing: .5px; }
+
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .tab {
+    font: inherit; font-size: .75rem; padding: 6px 14px; border-radius: 999px; cursor: pointer;
+    background: var(--panel); color: var(--muted); border: 1px solid var(--border);
+  }
+  .tab[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .tab:focus-visible, .nav-btn:focus-visible, .retry:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .stage { width: 100%; display: grid; grid-template-columns: 44px 1fr 44px; gap: 12px; align-items: center; }
+  .nav-btn {
+    width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: grid; place-items: center;
+    background: var(--panel); border: 1px solid var(--border); color: var(--accent); transition: transform .15s, border-color .15s;
+  }
+  .nav-btn:hover:not(:disabled) { border-color: var(--accent); transform: scale(1.06); }
+  .nav-btn:disabled { opacity: .3; cursor: not-allowed; }
+  .nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  .display {
+    min-height: 220px; background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow);
+  }
+  .display img { display: block; width: 100%; height: auto; border-radius: 8px; }
+
+  .info {
+    width: 100%; background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;
+  }
+  .title { font-size: 1rem; font-weight: 600; letter-spacing: .5px; display: flex; gap: 10px; align-items: center; }
+  .badge { font-size: .65rem; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--accent); color: var(--accent); }
+  .facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: .75rem; color: var(--muted); }
+  .fact { padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--panel); }
+  .fact b { color: var(--accent); font-weight: 600; }
+  .counter { font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .counter b { color: var(--accent); }
+  .hint { font-size: .7rem; color: var(--muted); }
+  kbd { background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 1px 7px; font: inherit; color: var(--accent); }
+
+  .state { display: flex; flex-direction: column; align-items: center; gap: 12px; color: var(--muted); text-align: center; padding: 40px 12px; font-size: .85rem; }
+  .state.err { color: #DC2626; }
+  .state code { background: var(--panel-2); border: 1px solid var(--border); padding: 1px 6px; border-radius: 4px; }
+  .spinner { width: 30px; height: 30px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .spinner { animation: none; } .nav-btn { transition: none; } }
+  .retry { font: inherit; font-size: .8rem; padding: 8px 20px; border-radius: 8px; border: 0; cursor: pointer; background: var(--accent); color: var(--bg); font-weight: 600; }
+
+  footer { margin-top: 12px; padding-top: 16px; border-top: 1px solid var(--border); width: 100%; text-align: center; font-size: .72rem; color: var(--muted); }
+  footer a { color: var(--accent); }
+  @media (max-width: 600px) {
+    .stage { grid-template-columns: 1fr 1fr; grid-template-areas: "d d" "p n"; }
+    .display { grid-area: d; } #prevBtn { grid-area: p; justify-self: end; } #nextBtn { grid-area: n; justify-self: start; }
+    .hint { display: none; }
+  }
+</style>
+</head>
+<body>
+<main class="container">
+  <header>
+    <h1>AI ARCADE</h1>
+    <p class="subtitle">Q-learning agents trained from scratch on a GitHub contribution graph</p>
+  </header>
+
+  <div class="tabs" role="group" aria-label="Filter games" id="tabs">
+    <button class="tab" data-filter="all" aria-pressed="true">All</button>
+    <button class="tab" data-filter="ai" aria-pressed="false">AI agents</button>
+    <button class="tab" data-filter="classic" aria-pressed="false">Classic</button>
+  </div>
+
+  <div class="stage">
+    <button class="nav-btn" id="prevBtn" aria-label="Previous game" disabled>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="display" id="display" aria-live="polite">
+      <div class="state"><div class="spinner"></div><span>Loading games…</span></div>
+    </div>
+    <button class="nav-btn" id="nextBtn" aria-label="Next game" disabled>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+
+  <section class="info" id="info" hidden>
+    <div class="title"><span id="gameTitle"></span><span class="badge" id="gameKind"></span></div>
+    <div class="facts" id="facts"></div>
+    <div class="counter" id="counter"></div>
+  </section>
+  <p class="hint" id="hint" hidden>Use <kbd>←</kbd> <kbd>→</kbd> to browse. The URL hash is shareable, e.g. <code>#ai-pacman</code>.</p>
+
+  <footer>
+    Double Q-learning with 3-step returns · pure Python standard library · retrained every run ·
+    classic renderers by <a href="https://github.com/abozanona/pacman-contribution-graph">abozanona</a>
+    <div id="generated"></div>
+  </footer>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const el = { display: $('display'), info: $('info'), title: $('gameTitle'), kind: $('gameKind'),
+               facts: $('facts'), counter: $('counter'), prev: $('prevBtn'), next: $('nextBtn'),
+               hint: $('hint'), generated: $('generated'), tabs: $('tabs') };
+
+  const dark = window.matchMedia('(prefers-color-scheme: dark)');
+  const state = { all: [], filter: 'all', index: 0 };
+  const visible = () => state.all.filter(g => state.filter === 'all' || g.kind === state.filter);
+
+  // Build DOM with textContent only: manifest values are never parsed as HTML.
+  function node(tag, props = {}, ...kids) {
+    const n = Object.assign(document.createElement(tag), props);
+    kids.forEach(k => n.append(k));
+    return n;
+  }
+  const message = (cls, ...kids) => { el.display.replaceChildren(node('div', { className: 'state ' + cls }, ...kids)); };
+
+  function showError(text, detail) {
+    const kids = [node('span', { textContent: text })];
+    if (detail) kids.push(node('span', {}, detail));
+    kids.push(node('button', { className: 'retry', textContent: 'Retry', onclick: init }));
+    message('err', ...kids);
+    el.info.hidden = el.hint.hidden = true;
+    el.prev.disabled = el.next.disabled = true;
+  }
+
+  function fact(label, value) { return node('span', { className: 'fact' }, label + ' ', node('b', { textContent: value })); }
+
+  function render() {
+    const list = visible();
+    if (!list.length) { showError('No games in this category.'); return; }
+    state.index = Math.min(Math.max(state.index, 0), list.length - 1);
+    const g = list[state.index];
+    const file = dark.matches ? g.dark : g.light;
+
+    el.title.textContent = g.name;
+    el.kind.textContent = g.kind === 'ai' ? 'AI AGENT' : 'CLASSIC';
+    const facts = [];
+    if (g.kind === 'ai' && g.episodes) facts.push(fact('trained', g.episodes.toLocaleString() + ' episodes'));
+    if (g.kind === 'ai' && g.stage_scores && g.stage_scores.length) {
+      const s = g.stage_scores;
+      facts.push(fact((g.score_word || 'score').toLowerCase(), s[0] + ' → ' + s[s.length - 1]));
+    }
+    if (g.kind === 'classic') facts.push(fact('renderer', 'hand-crafted'));
+    el.facts.replaceChildren(...facts);
+    el.counter.replaceChildren(node('b', { textContent: state.index + 1 }), ' / ' + list.length);
+    el.info.hidden = el.hint.hidden = false;
+    el.prev.disabled = state.index === 0;
+    el.next.disabled = state.index === list.length - 1;
+    if (location.hash !== '#' + g.id) history.replaceState(null, '', '#' + g.id);
+
+    // <img> is safer than inlining the SVG and cannot race: the newest request wins.
+    const img = node('img', { alt: g.name + ' playing on a contribution graph', src: file });
+    img.onerror = () => showError('Could not load ' + g.name + '.');
+    el.display.replaceChildren(img);
+  }
+
+  function go(step) { state.index += step; render(); }
+
+  async function init() {
+    message('', node('div', { className: 'spinner' }), node('span', { textContent: 'Loading games…' }));
+    try {
+      const res = await fetch('manifest.json', { cache: 'no-cache' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const manifest = await res.json();
+      state.all = (manifest.games || []).filter(g => g && g.id && g.light && g.dark);
+      if (!state.all.length) throw new Error('manifest has no games');
+      if (manifest.generated) el.generated.textContent = 'Generated ' + new Date(manifest.generated).toLocaleString();
+      const wanted = state.all.findIndex(g => '#' + g.id === location.hash);
+      state.index = wanted >= 0 ? wanted : Math.floor(Math.random() * state.all.length);
+      render();
+    } catch (err) {
+      const local = location.protocol === 'file:';
+      showError('Could not load the game list.',
+        local ? 'Browsers block fetch() on file:// pages; serve this folder with: python3 -m http.server'
+              : String(err.message || err));
+    }
+  }
+
+  el.prev.addEventListener('click', () => go(-1));
+  el.next.addEventListener('click', () => go(1));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft' && !el.prev.disabled) go(-1);
+    if (e.key === 'ArrowRight' && !el.next.disabled) go(1);
+  });
+  el.tabs.addEventListener('click', (e) => {
+    const t = e.target.closest('.tab'); if (!t) return;
+    state.filter = t.dataset.filter; state.index = 0;
+    el.tabs.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-pressed', String(b === t)));
+    if (state.all.length) render();
+  });
+  window.addEventListener('hashchange', () => {
+    const i = visible().findIndex(g => '#' + g.id === location.hash);
+    if (i >= 0 && i !== state.index) { state.index = i; render(); }
+  });
+  dark.addEventListener('change', () => { if (state.all.length) render(); });
+
+  init();
+})();
+</script>
+</body>
+</html>

@@ -5,8 +5,8 @@ Each agent uses Double Q-learning with n-step returns and trains from scratch on
 every run, snapshotted at several checkpoints so the SVG shows the progression
 untrained -> learning -> trained. Pure standard library.
 
-    python3 ai_arcade.py --user USER --out ai_dist     # needs GITHUB_TOKEN
-    python3 ai_arcade.py --demo --out ai_dist          # synthetic graph, no network
+    python3 .github/scripts/ai_arcade.py --user USER --out ai_dist     # needs GITHUB_TOKEN
+    python3 .github/scripts/ai_arcade.py --demo --out ai_dist          # synthetic graph, no network
 
 Outputs ai-<game>.svg and ai-<game>-dark.svg per game.
 """
@@ -954,7 +954,7 @@ class Frogger(Game):
 
 
 class Doodle(Game):
-    """Bounce upward on scrolling platforms."""
+    """Bounce upward on platforms; the camera scrolls once the doodler climbs past mid-screen."""
     key, title, accent = "doodle", "DOODLE JUMP", "#f472b6"
     n_actions = 3                         # left, stay, right
     episodes, cap_train = 4000, 300
@@ -962,12 +962,14 @@ class Doodle(Game):
     eps_start, eps_end = 0.6, 0.02
     score_word = "BOUNCES"
     GRAVITY, BOUNCE = 1, -3
+    MAX_PLATS = 4                         # platforms are >= 2 rows apart, so at most 4 fit in 7 rows
+    GOAL = 25
 
     def reset(self, rng):
         self.rng = rng
         self.x, self.y = self.W // 2, 3
         self.vy = -2
-        self.platforms = [[self.x, 5], [self.x + 4, 6], [self.x - 4, 7]]
+        self.platforms = [[self.x, 5], [self.x + 2, 3], [self.x - 2, 1]]
         self.score, self.dead = 0, False
         self.removed = []
 
@@ -976,7 +978,19 @@ class Doodle(Game):
         if not below:
             return (0, 3, 1)
         px, py = min(below, key=lambda p: p[1])
-        return (clamp(px - self.x, -2, 2), clamp(py - self.y, 1, 3), 1 if self.vy > 0 else 0)
+        return (clamp(px - self.x, -3, 3), clamp(py - self.y, 1, 4), 1 if self.vy > 0 else 0)
+
+    def _spawn(self):
+        # Keep platforms within horizontal reach of each other: the world is W columns
+        # wide but the doodler only moves one column per step, so uniformly random x
+        # would make most platforms unreachable and the agent could never learn to bounce.
+        while True:
+            top = min(self.platforms, key=lambda p: p[1]) if self.platforms else [self.x, 7]
+            if top[1] <= 2:
+                return
+            row = max(0, top[1] - self.rng.randint(2, 3))
+            col = clamp(top[0] + self.rng.randint(-3, 3), 0, self.W - 1)
+            self.platforms.append([col, row])
 
     def step(self, a):
         reward = -0.01
@@ -985,35 +999,41 @@ class Doodle(Game):
         elif a == 2:
             self.x = min(self.W - 1, self.x + 1)
         self.vy = clamp(self.vy + self.GRAVITY, -3, 3)
+        prev_y = self.y
         self.y += self.vy
-        for px, py in self.platforms:
-            if self.vy > 0 and abs(self.y - py) <= 0.5 and abs(px - self.x) <= 1:
-                self.vy = self.BOUNCE
-                self.y = py - 1
-                self.score += 1
-                reward += 2
-                break
-        for p in self.platforms:
-            p[1] += 1
-        self.platforms = [p for p in self.platforms if p[1] < 7]
-        while len(self.platforms) < 3:
-            self.platforms.append([self.rng.randint(0, self.W - 1), 0])
+        # Swept collision: with |vy| up to 3 rows/step the doodler can skip over a
+        # platform row entirely, so test whether this move crossed one while falling.
+        if self.vy > 0:
+            for px, py in self.platforms:
+                if prev_y <= py <= self.y and abs(px - self.x) <= 1:
+                    self.vy = self.BOUNCE
+                    self.y = py - 1
+                    self.score += 1
+                    reward += 2
+                    break
+        # Camera: once the doodler rises above row 3, scroll the world down instead.
+        if self.y < 3:
+            shift = 3 - self.y
+            self.y = 3
+            for p in self.platforms:
+                p[1] += shift
+            reward += 0.1 * shift
+        self.platforms = [p for p in self.platforms if p[1] <= 6]
+        self._spawn()
         if self.y > 6:
             self.dead = True
             return reward - 5, True
-        if self.y < 0:
-            self.y, self.vy = 0, 1
-        if self.score >= 25:
+        if self.score >= self.GOAL:
             return reward + 5, True
         return reward, False
 
     def positions(self):
-        pos = [(self.x, max(0, min(6, self.y)))]
-        for px, py in self.platforms:
-            pos.append((px, max(0, min(6, py))))
-        while len(pos) < 4:
+        pos = [(self.x, clamp(self.y, 0, 6))]
+        for px, py in self.platforms[:self.MAX_PLATS]:
+            pos.append((px, clamp(py, 0, 6)))
+        while len(pos) < 1 + self.MAX_PLATS:
             pos.append((-5, -5))
-        return pos[:4]
+        return pos
 
     def result(self):
         return "%s %d%s" % (self.score_word, self.score, " (FELL)" if self.dead else "")
@@ -1021,7 +1041,7 @@ class Doodle(Game):
     def mover_svgs(self, th):
         hero = '<circle cx="5" cy="5" r="4" fill="#f472b6"/>'
         plat = '<rect x="0" y="7" width="10" height="3" rx="1" fill="%s"/>' % th["line"]
-        return [hero, plat, plat, plat]
+        return [hero] + [plat] * self.MAX_PLATS
 
 
 GAMES = [PacMan, Snake, Breakout, Invaders, Maze, Pong, Flappy, Frogger, Doodle]
@@ -1341,7 +1361,7 @@ def main():
     os.makedirs(args.out, exist_ok=True)
     wanted = set(args.games.split(","))
     print("seed=%d grid=7x%d active days=%d" % (args.seed, len(levels[0]), sum(1 for r in levels for v in r if v)))
-    made = 0
+    made, meta = 0, {}
     for gi, cls in enumerate(GAMES):
         if cls.key not in wanted:
             continue
@@ -1353,6 +1373,9 @@ def main():
                 svg = render(env, clips, scores, n_eps, th)
                 with open(os.path.join(args.out, "ai-%s%s.svg" % (cls.key, suffix)), "w", encoding="utf-8") as f:
                     f.write(svg)
+            meta[cls.key] = dict(title=cls.title, episodes=n_eps,
+                                 stage_scores=[c["score"] for c in clips],
+                                 score_word=cls.score_word)
             made += 1
         except Exception as exc:
             import traceback
@@ -1360,6 +1383,9 @@ def main():
             print("  %s failed: %r" % (cls.key, exc), file=sys.stderr)
     if not made:
         sys.exit("No games were generated")
+    # Metadata for the web viewer (episodes trained, score at each training stage).
+    with open(os.path.join(args.out, "ai-meta.json"), "w", encoding="utf-8") as f:
+        json.dump(meta, f, indent=2)
 
 
 if __name__ == "__main__":

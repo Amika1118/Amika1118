@@ -2,8 +2,7 @@ name: Generate Arcade Contribution Graph
 
 on:
   schedule:
-    # Runs every 6 hours; each run picks a new random game.
-    # For more frequent changes use e.g. "0 * * * *" (hourly).
+    # Every 6 hours; each run trains fresh agents and re-rolls the default game.
     - cron: "0 */6 * * *"
   workflow_dispatch:
   push:
@@ -13,69 +12,45 @@ on:
 permissions:
   contents: write
 
+# Never let two runs race to force-push the output branch.
+concurrency:
+  group: arcade-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   generate:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - name: Check out the repo (for the AI script)
+      - name: Check out the repo
         uses: actions/checkout@v5
 
       - name: Generate classic arcade SVGs
+        # Classic renderers are optional: if this fails we can still publish the AI games.
+        continue-on-error: true
         uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: ${{ github.repository_owner }}
           games: "pacman,breakout,galaga,puzzle-bobble,bomberman,minesweeper"
 
       - name: Train the AI arcade agents
-        # If this step fails the workflow still publishes a classic game.
+        # Likewise optional: a failure here still publishes the classic games.
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 .github/scripts/ai_arcade.py --user "${{ github.repository_owner }}" --out ai_dist
+        run: >
+          python3 .github/scripts/ai_arcade.py
+          --user "${{ github.repository_owner }}"
+          --out ai_dist
 
-      - name: Prepare public folder with all games and viewer
-        run: |
-          classic=(pacman breakout galaga puzzle-bobble bomberman minesweeper)
-
-          ai=()
-          for f in ai_dist/ai-*-dark.svg; do
-            [ -e "$f" ] || continue
-            ai+=("$(basename "$f" -dark.svg)")
-          done
-
-          mkdir -p public
-
-          # Copy all AI games (both light and dark variants)
-          for game in "${ai[@]}"; do
-            cp "ai_dist/${game}.svg" "public/${game}.svg"
-            cp "ai_dist/${game}-dark.svg" "public/${game}-dark.svg"
-          done
-
-          # Copy all classic games (both light and dark variants)
-          for game in "${classic[@]}"; do
-            cp "dist/${game}-contribution-graph.svg" "public/${game}.svg"
-            cp "dist/${game}-contribution-graph-dark.svg" "public/${game}-dark.svg"
-          done
-
-          # Also pick a random game as the default arcade.svg for backwards compatibility
-          # 70% of the time show an AI game (when they were generated)
-          if [ ${#ai[@]} -gt 0 ] && [ $((RANDOM % 10)) -lt 7 ]; then
-            pick=${ai[RANDOM % ${#ai[@]}]}
-            echo "Picked AI game: $pick"
-            cp "ai_dist/${pick}.svg" public/arcade.svg
-            cp "ai_dist/${pick}-dark.svg" public/arcade-dark.svg
-          else
-            pick=${classic[RANDOM % ${#classic[@]}]}
-            echo "Picked classic game: $pick"
-            cp "dist/${pick}-contribution-graph.svg" public/arcade.svg
-            cp "dist/${pick}-contribution-graph-dark.svg" public/arcade-dark.svg
-          fi
-
-          # Copy the viewer
-          cp public/index.html public/index.html
-
-          ls -la public
+      - name: Assemble the public folder (SVGs + manifest + viewer)
+        # Fails the run only if there is nothing at all to publish.
+        run: >
+          python3 .github/scripts/build_site.py
+          --classic dist
+          --ai ai_dist
+          --viewer .github/viewer/index.html
+          --out public
 
       - name: Push to the output branch
         uses: crazy-max/ghaction-github-pages@v5.0.0
