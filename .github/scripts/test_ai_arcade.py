@@ -2,7 +2,6 @@
 
     python3 -m unittest discover -s .github/scripts -v
 """
-import json
 import random
 import sys
 import tempfile
@@ -89,44 +88,54 @@ class BuildSiteTests(unittest.TestCase):
     def _fake_svgs(self, folder, names):
         folder.mkdir()
         for n in names:
-            (folder / n).write_text("<svg xmlns='http://www.w3.org/2000/svg'/>")
+            (folder / n).write_text("<svg xmlns='http://www.w3.org/2000/svg'><!--%s--></svg>" % n)
 
     def _run(self, *argv):
         with mock.patch.object(sys, "argv", ["build_site.py", *argv]):
             build_site.main()
 
+    def _sources(self, d):
+        self._fake_svgs(d / "ai", ["ai-pacman.svg", "ai-pacman-dark.svg"])
+        (d / "ai" / "ai-meta.json").write_text('{"pacman": {"title": "PAC-MAN"}}')
+        self._fake_svgs(d / "classic", ["pacman-contribution-graph.svg",
+                                        "pacman-contribution-graph-dark.svg"])
+
     def test_publishes_both_kinds_without_name_clashes(self):
         with tempfile.TemporaryDirectory() as d:
             d = Path(d)
-            self._fake_svgs(d / "ai", ["ai-pacman.svg", "ai-pacman-dark.svg"])
-            self._fake_svgs(d / "classic", ["pacman-contribution-graph.svg",
-                                            "pacman-contribution-graph-dark.svg"])
-            (d / "viewer.html").write_text("<html></html>")
-            self._run("--ai", str(d / "ai"), "--classic", str(d / "classic"), "--classic-games", "pacman",
-                      "--viewer", str(d / "viewer.html"), "--out", str(d / "public"), "--seed", "1")
-            out = d / "public"
-            manifest = json.loads((out / "manifest.json").read_text())
-            self.assertEqual({g["id"] for g in manifest["games"]}, {"ai-pacman", "pacman"})
-            for name in ("ai-pacman.svg", "pacman-dark.svg", "arcade.svg", "arcade-dark.svg", "index.html"):
-                self.assertTrue((out / name).exists(), name)
+            self._sources(d)
+            self._run("--ai", str(d / "ai"), "--classic", str(d / "classic"),
+                      "--classic-games", "pacman", "--out", str(d / "public"), "--slot", "0")
+            for name in ("ai-pacman.svg", "pacman-dark.svg", "arcade.svg", "arcade-dark.svg"):
+                self.assertTrue((d / "public" / name).exists(), name)
+
+    def test_featured_game_rotates_through_every_game(self):
+        with tempfile.TemporaryDirectory() as d:
+            d = Path(d)
+            self._sources(d)
+            featured = []
+            for slot in range(4):
+                self._run("--ai", str(d / "ai"), "--classic", str(d / "classic"),
+                          "--classic-games", "pacman", "--out", str(d / "public"), "--slot", str(slot))
+                featured.append((d / "public" / "arcade.svg").read_text())
+            self.assertEqual(len(set(featured)), 2)          # both games get a turn
+            self.assertNotEqual(featured[0], featured[1])    # and consecutive slots differ
+            self.assertEqual(featured[0], featured[2])       # then the cycle repeats
 
     def test_survives_missing_ai_folder(self):
         with tempfile.TemporaryDirectory() as d:
             d = Path(d)
             self._fake_svgs(d / "classic", ["pacman-contribution-graph.svg",
                                             "pacman-contribution-graph-dark.svg"])
-            (d / "viewer.html").write_text("<html></html>")
-            self._run("--ai", str(d / "nope"), "--classic", str(d / "classic"), "--classic-games", "pacman",
-                      "--viewer", str(d / "viewer.html"), "--out", str(d / "public"))
+            self._run("--ai", str(d / "nope"), "--classic", str(d / "classic"),
+                      "--classic-games", "pacman", "--out", str(d / "public"))
             self.assertTrue((d / "public" / "arcade.svg").exists())
 
     def test_fails_when_nothing_to_publish(self):
         with tempfile.TemporaryDirectory() as d:
             d = Path(d)
-            (d / "viewer.html").write_text("<html></html>")
             with self.assertRaises(SystemExit):
-                self._run("--ai", str(d / "a"), "--classic", str(d / "c"),
-                          "--viewer", str(d / "viewer.html"), "--out", str(d / "public"))
+                self._run("--ai", str(d / "a"), "--classic", str(d / "c"), "--out", str(d / "public"))
 
 
 if __name__ == "__main__":

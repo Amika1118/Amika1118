@@ -281,227 +281,21 @@ A research catalogue developed during my internship at **Marga Institute**, desi
 <!-- AI ARCADE SHOWCASE -->
 <div align="center">
 
-<h3>🎮 AI Arcade - Agents Learning on My Contribution Graph</h3>
+<h3>🎮 AI Arcade - Now Playing on My Contribution Graph</h3>
 
-<sub><i>Each game is an AI agent (Double Q-Learning + 3-step returns) trained from scratch on my GitHub contribution graph on every run. Classic games rendered by <a href="https://github.com/abozanona/pacman-contribution-graph">abozanona/pacman-contribution-graph</a>.</i></sub>
+<sub><i>AI games are agents (Double Q-Learning + 3-step returns) trained from scratch on my GitHub contribution graph on every run. Classic games rendered by <a href="https://github.com/abozanona/pacman-contribution-graph">abozanona/pacman-contribution-graph</a>.</i></sub>
 
 <br/><br/>
 
-<!-- AI GAMES -->
-<details open>
-<summary><b>🤖 AI Games - Trained Agents</b></summary>
+<!-- CURRENT GAME (rotates every 3 hours) -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/arcade-dark.svg" />
+  <img alt="Today's featured arcade game on my contribution graph" width="720" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/arcade.svg" />
+</picture>
+
+<sub><i>Now playing - a new game every 3 hours.</i></sub>
 
 <br/>
-
-<table align="center">
-<tr>
-<td align="center" width="320">
-
-**Pac-Man**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-pacman-dark.svg" />
-  <img alt="AI Pac-Man on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-pacman.svg" />
-</picture>
-<details>
-<summary>🎮 How to Play</summary>
-<br/>
-Navigate the maze eating pellets. Avoid ghosts. The agent learns optimal paths from contribution density patterns.
-</details>
-
-</td>
-<td align="center" width="320">
-
-**Snake**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-snake-dark.svg" />
-  <img alt="AI Snake on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-snake.svg" />
-</picture>
-<details>
-<summary>🎮 How to Play</summary>
-<br/>
-Eat food to grow. Don't hit walls or yourself. The agent learns to follow contribution trails efficiently.
-</details>
-
-</td>
-<td align="center" width="320">
-
-**Breakout**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-breakout-dark.svg" />
-  <img alt="AI Breakout on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-breakout.svg" />
-</picture>
-<details>
-<summary>🎮 How to Play</summary>
-<br/>
-Bounce the ball to break all bricks. The agent learns paddle positioning from contribution level patterns.
-</details>
-
-</td>
-</tr>
-<tr>
-<td align="center" width="320">
-
-**Space Invaders**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-invaders-dark.svg" />
-  <img alt="AI Space Invaders on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-invaders.svg" />
-</picture>
-<details>
-<summary>🎮 How to Play</summary>
-<br/>
-Shoot descending aliens before they reach you. The agent learns firing timing from contribution density.
-</details>
-
-</td>
-<td align="center" width="320">
-
-**Maze Runner**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-maze-dark.svg" />
-  <img alt="AI Maze Runner on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-maze.svg" />
-</picture>
-<details>
-<summary>🎮 How to Play</summary>
-<br/>
-Find the exit through the maze. The agent learns pathfinding from contribution cell connectivity.
-</details>
-
-</td>
-<td align="center" width="320">
-
-**Pong**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-pong-dark.svg" />
-  <img alt="AI Pong on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-pong.svg" />
-</picture>
-<details>
-<summary>🎮 How to Play</summary>
-<br/>
-Deflect the ball past the opponent. The agent learns ball trajectory prediction from contribution patterns.
-</details>
-
-</td>
-</tr>
-<tr>
-<td align="center" width="320">
-
-**Flappy Bird**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-flappy-dark.svg" />
-  <img alt="AI Flappy Bird on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-flappy.svg" />
-</picture>
-<details>
-<summary>🎮 How to Play</summary>
-<br/>
-Tap to navigate through pipes. The agent learns flap timing from contribution level gaps.
-</details>
-
-</td>
-<td align="center" width="320">
-
-**Frogger**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-frogger-dark.svg" />
-  <img alt="AI Frogger on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-frogger.svg" />
-</picture>
-<details>
-<summary>🎮 How to Play</summary>
-<br/>
-Cross roads and rivers safely. The agent learns gap timing from contribution density variations.
-</details>
-
-</td>
-<td align="center" width="320">
-
-**Doodle Jump**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-doodle-dark.svg" />
-  <img alt="AI Doodle Jump on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/ai-doodle.svg" />
-</picture>
-<details>
-<summary>🎮 How to Play</summary>
-<br/>
-Jump on platforms to climb higher. The agent learns platform targeting from contribution level steps.
-</details>
-
-</td>
-</tr>
-</table>
-
-<br/>
-
-</details>
-
-<!-- CLASSIC GAMES -->
-<details>
-<summary><b>🕹️ Classic Games - Hand-Crafted Renderers</b></summary>
-
-<br/>
-
-<table align="center">
-<tr>
-<td align="center" width="320">
-
-**Pac-Man**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/pacman-dark.svg" />
-  <img alt="Classic Pac-Man on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/pacman.svg" />
-</picture>
-
-</td>
-<td align="center" width="320">
-
-**Breakout**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/breakout-dark.svg" />
-  <img alt="Classic Breakout on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/breakout.svg" />
-</picture>
-
-</td>
-<td align="center" width="320">
-
-**Galaga**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/galaga-dark.svg" />
-  <img alt="Classic Galaga on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/galaga.svg" />
-</picture>
-
-</td>
-</tr>
-<tr>
-<td align="center" width="320">
-
-**Puzzle Bobble**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/puzzle-bobble-dark.svg" />
-  <img alt="Classic Puzzle Bobble on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/puzzle-bobble.svg" />
-</picture>
-
-</td>
-<td align="center" width="320">
-
-**Bomberman**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/bomberman-dark.svg" />
-  <img alt="Classic Bomberman on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/bomberman.svg" />
-</picture>
-
-</td>
-<td align="center" width="320">
-
-**Minesweeper**
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Amika1118/Amika1118/output/minesweeper-dark.svg" />
-  <img alt="Classic Minesweeper on contribution graph" width="300" src="https://raw.githubusercontent.com/Amika1118/Amika1118/output/minesweeper.svg" />
-</picture>
-
-</td>
-</tr>
-</table>
-
-<br/>
-
-</details>
 
 <!-- HOW IT WORKS -->
 <details>
@@ -517,7 +311,7 @@ Each AI agent is a **tabular Double Q-learning** agent with **3-step returns**, 
 4. **Visualization** - Policy snapshots at checkpoints: **untrained → early training → trained**. The SVG plays those stages back to back, so you see the improvement.
 5. **Brain View** - Every game also gets a **brain view**: a heatmap of the agent's normalised Q-values for each cell it visited, showing what it believes about the world.
 
-The workflow runs every 6 hours. The default `arcade.svg` is an AI game about 70% of the time, otherwise a classic one. Light and dark SVGs are generated for every game, and a `manifest.json` drives the browsable viewer on the `output` branch.
+The workflow runs every 3 hours and features the next game in a fixed rotation through all 15 (9 AI agents, then 6 classic renderers), so every game gets its turn. Light and dark SVGs are generated for each.
 
 Quality gates: a stdlib-only test suite (game contracts, regression tests, SVG validity, site assembly) runs in CI on every push and pull request. Run it locally with `python3 -m unittest discover -s .github/scripts -v`, or try the trainer offline with `python3 .github/scripts/ai_arcade.py --demo`.
 

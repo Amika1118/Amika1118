@@ -1,24 +1,20 @@
 #!/usr/bin/env python3
-"""Assemble the `output` branch: every generated SVG, a manifest and the viewer.
+"""Assemble the `output` branch: every generated SVG plus the featured game.
 
-    python3 .github/scripts/build_site.py \
-        --classic dist --ai ai_dist --viewer .github/viewer/index.html --out public
+    python3 .github/scripts/build_site.py --classic dist --ai ai_dist --out public
 
 Published layout (flat, so README <img> URLs stay stable):
 
     ai-<game>.svg / ai-<game>-dark.svg      trained Q-learning agents
     <game>.svg    / <game>-dark.svg         classic renderers
-    arcade.svg    / arcade-dark.svg         a random pick (70% AI) for simple embeds
-    manifest.json                           what the viewer loads
-    index.html                              the viewer
+    arcade.svg    / arcade-dark.svg         the featured game, rotating every 3 hours
 
 A missing source folder is not fatal (the AI step is allowed to fail); having no
 games at all is.
 """
 import argparse
-import datetime
 import json
-import random
+import time
 import shutil
 import sys
 from pathlib import Path
@@ -27,7 +23,7 @@ CLASSIC_TITLES = {
     "pacman": "PAC-MAN", "breakout": "BREAKOUT", "galaga": "GALAGA",
     "puzzle-bobble": "PUZZLE BOBBLE", "bomberman": "BOMBERMAN", "minesweeper": "MINESWEEPER",
 }
-AI_SHARE = 0.7
+ROTATION_HOURS = 3
 
 
 def copy_pair(src_light, src_dark, dst_dir, stem):
@@ -78,9 +74,8 @@ def main():
     ap.add_argument("--classic", type=Path, default=Path("dist"))
     ap.add_argument("--ai", type=Path, default=Path("ai_dist"))
     ap.add_argument("--classic-games", default=",".join(CLASSIC_TITLES))
-    ap.add_argument("--viewer", type=Path, required=True)
     ap.add_argument("--out", type=Path, default=Path("public"))
-    ap.add_argument("--seed", type=int, default=None, help="make the arcade.svg pick reproducible")
+    ap.add_argument("--slot", type=int, default=None, help="override the 3-hour time slot (for tests)")
     args = ap.parse_args()
 
     args.out.mkdir(parents=True, exist_ok=True)
@@ -90,19 +85,13 @@ def main():
     if not games:
         sys.exit("::error::No games were generated: nothing to publish")
 
-    rng = random.Random(args.seed)
-    pool = ai if ai and (not classic or rng.random() < AI_SHARE) else classic
-    pick = rng.choice(pool)
-    print(f"Default arcade.svg -> {pick['id']} ({pick['kind']})")
+    # Deterministic rotation: each 3-hour slot features the next game in the list,
+    # so every game gets a turn (random picks repeat and can skip games for days).
+    slot = args.slot if args.slot is not None else int(time.time() // 3600 // ROTATION_HOURS)
+    pick = games[slot % len(games)]
+    print(f"Featured game (slot {slot}): {pick['id']} ({pick['kind']})")
     shutil.copy(args.out / pick["light"], args.out / "arcade.svg")
     shutil.copy(args.out / pick["dark"], args.out / "arcade-dark.svg")
-
-    manifest = {
-        "generated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
-        "games": games,
-    }
-    (args.out / "manifest.json").write_text(json.dumps(manifest, indent=2))
-    shutil.copy(args.viewer, args.out / "index.html")
     print(f"Published {len(ai)} AI + {len(classic)} classic games")
 
 

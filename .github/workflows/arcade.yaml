@@ -2,8 +2,8 @@ name: Generate Arcade Contribution Graph
 
 on:
   schedule:
-    # Every 6 hours; each run trains fresh agents and re-rolls the default game.
-    - cron: "0 */6 * * *"
+    # Every 3 hours; each run trains fresh agents and features the next game.
+    - cron: "0 */3 * * *"
   workflow_dispatch:
   push:
     branches:
@@ -43,13 +43,12 @@ jobs:
           --user "${{ github.repository_owner }}"
           --out ai_dist
 
-      - name: Assemble the public folder (SVGs + manifest + viewer)
+      - name: Assemble the public folder (SVGs + featured game)
         # Fails the run only if there is nothing at all to publish.
         run: >
           python3 .github/scripts/build_site.py
           --classic dist
           --ai ai_dist
-          --viewer .github/viewer/index.html
           --out public
 
       - name: Push to the output branch
